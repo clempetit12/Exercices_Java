@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -122,4 +123,80 @@ tab3[i] = tab1[i] +tab2[i];
 
 
     }
+
+    public static void getSolution51() {
+        int[] tab = {1, 2, 3, 1, 2, 3, 3, 7, 2, 4, 7};
+        int[] tabOccurences = new int[tab.length];
+        boolean[] compte = new boolean[tab.length];
+
+        for (int i = 0; i < tab.length; i++) {
+            if (!compte[i]) {
+                for (int j = i + 1; j < tab.length; j++) {
+                    if (tab[i] == tab[j]) {
+                        tabOccurences[i]++;
+                        tabOccurences[j]++;
+                    }
+                }
+                compte[i] = true;
+            }
+        }
+
+        System.out.println("TabOccurences : ");
+        for (int i = 0; i < tab.length; i++) {
+            if (tabOccurences[i] > 0) {
+                System.out.println(tab[i] + " : " + tabOccurences[i]);
+            }
+        }
+    }
+
+    public static void getSolution52() {
+
+        boolean ordonne = true;
+        int[] tab = {1,2,3,4,5};
+
+        for (int i = 0; i < tab.length-1; i++) {
+            if (tab[i]>tab[i+1]) {
+                ordonne = false;
+            }
+        }
+        if (!ordonne) {
+            System.out.println("Le tableau d'entier n'est pas trié par ordre croissant !");
+        } else {
+            System.out.println("Le tableau d'entier est trié par ordre croissant !");
+        }
+
+    }
+
+    public static void getSolution53() {
+        int[] tab = {10,1000,16,16,90};
+       int plusGrandEcart = 0;
+       int ecart;
+
+        for (int i = 0; i < tab.length; i++) {
+            for (int j = i +1; j < tab.length; j++) {
+                ecart= Math.abs(tab[i] -tab[j] );
+                if (ecart>plusGrandEcart) {
+                    plusGrandEcart = ecart;
+
+                }
+
+            }
+        }
+        System.out.println("Le plus grand écart est de " + plusGrandEcart);
+
+    }
+
+    public static void getSolutionExo54(){
+        int[] tab = {10,1000,16,16,90};
+        int premiereValeur;
+        premiereValeur = tab[tab.length-1];
+        for (int i = tab.length-1; i>0; i--) {
+                tab[i] = tab[i-1] ;
+            }
+        tab[0] = premiereValeur;
+        System.out.println("Tab : " + Arrays.toString(tab));
+        }
+
+
+
 }

@@ -7,7 +7,11 @@ public class Main {
       //  Tableau.getSolutionExo4();
        // Tableau.getSolutionExo5();
         //Tableau.getSolutionExo6();
-        Tableau.getSolutionExo7();
+       // Tableau.getSolutionExo7();
+        //Tableau.getSolution52();
+       // Tableau.getSolution53();
+       // Tableau.getSolutionExo54();
+        Tableau.getSolution51();
     }
 
 
