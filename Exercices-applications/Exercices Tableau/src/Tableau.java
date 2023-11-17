@@ -144,7 +144,7 @@ tab3[i] = tab1[i] +tab2[i];
         System.out.println("TabOccurences : ");
         for (int i = 0; i < tab.length; i++) {
             if (tabOccurences[i] > 0) {
-                System.out.println(tab[i] + " : " + tabOccurences[i]);
+                System.out.println(tab[i] + " : " + (tabOccurences[i]+1));
             }
         }
     }
