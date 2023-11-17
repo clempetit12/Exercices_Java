@@ -134,7 +134,7 @@ tab3[i] = tab1[i] +tab2[i];
                 for (int j = i + 1; j < tab.length; j++) {
                     if (tab[i] == tab[j]) {
                         tabOccurences[i]++;
-                        tabOccurences[j]++;
+                        compte[j] = true;
                     }
                 }
                 compte[i] = true;
