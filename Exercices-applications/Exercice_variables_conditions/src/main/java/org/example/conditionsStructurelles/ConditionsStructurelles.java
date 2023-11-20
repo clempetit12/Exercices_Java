@@ -8,8 +8,6 @@ public class ConditionsStructurelles {
 
     public static void getNombre() {
         int nombre = 0;
-
-
         do {
             System.out.println("Veuillez saisir un nombre entre 1 et 3 : ");
             nombre = s.nextInt();
@@ -56,7 +54,7 @@ public class ConditionsStructurelles {
     }
 
     public static void getSolution55() {
-        int nombre = 0;
+        int nombre;
         System.out.println("Veuillez saisir un nombre : ");
         nombre = s.nextInt();
         System.out.println("----- Table de multiplication de " + nombre + "-----");
@@ -71,7 +69,7 @@ public class ConditionsStructurelles {
     }
 
     public static void getSolution56() {
-        int nombre = 0;
+        int nombre;
         int sum = 0;
         System.out.print("Veuillez saisir un nombre : ");
         nombre = s.nextInt();
@@ -85,7 +83,7 @@ public class ConditionsStructurelles {
 
     public static void getSolution57() {
         int[] tabNombre = new int[20];
-        int max = -100;
+        int max = Integer.MIN_VALUE;
 
 
         for (int i = 1; i < tabNombre.length; i++) {
