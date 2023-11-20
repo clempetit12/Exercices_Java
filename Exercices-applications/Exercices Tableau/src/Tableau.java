@@ -5,33 +5,33 @@ import java.util.Scanner;
 public class Tableau {
 
     public static Scanner scanner = new Scanner(System.in);
+
     public static void getSolutionExo1() {
-        int[] tab = {1,2,3,4,5};
+        int[] tab = {1, 2, 3, 4, 5};
         System.out.println("La valeur de la troisième case du tableau est : " + tab[2]);
 
     }
 
     public static void getSolutionExo2() {
-        int[] tab = {1,2,3,4,5,6,7,8,9,10};
+        int[] tab = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-        for (int i = 1; i <tab.length ; i++) {
+        for (int i = 1; i < tab.length; i++) {
             System.out.println("La valeur de la case " + i + " du tableau est " + tab[i]);
 
         }
 
 
-
     }
 
     public static void getSolutionExo3() {
-        int[] tab = {10,20,30,40,50,60,70,80};
+        int[] tab = {10, 20, 30, 40, 50, 60, 70, 80};
         int nombre;
         boolean found = false;
         System.out.println("Veuillez saisir un entier à rechercher dans le tableau : ");
         nombre = scanner.nextInt();
 
-        for (int numb:tab) {
-            if (numb == nombre){
+        for (int numb : tab) {
+            if (numb == nombre) {
                 found = true;
                 System.out.println("L'entier est présent dans le tableau !");
                 break;
@@ -44,19 +44,18 @@ public class Tableau {
         scanner.close();
 
 
-
     }
 
-    public static void getSolutionExo4(){
-        int [] tab = new int[6];
+    public static void getSolutionExo4() {
+        int[] tab = new int[6];
         boolean found = false;
         for (int i = 0; i < tab.length; i++) {
-            System.out.println("Veuillez saisir un nombre à l'emplacement " + i + " : " );
+            System.out.println("Veuillez saisir un nombre à l'emplacement " + i + " : ");
             tab[i] = scanner.nextInt();
 
         }
-        for (int numb:tab) {
-            if ((numb%2 != 0)){
+        for (int numb : tab) {
+            if ((numb % 2 != 0)) {
                 found = true;
 
             }
@@ -68,8 +67,6 @@ public class Tableau {
         }
 
 
-
-
     }
 
     public static void getSolutionExo5() {
@@ -77,8 +74,8 @@ public class Tableau {
         Random nombreAleatoire = new Random();
 
 
-        for (int i = 0; i < tab.length ; i++) {
-       tab[i] = nombreAleatoire.nextInt(100);
+        for (int i = 0; i < tab.length; i++) {
+            tab[i] = nombreAleatoire.nextInt(100);
             System.out.println("L'élément du tableau en position " + i + " est " + tab[i]);
         }
 
@@ -95,7 +92,7 @@ public class Tableau {
         for (int i = 0; i < tab1.length; i++) {
             tab1[i] = nombreAleatoire.nextInt(100);
             tab2[i] = nombreAleatoire.nextInt(100);
-tab3[i] = tab1[i] +tab2[i];
+            tab3[i] = tab1[i] + tab2[i];
 
             System.out.println("Tab1 : " + tab1[i]);
             System.out.println("Tab2 : " + tab2[i]);
@@ -114,8 +111,8 @@ tab3[i] = tab1[i] +tab2[i];
             tab[i] = nombreAleatoire.nextInt(100);
             System.out.println("L'élément du tableau en position " + i + " est " + tab[i]);
         }
-        for (int numb: tab) {
-            if (numb>max) {
+        for (int numb : tab) {
+            if (numb > max) {
                 max = numb;
             }
         }
@@ -144,7 +141,7 @@ tab3[i] = tab1[i] +tab2[i];
         System.out.println("TabOccurences : ");
         for (int i = 0; i < tab.length; i++) {
             if (tabOccurences[i] > 0) {
-                System.out.println(tab[i] + " : " + (tabOccurences[i]+1));
+                System.out.println(tab[i] + " : " + (tabOccurences[i] + 1));
             }
         }
     }
@@ -152,10 +149,10 @@ tab3[i] = tab1[i] +tab2[i];
     public static void getSolution52() {
 
         boolean ordonne = true;
-        int[] tab = {1,2,3,4,5};
+        int[] tab = {1, 2, 3, 4, 5};
 
-        for (int i = 0; i < tab.length-1; i++) {
-            if (tab[i]>tab[i+1]) {
+        for (int i = 0; i < tab.length - 1; i++) {
+            if (tab[i] > tab[i + 1]) {
                 ordonne = false;
             }
         }
@@ -168,14 +165,14 @@ tab3[i] = tab1[i] +tab2[i];
     }
 
     public static void getSolution53() {
-        int[] tab = {10,1000,16,16,90};
-       int plusGrandEcart = 0;
-       int ecart;
+        int[] tab = {10, 1000, 16, 16, 90};
+        int plusGrandEcart = 0;
+        int ecart;
 
         for (int i = 0; i < tab.length; i++) {
-            for (int j = i +1; j < tab.length; j++) {
-                ecart= Math.abs(tab[i] -tab[j] );
-                if (ecart>plusGrandEcart) {
+            for (int j = i + 1; j < tab.length; j++) {
+                ecart = Math.abs(tab[i] - tab[j]);
+                if (ecart > plusGrandEcart) {
                     plusGrandEcart = ecart;
 
                 }
@@ -186,17 +183,16 @@ tab3[i] = tab1[i] +tab2[i];
 
     }
 
-    public static void getSolutionExo54(){
-        int[] tab = {10,1000,16,16,90};
+    public static void getSolutionExo54() {
+        int[] tab = {10, 1000, 16, 16, 90};
         int premiereValeur;
-        premiereValeur = tab[tab.length-1];
-        for (int i = tab.length-1; i>0; i--) {
-                tab[i] = tab[i-1] ;
-            }
+        premiereValeur = tab[tab.length - 1];
+        for (int i = tab.length - 1; i > 0; i--) {
+            tab[i] = tab[i - 1];
+        }
         tab[0] = premiereValeur;
         System.out.println("Tab : " + Arrays.toString(tab));
-        }
-
+    }
 
 
 }
