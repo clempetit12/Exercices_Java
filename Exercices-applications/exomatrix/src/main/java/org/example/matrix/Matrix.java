@@ -33,23 +33,19 @@ public class Matrix {
                 nombre++;
                 somme += tableau[i][j];
                 produit *= tableau[i][j];
-
                 System.out.print(tableau[i][j] + " ");
-
-
             }
-            int dimension = tableau.length*tableau[i].length;
+            float dimension = (tableau.length*tableau[i].length);
             moyenne = somme / dimension;
             System.out.println();
 
         }
-
-
         System.out.println("La somme est de : " + somme);
         System.out.println("Le produit est de : " + produit);
         System.out.println("La moyenne est de : " + moyenne);
 
     }
+
 
     public static void getSolutionExo83() {
         String[] vendeurs = {"vendeur1", "vendeur2", "vendeur3"};
@@ -65,7 +61,7 @@ public class Matrix {
                 System.out.println("Veuillez saisir le nombre vendu par " + vendeurs[i] + " de la marque " + marques[i] + " : " );
                 vendu = scanner.nextInt();
                 tableauVentes[i][j] = vendu;
-                System.out.println(tableauVentes[i][j]);
+
             }
 
         }
@@ -79,7 +75,7 @@ public class Matrix {
         for (int i = 0; i < tableauVentes.length; i++) {
             System.out.print(marques[i] + "\t");
             for (int j = 0; j < tableauVentes[i].length; j++) {
-                System.out.print(tableauVentes[i][j] + "\t");
+                System.out.print(tableauVentes[i][j] + "         ");
             }
             System.out.println();
         }
