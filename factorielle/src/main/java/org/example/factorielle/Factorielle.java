@@ -6,8 +6,8 @@ public class Factorielle {
         long resultat;
         if (n == 0) {
             return 1;
-        } else  {
-            resultat = n*factorielle(n-1);
+        } else {
+                resultat = n*factorielle(n-1);
             return resultat;
         }
 
