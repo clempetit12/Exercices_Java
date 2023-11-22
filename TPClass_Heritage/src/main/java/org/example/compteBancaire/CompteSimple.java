@@ -4,8 +4,8 @@ public class CompteSimple extends Compte {
 
     int decouvert;
 
-    public CompteSimple(int id, int solde, int decouvert) {
-        super(id, solde);
+    public CompteSimple( int solde, int decouvert) {
+        super( solde);
         this.decouvert = decouvert;
     }
 
@@ -18,10 +18,12 @@ public class CompteSimple extends Compte {
     }
 
     public void retrait( int montant) {
-        if(montant>decouvert) {
+        if(getSolde()<decouvert) {
             System.out.println("Vous ne pouvez pas retirer");
         } else {
-            retrait(montant);
+            super.retrait(montant);
+            float nouveauSolde = getSolde() - montant;
+            setSolde(nouveauSolde);
         }
 
 

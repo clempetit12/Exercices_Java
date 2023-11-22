@@ -3,13 +3,14 @@ package org.example.compteBancaire;
 public class Compte  {
 
     private int id;
-    private int solde;
+    private float solde;
+    private static int counter = 0;
 
-    int counter;
 
-    public Compte(int id, int solde) {
-        this.id = counter++;
+    public Compte( float solde) {
+
         this.solde = solde;
+        this.id = counter++;
 
     }
 
@@ -21,11 +22,11 @@ public class Compte  {
         this.id = id;
     }
 
-    public int getSolde() {
+    public float getSolde() {
         return solde;
     }
 
-    public void setSolde(int solde) {
+    public void setSolde(float solde) {
         this.solde = solde;
     }
 
@@ -38,12 +39,12 @@ public class Compte  {
     }
 
     public void versement( int montant) {
-int total = solde+montant;
+float total = solde+montant;
         System.out.println("Le solde est à " + total);
     }
 
     public void retrait( int montant) {
-        int total = solde-montant;
+        float total = solde-montant;
         System.out.println("Le solde est à " + total);
     }
 
