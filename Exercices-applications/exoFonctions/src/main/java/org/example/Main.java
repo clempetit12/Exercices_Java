@@ -7,7 +7,7 @@ public class Main {
         //Fonctions.getSolutionExo1();
         //Fonctions.getsolutionExo2();
         //Fonctions.getSolutionExo3();
-        Fonctions.getSolutionExo4();
-      //  Fonctions.getSolutionExo6();
+        //Fonctions.getSolutionExo4();
+       Fonctions.getSolutionExo6();
     }
 }

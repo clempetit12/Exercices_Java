@@ -1,6 +1,8 @@
 package org.example.fonctions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Fonctions {
@@ -45,23 +47,23 @@ public class Fonctions {
         hauteurRectangle = scanner.nextInt();
         System.out.println("Veuillez saisir la largeur du rectangle : ");
         largeurReactangle = scanner.nextInt();
-     imprimeRectangle(hauteurRectangle,largeurReactangle);
+        imprimeRectangle(hauteurRectangle, largeurReactangle);
 
     }
 
     public static void imprimeRectangle(int h, int l) {
         String[][] tab = new String[h][l];
         for (int i = 0; i < h; i++) {
-            for (int j = 0; j < l ; j++) {
-                if (i == 0 || i == h-1 ) {
+            for (int j = 0; j < l; j++) {
+                if (i == 0 || i == h - 1) {
                     tab[i][j] = "*";
-                } else if (j == 0 || j == l-1) {
+                } else if (j == 0 || j == l - 1) {
                     tab[i][j] = "*";
                 } else {
                     tab[i][j] = " ";
                 }
-                }
             }
+        }
         for (int i = 0; i < tab.length; i++) {
             for (int j = 0; j < tab[i].length; j++) {
                 System.out.print(tab[i][j]);
@@ -78,10 +80,11 @@ public class Fonctions {
         System.out.println(getWordsAmount(texte));
 
     }
+
     public static int getWordsAmount(String chainedecaractere) {
-        String[] nombreDeMots =   chainedecaractere.split(" ");
+        String[] nombreDeMots = chainedecaractere.split(" ");
         int compteur = 0;
-        for (String mot: nombreDeMots) {
+        for (String mot : nombreDeMots) {
             compteur++;
         }
         return compteur;
@@ -99,32 +102,34 @@ public class Fonctions {
         tabMots = mots.split(" ");
         System.out.println(Arrays.toString(tabMots));
         ;
-        System.out.println(Arrays.toString(filterWordsByLength(longueurMot,tabMots)));
+        System.out.println(Arrays.toString(filterWordsByLength(longueurMot, tabMots)));
 
 
     }
-    public static String[] filterWordsByLength( int minLength, String[] mots) {
+
+    public static String[] filterWordsByLength(int minLength, String[] mots) {
         int longueurMot;
         String[] motsSelectionnes = new String[mots.length];
         int index = 0;
-        for (String mot: mots) {
+        for (String mot : mots) {
             longueurMot = mot.length();
-            if (longueurMot>= minLength) {
+            if (longueurMot >= minLength) {
                 motsSelectionnes[index++] = mot;
             } else {
                 motsSelectionnes[index++] = " ";
             }
-        }return  motsSelectionnes;
+        }
+        return motsSelectionnes;
     }
 
     public static void getSolutionExo6() {
         String chiffres;
-        String [] tabChiffresNonConvertis;
+        String[] tabChiffresNonConvertis;
         int[] tabChiffres;
         System.out.println("Veuillez entrer deux chiffres séparés par un espace ");
         chiffres = scanner.nextLine();
         tabChiffresNonConvertis = chiffres.split(" ");
-        tabChiffres = new int[tabChiffresNonConvertis.length] ;
+        tabChiffres = new int[tabChiffresNonConvertis.length];
 
         for (int i = 0; i < tabChiffres.length; i++) {
             tabChiffres[i] = Integer.parseInt(tabChiffresNonConvertis[i]);
@@ -132,17 +137,44 @@ public class Fonctions {
 
         }
         System.out.println(Arrays.toString(tabChiffres));
-      
-    }
-    public static int gcdRecursive(int firstNumber, int secondNumber) {
-        int[] diviseurFirstNumber = new int[10];
-        int index = 0;
-        for (int i = 1; i <firstNumber ; i++) {
-            if (firstNumber%i == 0) {
-diviseurFirstNumber[index++] = i;
-        }
-    }
-        return diviseurFirstNumber
+        int firstNumber = tabChiffres[0];
+        int secondNumber = tabChiffres[1];
+        System.out.println(gcdRecursive(firstNumber, secondNumber));
 
+    }
+
+    public static int[] gcdRecursive(int firstNumber, int secondNumber) {
+        List<Integer> diviseurFirstNumber = getDivisors(firstNumber);
+        List<Integer> diviseurSecondNumber = getDivisors(secondNumber);
+
+
+
+
+
+
+        for (int i = 1; i < secondNumber; i++) {
+            if (secondNumber % i == 0) {
+               diviseurSecondNumber.add(i);
+            }
+
+
+        }
+
+
+
+
+        }
+
+    public static List<Integer> getDivisors (int number) {
+        List<Integer> diviseurCommun = new ArrayList<>(number);
+        for (int i = 1; i < number; i++) {
+            if (number % i == 0) {
+                diviseurCommun.add(i);
+            }
+        }
+
+    }
+
+    }
 }
 
