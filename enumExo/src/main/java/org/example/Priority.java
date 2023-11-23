@@ -16,6 +16,8 @@ public enum Priority {
                 return MEDIUM;
             case C:
                 return LOW;
+            case D :
+                return LOW;
             default:
                 return NONE;
 

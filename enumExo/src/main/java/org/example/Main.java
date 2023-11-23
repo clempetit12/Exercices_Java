@@ -17,7 +17,6 @@ public class Main {
         }
         TpeMessage tpeMessage = TpeMessage.valueOf(typeMessage);
         Priority priority = Priority.getPriority(tpeMessage);
-
         System.out.println("La priorité est :" + priority);
 
 
