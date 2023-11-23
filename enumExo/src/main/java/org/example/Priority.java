@@ -2,25 +2,22 @@ package org.example;
 
 public enum Priority {
 
-HIGH,
+    HIGH,
     MEDIUM,
     LOW,
-NONE;
+    NONE;
 
-    public static Priority getPriority(String typeMessage) {
+    public static Priority getPriority(TpeMessage typeMessage) {
 
         switch (typeMessage) {
-            case "A":
-                return  HIGH;
-
-            case "B":
-               return MEDIUM;
-
-            case "C":
-                return  LOW;
-
-            case "D":
+            case A:
+                return HIGH;
+            case B:
+                return MEDIUM;
+            case C:
                 return LOW;
+            default:
+                return NONE;
 
         }
 
