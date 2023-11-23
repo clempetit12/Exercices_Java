@@ -2,14 +2,16 @@ package org.example.compteBancaire;
 
 public class CompteEpargne extends  Compte {
 
-    private float tauxInteret;
+    private double tauxInteret;
+    private int id;
 
-    public CompteEpargne(int solde, float tauxInteret) {
-        super( solde);
+    public CompteEpargne(float solde, double tauxInteret) {
+        super(solde);
         this.tauxInteret = tauxInteret;
+        this.id = getCounter();
     }
 
-    public float getTauxInteret() {
+    public double getTauxInteret() {
         return tauxInteret;
     }
 
@@ -19,7 +21,7 @@ public class CompteEpargne extends  Compte {
 
     public void calculInteret() {
 
-        float nouveauSolde = getSolde()*(1+tauxInteret);
+        double nouveauSolde = getSolde()*(1+tauxInteret);
         setSolde(nouveauSolde);
         System.out.println("Le nouveau solde est de : " + getSolde());
     }

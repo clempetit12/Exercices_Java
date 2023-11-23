@@ -13,6 +13,7 @@ public class Main {
         ComptePayant comptePayant = new ComptePayant(200);
         comptePayant.retraitComptePayant(50);
         comptePayant.versementComptePayant(100);
+        System.out.println(comptePayant.getId());
     }
 
 

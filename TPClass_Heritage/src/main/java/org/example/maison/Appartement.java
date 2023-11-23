@@ -10,9 +10,7 @@ public class Appartement extends Maison  {
         super(50, porte);
     }
 
-    private static List<Porte> getDefaultPortes() {
-        return Collections.emptyList();
-    }
+
     @Override
     public String toString() {
         return "Je suis un appartement, ma surface est de " +
