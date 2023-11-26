@@ -28,7 +28,7 @@ public class IHM {
                 addClient();
                 break;
             case 2:
-                
+
 
 
         }
