@@ -40,7 +40,7 @@ public class Client  {
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return  phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -51,6 +51,7 @@ public class Client  {
 
 
     @Override
+    //hérité de la classe la plus haute Object
     public String toString() {
         return "Clients{" +
                 "firstname='" + firstname + '\'' +

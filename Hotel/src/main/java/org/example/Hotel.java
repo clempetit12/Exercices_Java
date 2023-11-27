@@ -1,20 +1,21 @@
 package org.example;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Hotel {
 
     public String nom;
-    private Chambre[] listChambre;
-    private Reservation[] listReservation;
-    private Client[] listClient;
+    private List<Chambre> listChambre;
+    private List<Reservation> listReservation;
+    private List<Client> listClient;
 
-    public Hotel(String nom, Chambre[] listChambre) {
+    public Hotel(String nom, List<Chambre> listChambre) {
         this.nom = nom;
         this.listChambre = listChambre;
     }
 
-    public Hotel(String nom, Chambre[] listChambre, Reservation[] listReservation, Client[] listClient) {
+    public Hotel(String nom, List<Chambre> listChambre, List<Reservation> listReservation, List<Client> listClient) {
         this.nom = nom;
         this.listChambre = listChambre;
         this.listReservation = listReservation;
@@ -29,37 +30,45 @@ public class Hotel {
         this.nom = nom;
     }
 
-    public Chambre[] getListChambre() {
+    public List<Chambre> getListChambre() {
         return listChambre;
     }
 
-    public void setListChambre(Chambre[] listChambre) {
+    public void setListChambre(List<Chambre> listChambre) {
         this.listChambre = listChambre;
     }
 
-    public Reservation[] getListReservation() {
+    public List<Reservation> getListReservation() {
         return listReservation;
     }
 
-    public void setListReservation(Reservation[] listReservation) {
+    public void setListReservation(List<Reservation> listReservation) {
         this.listReservation = listReservation;
     }
 
-    public Client[] getListClient() {
+    public List<Client> getListClient() {
         return listClient;
     }
 
-    public void setListClient(Client[] listClient) {
+    public void setListClient(List<Client> listClient) {
         this.listClient = listClient;
     }
+
+    public boolean addClientToHotel(String firstname, String lastname, String phoneNumber) {
+        Client client = new Client(firstname, lastname, phoneNumber);
+        listClient.add(client);
+        return true;
+    }
+
+    ;
 
     @Override
     public String toString() {
         return "Hotel{" +
                 "nom='" + nom + '\'' +
-                ", listChambre=" + Arrays.toString(listChambre) +
-                ", listReservation=" + Arrays.toString(listReservation) +
-                ", listClient=" + Arrays.toString(listClient) +
+                ", listChambre=" + listChambre +
+                ", listReservation=" + listReservation +
+                ", listClient=" + listClient +
                 '}';
     }
 }
