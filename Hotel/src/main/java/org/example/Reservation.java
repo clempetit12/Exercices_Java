@@ -2,19 +2,19 @@ package org.example;
 
 public class Reservation {
 
-    private int numeroReservation;
+    private double numeroReservation;
     private StatutReservation statutReservation;
     private Client client;
     private Chambre chambre;
 
-    public Reservation(int numeroReservation, StatutReservation statutReservation, Client client, Chambre chambre) {
+    public Reservation(double numeroReservation, StatutReservation statutReservation, Client client, Chambre chambre) {
         this.numeroReservation = numeroReservation;
         this.statutReservation = statutReservation;
         this.client = client;
         this.chambre = chambre;
     }
 
-    public int getNumeroReservation() {
+    public double getNumeroReservation() {
         return numeroReservation;
     }
 

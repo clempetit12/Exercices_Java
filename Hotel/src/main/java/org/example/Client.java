@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Client  {
@@ -7,14 +8,15 @@ public class Client  {
     private int id;
     private String firstname;
     private String lastname;
-    private int phoneNumber;
+    private String phoneNumber;
+
 
     private static int count = 0;
 
     {
         count++;
     }
-    public Client( String firstname, String lastname, int phoneNumber) {
+    public Client( String firstname, String lastname, String phoneNumber) {
         this.id = count++;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -37,11 +39,11 @@ public class Client  {
         this.lastname = lastname;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
