@@ -8,6 +8,9 @@ public class Library {
     public ArrayList<Book> bookList;
     public ArrayList<Emprunt> empruntList;
 
+    //Todo
+    //faire une liste d'adhérents
+
     public Library(ArrayList<Book> bookList, ArrayList<Emprunt> empruntList) {
         this.bookList = bookList;
         this.empruntList = empruntList;
@@ -20,20 +23,29 @@ public class Library {
 
 
     public void findBookbyTitle(String title) {
+        Book foundBook = null;
         for (Book b : bookList) {
-            if (title.toLowerCase().equals(b.getTitle())) {
+            if (title.toLowerCase().contains(b.getTitle().toLowerCase())) {
+                foundBook = b;
                 System.out.println(b);
-            } else {
-                System.out.println("Il n'y a pas de livre correspondant");
             }
         }
+        if(foundBook == null) {
+            System.out.println("Il n'y a pas de livre correspondant");
+            }
+
     }
 
     public void findBookbyAuthor(String author) {
+        Book foundBook = null;
         for (Book b : bookList) {
-            if (author.equals(b.getAuthor())) {
+            if (author.toLowerCase().contains(b.getAuthor().toLowerCase())) {
+                foundBook = b;
                 System.out.println(b);
             }
+        }
+        if(foundBook == null) {
+            System.out.println("Il n'y a pas de livre correspondant");
         }
     }
     public void removeBook(Book book) {
@@ -66,14 +78,16 @@ public class Library {
         if (!isBookAlreadyBorrowed) {
             Emprunt newEmprunt = new Emprunt(dateChoisie, dateChoisie.plusMonths(1), person, book);
             empruntList.add(newEmprunt);
+            for (Emprunt e: empruntList) {
+                System.out.println(e);
+            }
 
         }
     }
 
 
-    public void returnBook(Book book, LocalDate date) {
+    public void returnBook(int bookId, LocalDate date) {
         Emprunt foundEmprunt = null;
-        int bookId = book.getId();
         for (Emprunt e : empruntList) {
             if (bookId == e.getBook().getId()) {
                 foundEmprunt = e;
@@ -82,6 +96,7 @@ public class Library {
           if (date.isAfter(foundEmprunt.getEndingDate())) {
               System.out.println("Vous avez dépassé la date vous serez facturé ");
             } else {
+
                 empruntList.remove(foundEmprunt);
             }
         }

@@ -77,7 +77,7 @@ public class Main {
         LocalDate dateFictive = LocalDate.of(2023, 06, 01);
 
         System.out.println("Liste emprunt après avoir rendu le livre : ");
-        library.returnBook(book2, dateFictive);
+        //library.returnBook(book2, dateFictive);
         for (Emprunt e : empruntList) {
             System.out.println(e);
         }
