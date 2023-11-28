@@ -21,8 +21,10 @@ public class Library {
 
     public void findBookbyTitle(String title) {
         for (Book b : bookList) {
-            if (title.equals(b.getTitle())) {
+            if (title.toLowerCase().equals(b.getTitle())) {
                 System.out.println(b);
+            } else {
+                System.out.println("Il n'y a pas de livre correspondant");
             }
         }
     }
