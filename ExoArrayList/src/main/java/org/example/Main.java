@@ -11,14 +11,14 @@ public class Main {
         ArrayList<Book> booklist = new ArrayList<Book>();
         ArrayList<Emprunt> empruntList = new ArrayList<Emprunt>();
 
-        LocalDate dateChoisie = LocalDate.of(2023,11,28);
+        LocalDate dateChoisie = LocalDate.of(2023, 11, 28);
 
 
         Library library = new Library(booklist, empruntList);
 
 
         PaperBook book = new PaperBook("Danser", "Steinbeck", 500, "Hachette");
-        PaperBook book2 = new PaperBook("Danser", "Steinbeck", 500, "Hachette");
+        PaperBook book2 = new PaperBook("1984", "Steinbeck", 500, "Hachette");
         NumericBook book3 = new NumericBook("Rêver", "Frank Thilliez", Format.EPUB, 300);
         NumericBook book4 = new NumericBook("Le bleu du ciel", "Melissa Costa", Format.PDF, 400);
 
@@ -55,7 +55,7 @@ public class Main {
 
         //Trouver livre par auteur
         System.out.println("Lelivre par auteur : ");
-        library.findBookbyAuthor("Sophocle");
+        library.findBookbyAuthor("Melissa Costa");
         System.out.println();
 
         //Emprunter un livre
@@ -69,21 +69,20 @@ public class Main {
 
         System.out.println("Liste emprunt  : ");
         for (Emprunt e : empruntList) {
-
             System.out.println(e);
         }
 
         System.out.println();
         // Retourner le livre
-        LocalDate dateFictive = LocalDate.of(2023,10,12);
+        LocalDate dateFictive = LocalDate.of(2023, 06, 01);
 
         System.out.println("Liste emprunt après avoir rendu le livre : ");
-        library.returnBook(book2 ,dateFictive);
+        library.returnBook(book2, dateFictive);
         for (Emprunt e : empruntList) {
             System.out.println(e);
         }
 
-
+        library.empruntBook(book,person2);
     }
 
 

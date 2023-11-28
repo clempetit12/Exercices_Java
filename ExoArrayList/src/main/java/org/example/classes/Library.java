@@ -48,13 +48,26 @@ public class Library {
         }}
 
     public void empruntBook(Book book, Person person) {
-        int idBook = book.getId();
-        LocalDate dateChoisie = LocalDate.of(2023,05,28);
-        Emprunt newEmprunt = new Emprunt(dateChoisie, dateChoisie.plusMonths(1), person, book);
-        empruntList.add(newEmprunt);
+        int bookId = book.getId();
+        LocalDate dateChoisie = LocalDate.of(2023, 05, 28);
+        boolean isBookAlreadyBorrowed = false;
+
+        for (Emprunt e : empruntList) {
+            if (bookId == e.getBook().getId()) {
+                isBookAlreadyBorrowed = true;
+                System.out.println("Vous ne pouvez pas emprunter ce livre, il est déjà emprunté.");
+                break;
+            }
+        }
 
 
+        if (!isBookAlreadyBorrowed) {
+            Emprunt newEmprunt = new Emprunt(dateChoisie, dateChoisie.plusMonths(1), person, book);
+            empruntList.add(newEmprunt);
+
+        }
     }
+
 
     public void returnBook(Book book, LocalDate date) {
         Emprunt foundEmprunt = null;
