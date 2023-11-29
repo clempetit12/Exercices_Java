@@ -8,35 +8,26 @@ import java.util.HashMap;
 public class Main {
     public static void main(String[] args) {
 
-        Stylo stylo = new Stylo("bic", 5, "red");
-        Stylo stylo2 = new Stylo("bic2", 4, "yellow");
-        Stylo stylo3 = new Stylo("bic3", 3, "blue");
-        Ramette ramette = new Ramette("rammetteB", 4, 5);
-        Ramette ramette2 = new Ramette("rammetteC", 2, 4);
-        Ramette ramette3 = new Ramette("rammetteD", 1, 2);
-        Lot lot = new Lot(stylo3, 5, 0.10);
+        Stylo stylo = new Stylo("s1","bic1",5,"red");
+        Stylo stylo2 = new Stylo("s2","bic2",5,"yellow");
+        Ramette ramette = new Ramette("r1","rammetteA",4,500);
+        Ramette ramette2 = new Ramette("r2","rammetteB",3,200);
+        Lot lot = new Lot("l1","s1",3,0.10);
 
-        HashMap<Long, Article> bdd = Article.bdd;
-
-        for (Long k : bdd.keySet()
-        ) {
-            Article article = bdd.get(k);
-            System.out.println(article);
-
-        }
+        System.out.println(Article.getArticle("s2"));
+        System.out.println();
+        System.out.println(Article.getArticle("l1"));
 
         LocalDate dateJour = LocalDate.now();
         Facture facture = new Facture("Olivia", dateJour, 2);
-        System.out.println("Facture 1 : " + facture);
-        facture.ajouterLigne(stylo3, 5);
-        System.out.println("Facture 1 : " + facture);
-        System.out.println("Facture 1 avec deux lignes : " + facture);
-        facture.ajouterLigne(ramette3, 2);
 
+      facture.ajouterLigne("l1",3);
+        facture.ajouterLigne("r2", 2);
+        System.out.println("Facture 1 : " + facture);
         System.out.println("Le prix total de la facture n° : " + facture.numeroFacture + " est de " + facture.getPrixTotal() + "€");
 
-        Facture facture1 = new Facture("leo", dateJour, 3);
-        facture1.ajouterLigne(lot, 4);
+        Facture facture1 = new Facture("leo", dateJour, 1);
+        facture1.ajouterLigne("s2", 4);
         System.out.println("Le prix total de la facture n° : " + facture1.numeroFacture+ " est de " + facture1.getPrixTotal()+ "€");
 facture.afficherFacture();
 facture1.afficherFacture();

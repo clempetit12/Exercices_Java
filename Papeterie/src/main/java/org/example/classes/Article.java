@@ -5,49 +5,34 @@ import java.util.HashMap;
 public  abstract class Article {
 
 
-    public static long count = 1;
-    public long id;
 
-    public static HashMap<Long,Article> bdd = new HashMap<>();
-
+private String id;
+    private static HashMap<String,Article> bdd = new HashMap<>();
 
 
-    static {
-        count++;
+    protected Article(String id) {
+        this.id = id;
+        bdd.put(id,this);
     }
 
-    public Article() {
-        this.id = count++;
-        bdd.put(this.id, this);
 
-
-    }
-
-    public static long getCount() {
-        return count;
-    }
-
-    public static void setCount(long count) {
-        Article.count = count;
-    }
-
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public static HashMap<Long, Article> getBdd() {
+    public static HashMap<String, Article> getBdd() {
         return bdd;
     }
 
-    public static void setBdd(HashMap<Long, Article> bdd) {
+    public static void setBdd(HashMap<String, Article> bdd) {
         Article.bdd = bdd;
     }
 
-    public static Article getArticle(double idArticle) {
+    public static Article getArticle(String idArticle) {
         return bdd.get(idArticle);
     }
 
@@ -55,9 +40,11 @@ public  abstract class Article {
     public abstract String  getName();
 
 
-    @Override
-    public String toString() {
-        return
-                "référence article =" + id + " ";
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "Article{" +
+                "id='" + id + '\'' +
+                "nom= " + getName() + "prix unitaire= " + getPrice()+
+                '}';
     }
 }

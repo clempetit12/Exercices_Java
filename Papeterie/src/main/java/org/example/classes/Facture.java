@@ -28,7 +28,10 @@ public class Facture {
         this.lignes = new Ligne[nombreDeLignes];
         this.client = client;
         this.date = date;
-        this.nombreDeLignes = nombreDeLignes;
+
+    }
+    public Facture(String client, LocalDate date) {
+        this(client,date,NB_MAX_LIGNES);
     }
 
     public Facture(Ligne[] lignes) {
@@ -59,57 +62,44 @@ public class Facture {
         this.date = date;
     }
 
-    public void ajouterLigne(Article article, int quantityArticle) {
+
+
+    public void ajouterLigne(String idArticle, int quantityArticle) {
         if (lignes == null) {
             lignes = new Ligne[nombreDeLignes];
         }
 
-        if (lignes.length < NB_MAX_LIGNES) {
-
-            int indexLibre = -1;
-            for (int i = 0; i < lignes.length; i++) {
-                if (lignes[i] == null) {
-                    indexLibre = i;
-                    break;
-                }
-            }
-
-            if (indexLibre != -1) {
-                lignes[indexLibre] = new Ligne(article, quantityArticle);
-                System.out.println("Ligne ajoutée avec succès");
-            } else {
-                System.out.println("Le tableau de lignes est plein");
-            }
+        if (nombreDeLignes < NB_MAX_LIGNES) {
+            lignes[nombreDeLignes++] = new Ligne(Article.getArticle(idArticle), quantityArticle);
+            System.out.println("Ligne ajoutée avec succès");
         } else {
             System.out.println("Le nombre de lignes maximum a été atteint");
         }
     }
 
 
+
+
+
+
     public int getPrixTotal() {
         int prixTotal = 0;
         for (Ligne l : lignes) {
-            if (l != null) {
-
+            if (l != null && l.article != null) {
                 int quantiteAchetee = l.getQuantityBought();
-                System.out.println(quantiteAchetee);
                 double prixUnitaire = l.article.getPrice();
-                System.out.println(prixUnitaire);
                 prixTotal += quantiteAchetee * prixUnitaire;
-                System.out.println(prixTotal);
-
             }
-
         }
         return prixTotal;
     }
+
 
     public void afficherFacture() {
         System.out.println("Facture #" + numeroFacture);
         System.out.println("Client: " + client);
         System.out.println("Date: " + date);
         System.out.println("Articles :");
-
 
         System.out.printf("%-6s | %-10s | %-10s | %-10s |  %-10s | %n", "Quantité", "Référence", "Article", "Prix unitaire", "Prix total");
 

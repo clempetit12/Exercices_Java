@@ -4,8 +4,9 @@ public class Stylo extends ArticleUnitaire{
 
     String color;
 
-    public Stylo(String name, int price, String color) {
-        super(name, price);
+
+    public Stylo(String id, String name, int price, String color) {
+        super(id, name, price);
         this.color = color;
     }
 
@@ -20,7 +21,6 @@ public class Stylo extends ArticleUnitaire{
 
     @Override
     public String toString() {
-        return super.toString()+ "Stylo : " +
-                " name='" + name + '\'' + " ";
+        return super.toString()+ " couleur :"+ color;
     }
 }

@@ -1,17 +1,17 @@
 package org.example.classes;
 
-public class ArticleUnitaire extends Article {
+public abstract class  ArticleUnitaire extends Article {
 
    protected String name;
 
    protected int price;
 
 
-    public ArticleUnitaire(String name, int price) {
+    public ArticleUnitaire(String id, String name, int price) {
+        super(id);
         this.name = name;
         this.price = price;
     }
-
 
     @Override
     public String getName() {
@@ -33,9 +33,5 @@ public class ArticleUnitaire extends Article {
 return this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return super.toString() +
-                ", prix unitaire =" + price + " ";
-    }
+
 }

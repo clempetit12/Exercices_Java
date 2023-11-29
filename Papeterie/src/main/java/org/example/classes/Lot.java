@@ -2,12 +2,14 @@ package org.example.classes;
 
 public class Lot extends Article {
 
-    Article article;
+
+    private Article article;
     int quantity;
     double discount;
 
-    public Lot(Article article, int quantity, double discount) {
-        this.article = article;
+    public Lot(String id, String idArticle, int quantity, double discount) {
+        super(id);
+        this.article = Article.getArticle(idArticle);
         this.quantity = quantity;
         this.discount = discount;
     }
@@ -53,14 +55,12 @@ public class Lot extends Article {
         }
     }
 
-
-
-    @Override
-    public String toString() {
-        return  super.toString() + "Lot : " +
-
-                " quantity=" + quantity +
-                " discount=" + discount +
+    @java.lang.Override
+    public java.lang.String toString() {
+        return super.toString() + "Lot{" +
+                "article=" + article +
+                ", quantity=" + quantity +
+                ", discount=" + discount +
                 '}';
     }
 }
