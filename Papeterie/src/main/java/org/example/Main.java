@@ -35,7 +35,13 @@ public class Main {
 
         System.out.println("Le prix total de la facture n° : " + facture.numeroFacture+ " est de " + facture.getPrixTotal()+ "€");
 
-        Facture facture2 = new Facture("Leo",dateJour,1);
+        Facture facture2 = new Facture("Leo",dateJour,2);
+        facture2.ajouterLigne(lot,2);
+
+        facture2.ajouterLigne(ramette2,5);
+        System.out.println("Facture 2 : " + facture2);
+
+        System.out.println("Le prix total de la facture n° : " + facture2.numeroFacture+ " est de " + facture2.getPrixTotal()+ "€");
 
     }
 }

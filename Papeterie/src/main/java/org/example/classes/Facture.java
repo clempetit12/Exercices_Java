@@ -24,7 +24,7 @@ public class Facture {
     int nombreDeLignes;
 
     public Facture(String client, LocalDate date, int nombreDeLignes) {
-        this.numeroFacture = numeroFacture;
+        this.numeroFacture = count++;
         this.lignes = new Ligne[nombreDeLignes];
         this.client = client;
         this.date = date;
@@ -91,6 +91,7 @@ public class Facture {
         int prixTotal = 0;
         for (Ligne l : lignes) {
             if (l!= null) {
+
                 int quantiteAchetee = l.getQuantityBought();
                 System.out.println(quantiteAchetee);
                 double prixUnitaire = l.article.getPrice();
