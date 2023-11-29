@@ -43,15 +43,22 @@ public class Lot extends Article {
 
     @Override
     public double getPrice() {
-        double prix = (article.getPrice())*quantity;
-        double prixDiscount = (prix*(1-discount));
-        return prixDiscount ;
+        if (article != null){
+            double prix = (article.getPrice())*quantity;
+            double prixDiscount = (prix*(1-discount));
+            return prixDiscount ;
+        }
+     else {
+         return 0.0;
+        }
     }
+
 
 
     @Override
     public String toString() {
         return  super.toString() + "Lot : " +
+
                 " quantity=" + quantity +
                 " discount=" + discount +
                 '}';

@@ -27,12 +27,24 @@ public class Ligne {
         this.quantityBought = quantityBought;
     }
 
+    public void afficheToi() {
+        if (article != null) {
+            System.out.printf("%6s | %10s | %10s | %10s | %10s | %n",
+                    quantityBought,
+                    article.getId(),
+                    article.getName(),
+                    article.getPrice(),
+            ( article.getPrice())*quantityBought);
+        } else {
+            System.out.println("Article is null");
+        }
+    }
 
 
     @Override
     public String toString() {
-        return "{"+
-                "Nom article = " + article.getName()+
+        return "{"+ article.toString() +
+
                 " ,Référence article = " + article.id+
                 " ,quantityBought = " + quantityBought +
                 " ,Prix unitaire = " + article.getPrice() +

@@ -14,7 +14,7 @@ public class Main {
         Ramette ramette = new Ramette("rammetteB", 4, 5);
         Ramette ramette2 = new Ramette("rammetteC", 2, 4);
         Ramette ramette3 = new Ramette("rammetteD", 1, 2);
-        Lot lot = new Lot(stylo, 5, 0.05);
+        Lot lot = new Lot(stylo3, 5, 0.10);
 
         HashMap<Long, Article> bdd = Article.bdd;
 
@@ -33,15 +33,12 @@ public class Main {
         System.out.println("Facture 1 avec deux lignes : " + facture);
         facture.ajouterLigne(ramette3, 2);
 
-        System.out.println("Le prix total de la facture n° : " + facture.numeroFacture+ " est de " + facture.getPrixTotal()+ "€");
+        System.out.println("Le prix total de la facture n° : " + facture.numeroFacture + " est de " + facture.getPrixTotal() + "€");
 
-        Facture facture2 = new Facture("Leo",dateJour,2);
-        facture2.ajouterLigne(lot,2);
-
-        facture2.ajouterLigne(ramette2,5);
-        System.out.println("Facture 2 : " + facture2);
-
-        System.out.println("Le prix total de la facture n° : " + facture2.numeroFacture+ " est de " + facture2.getPrixTotal()+ "€");
-
+        Facture facture1 = new Facture("leo", dateJour, 3);
+        facture1.ajouterLigne(lot, 4);
+        System.out.println("Le prix total de la facture n° : " + facture1.numeroFacture+ " est de " + facture1.getPrixTotal()+ "€");
+facture.afficherFacture();
+facture1.afficherFacture();
     }
 }

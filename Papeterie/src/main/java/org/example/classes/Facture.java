@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class Facture {
 
-    private static final int lignesMax = 10;
+    private static final int NB_MAX_LIGNES = 10;
     public static long count = 1;
     public long numeroFacture;
 
@@ -59,12 +59,12 @@ public class Facture {
         this.date = date;
     }
 
-    public void ajouterLigne(Article article , int quantityArticle) {
+    public void ajouterLigne(Article article, int quantityArticle) {
         if (lignes == null) {
             lignes = new Ligne[nombreDeLignes];
         }
 
-        if (lignes.length < lignesMax) {
+        if (lignes.length < NB_MAX_LIGNES) {
 
             int indexLibre = -1;
             for (int i = 0; i < lignes.length; i++) {
@@ -86,11 +86,10 @@ public class Facture {
     }
 
 
-
     public int getPrixTotal() {
         int prixTotal = 0;
         for (Ligne l : lignes) {
-            if (l!= null) {
+            if (l != null) {
 
                 int quantiteAchetee = l.getQuantityBought();
                 System.out.println(quantiteAchetee);
@@ -101,9 +100,28 @@ public class Facture {
 
             }
 
-            }
+        }
         return prixTotal;
     }
+
+    public void afficherFacture() {
+        System.out.println("Facture #" + numeroFacture);
+        System.out.println("Client: " + client);
+        System.out.println("Date: " + date);
+        System.out.println("Articles :");
+
+
+        System.out.printf("%-6s | %-10s | %-10s | %-10s |  %-10s | %n", "Quantité", "Référence", "Article", "Prix unitaire", "Prix total");
+
+        for (Ligne ligne : lignes) {
+            if (ligne != null) {
+                ligne.afficheToi();
+            }
+        }
+
+        System.out.println("Prix total: " + getPrixTotal() + "€");
+    }
+
 
 
     @Override
@@ -113,7 +131,7 @@ public class Facture {
                 ", numeroFacture=" + numeroFacture +
                 ", client='" + client + '\'' +
                 ", date=" + date +
-                " Prix total = "+ getPrixTotal()+ "€"+
+                " Prix total = " + getPrixTotal() + "€" +
                 '}';
     }
 }

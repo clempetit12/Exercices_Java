@@ -47,8 +47,13 @@ public  abstract class Article {
         Article.bdd = bdd;
     }
 
+    public static Article getArticle(double idArticle) {
+        return bdd.get(idArticle);
+    }
+
     public abstract double getPrice();
     public abstract String  getName();
+
 
     @Override
     public String toString() {
