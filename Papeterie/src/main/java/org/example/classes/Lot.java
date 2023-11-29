@@ -24,6 +24,11 @@ public class Lot extends Article {
         return quantity;
     }
 
+    @Override
+    public String getName() {
+        return article.getName();
+    }
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }

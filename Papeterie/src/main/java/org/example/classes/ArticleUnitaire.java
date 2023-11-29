@@ -13,8 +13,9 @@ public class ArticleUnitaire extends Article {
     }
 
 
+    @Override
     public String getName() {
-        return name;
+        return  this.name = name;
     }
 
     public void setName(String name) {

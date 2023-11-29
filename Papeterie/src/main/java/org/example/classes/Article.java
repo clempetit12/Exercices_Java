@@ -48,10 +48,7 @@ public  abstract class Article {
     }
 
     public abstract double getPrice();
-
-
-
-
+    public abstract String  getName();
 
     @Override
     public String toString() {

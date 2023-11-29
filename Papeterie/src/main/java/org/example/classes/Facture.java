@@ -96,8 +96,6 @@ public class Facture {
                 System.out.println(quantiteAchetee);
                 double prixUnitaire = l.article.getPrice();
                 System.out.println(prixUnitaire);
-
-
                 prixTotal += quantiteAchetee * prixUnitaire;
                 System.out.println(prixTotal);
 
@@ -115,6 +113,7 @@ public class Facture {
                 ", numeroFacture=" + numeroFacture +
                 ", client='" + client + '\'' +
                 ", date=" + date +
+                " Prix total = "+ getPrixTotal()+ "€"+
                 '}';
     }
 }

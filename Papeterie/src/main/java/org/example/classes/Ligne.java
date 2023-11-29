@@ -31,9 +31,11 @@ public class Ligne {
 
     @Override
     public String toString() {
-        return "Ligne{" +
-                "article=" + article.id +
-                ", quantityBought=" + quantityBought +
+        return "{"+
+                "Nom article = " + article.getName()+
+                " ,Référence article = " + article.id+
+                " ,quantityBought = " + quantityBought +
+                " ,Prix unitaire = " + article.getPrice() +
                 '}';
     }
 }
