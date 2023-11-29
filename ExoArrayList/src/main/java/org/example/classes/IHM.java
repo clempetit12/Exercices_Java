@@ -56,6 +56,7 @@ public class IHM {
             System.out.println("2 - Trouver livre par auteur ");
             System.out.println("3 - Emprunter un livre ");
             System.out.println("4 - Retourner un livre ");
+            System.out.println("4 - Retourner liste des emprunts ");
             System.out.println("Veuillez indiquer votre choix :");
             choix = parseInt(scanner.nextLine());
 
