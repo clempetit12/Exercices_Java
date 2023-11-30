@@ -8,7 +8,7 @@ public class Main {
         try {
             int[] tabEntiers;
             tabEntiers = new int[]{1, 2, 3, 4, 5};
-            System.out.println("Accédez au sixième élément : " + tabEntiers[5]);
+            System.out.println("Accédez au sixième élément : " + tabEntiers[-1]);
 
 
         } catch (ArrayIndexOutOfBoundsException e) {
