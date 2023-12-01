@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+  </component>
+<<<<<<<< HEAD:TP_Billeterie/.idea/misc.xml
+  <component name="ProjectRootManager" version="2" project-jdk-name="21" project-jdk-type="JavaSDK">
+========
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
+>>>>>>>> a8b7a024292f45a8bd44a0893eb34ce7b25ef810:TP_Exception/.idea/misc.xml
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
