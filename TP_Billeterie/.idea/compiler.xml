@@ -4,8 +4,5 @@
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="TP_Billeterie" target="19" />
-    </bytecodeTargetLevel>
   </component>
 </project>

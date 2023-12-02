@@ -26,81 +26,108 @@ public class Event {
         this.nameEvent = nameEvent;
         this.date = date;
         this.hour = hour;
-        this.location = Location.getLocation(locationName);
-        this.price = price;
-        this.numberOfTicketsSold = numberOfTicketsSold;
-        bdd.put(nameEvent, this);
+        Location location = Location.getLocation(locationName);
+        if (location == null) {
+            System.out.println("Erreur : Le lieu '" + locationName + "' n'existe pas.");
+        } else {
+            this.location = location;
+            this.price = price;
+            this.numberOfTicketsSold = numberOfTicketsSold;
+            bdd.put(nameEvent, this);
+        }
     }
 
-    public static boolean checkDisponibilityTicket(String eventName) {
-        Event eventWished = bdd.get(eventName);
-        if (eventWished != null) {
-            long capacity = eventWished.location.getCapacity();
-            long realCapacity = capacity - eventWished.numberOfTicketsSold;
-            System.out.println("La capacité réelle est de :" + realCapacity);
-            return eventWished.numberOfTicketsSold < realCapacity;
-        } else {
-            System.out.println("Il n'y a pas d'évènements ");
-            return false;
+        public String getNameEvent () {
+            return nameEvent;
+        }
+        public static Event getEvent (String name){
+            return bdd.get(name);
         }
 
-    };
 
-    public void sellTicket(String eventName) {
-        if (checkDisponibilityTicket(eventName)) {
-            numberOfTicketsSold++;
-            System.out.println("Le nombre de tickets vendus s'élèvent à " + numberOfTicketsSold);
+        public static void setBdd (HashMap < String, Event > bdd){
+            Event.bdd = bdd;
+        }
+
+        public void setNameEvent (String nameEvent){
+            this.nameEvent = nameEvent;
+        }
+
+        public static boolean checkDisponibilityTicket (String eventName){
+            Event eventWished = bdd.get(eventName);
+            if (eventWished != null) {
+                long capacity = eventWished.location.getCapacity();
+                long realCapacity = capacity - eventWished.numberOfTicketsSold;
+                System.out.println("La capacité réelle est de :" + realCapacity);
+                return eventWished.numberOfTicketsSold < realCapacity;
+            } else {
+                System.out.println("Il n'y a pas d'évènements ");
+                return false;
+            }
+
         }
         ;
-    };
 
-    public void cancelTicket() {
-        numberOfTicketsSold--;
-        System.out.println("Le nombre de tickets vendus s'élèvent à " + numberOfTicketsSold);
-    }
-    public static void modifyEvent(String nameEvent, LocalDate date, LocalTime hour, String locationName, int price, int numberOfTicketsSold) {
-        Event eventUpdate = bdd.get(nameEvent);
+        public void sellTicket (String eventName){
+            if (checkDisponibilityTicket(eventName)) {
+                numberOfTicketsSold++;
+                System.out.println("Le nombre de tickets vendus s'élèvent à " + numberOfTicketsSold);
+            }
+            ;
+        }
+        ;
 
-        if (eventUpdate != null) {
-            eventUpdate.setDate(date);
-            eventUpdate.setHour(hour);
-            eventUpdate.setLocationName(locationName);
-            eventUpdate.setPrice(price);
-            eventUpdate.setNumberOfTicketsSold(numberOfTicketsSold);
-            System.out.println("Evenement modifié avec succès !");
-        } else {
-            System.out.println("Evenement non trouvé. La modification a échoué.");
+        public void cancelTicket () {
+            numberOfTicketsSold--;
+            System.out.println("Le nombre de tickets vendus s'élèvent à " + numberOfTicketsSold);
+        }
+        public static void modifyEvent (String nameEvent, LocalDate date, LocalTime hour, String locationName,int price,
+        int numberOfTicketsSold){
+            Event eventUpdate = bdd.get(nameEvent);
+
+            if (eventUpdate != null) {
+                eventUpdate.setDate(date);
+                eventUpdate.setHour(hour);
+                eventUpdate.setLocationName(locationName);
+                eventUpdate.setPrice(price);
+                eventUpdate.setNumberOfTicketsSold(numberOfTicketsSold);
+                System.out.println("Evenement modifié avec succès !");
+            } else {
+                System.out.println("Evenement non trouvé. La modification a échoué.");
+            }
+        }
+        public static void displayAllEvents () {
+
+            for (Event event : bdd.values()) {
+                System.out.println(event);
+            }
+        }
+        public static void deleteEvent (String name){
+            Event eventToDelete = bdd.get(name);
+
+            if (eventToDelete != null) {
+                bdd.remove(name);
+                System.out.println("L'évènement a été supprimé avec succès !");
+
+            } else {
+                System.out.println("Evenement non trouvé. La suppression a échoué.");
+            }
+        }
+
+        @Override
+        public String toString () {
+            return "Event{" +
+                    "nameEvent='" + nameEvent + '\'' +
+                    ", date=" + date +
+                    ", hour=" + hour +
+                    ", location=" + location +
+                    ", price=" + price +
+                    ", numberOfTicketsSold=" + numberOfTicketsSold +
+                    '}';
         }
     }
-    public static void displayAllEvents() {
 
-        for (Event event : bdd.values()) {
-            System.out.println(event);
-        }}
-    public static void deleteEvent(String name) {
-        Event eventToDelete = bdd.get(name);
-
-        if (eventToDelete != null) {
-            bdd.remove(name);
-            System.out.println("L'évènement a été supprimé avec succès !");
-
-        } else {
-            System.out.println("Evenement non trouvé. La suppression a échoué.");
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Event{" +
-                "nameEvent='" + nameEvent + '\'' +
-                ", date=" + date +
-                ", hour=" + hour +
-                ", location=" + location +
-                ", price=" + price +
-                ", numberOfTicketsSold=" + numberOfTicketsSold +
-                '}';
-    }
-};
+    ;
 
 
 
