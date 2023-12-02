@@ -16,9 +16,11 @@ public class IHM {
 
     public static void start() {
         Location location = new Location("paris", "12 rue de dunkerque", 2000);
+        Location location2 = new Location("arras", "12 rue de dunkerque", 300);
         LocalDate localDate = LocalDate.now();
         LocalTime localTime = LocalTime.now();
         Event event = new Event("rock", localDate, localTime, "paris", 50, 200);
+        Event event2 = new Event("main", localDate, localTime, "arras", 50, 300);
         Customer customer = new Customer("c1", "clara", "petit", "clara.patit@gmail.com");
 
         printMenu();
@@ -423,6 +425,7 @@ public class IHM {
         Event event = Event.getEvent(eventName);
         Customer customer = Customer.getCustomer(id);
         customer.cancelCustomerTicket(eventName);
+        event.cancelTicket();
 
 
     }
