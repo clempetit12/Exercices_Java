@@ -399,6 +399,7 @@ public class IHM {
             eventName = scanner.nextLine();
             Event event = Event.getEvent(eventName);
             boolean isAvailable = Event.checkDisponibilityTicket(eventName);
+            System.out.println(isAvailable);
             Customer customer = Customer.getCustomer(id);
             System.out.println(customer);
             if (isAvailable && customer != null) {

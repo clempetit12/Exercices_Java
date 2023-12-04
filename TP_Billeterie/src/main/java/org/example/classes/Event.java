@@ -59,7 +59,8 @@ public class Event {
                 long capacity = eventWished.location.getCapacity();
                 long realCapacity = capacity - eventWished.numberOfTicketsSold;
                 System.out.println("La capacité réelle est de :" + realCapacity);
-                return eventWished.numberOfTicketsSold < realCapacity;
+                System.out.println(eventWished.numberOfTicketsSold < realCapacity);
+                return true;
             } else {
                 System.out.println("Il n'y a pas d'évènements ");
                 return false;
