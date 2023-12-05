@@ -42,7 +42,7 @@ public class Pizza {
         }
 
         public Builder cheese(Cheese cheese) {
-            if (this.cheese != null) {
+            if (this.cheese != null || this.cheese.equals(Cheese.WITHOUTCHEESE)) {
                 throw new IllegalStateException("Vous ne pouvez pas selectionner plusieurs fromages");
             } else {
                 this.cheese = cheese;

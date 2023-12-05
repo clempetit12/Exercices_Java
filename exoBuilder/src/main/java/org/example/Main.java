@@ -15,7 +15,7 @@ public class Main {
 
         Pizza pizza = new Pizza.Builder().pastryType(PastryType.THICK).sauceType(SauceType.TOMATO).cheese(Cheese.MOZARELLA).build();
         System.out.println(pizza);
-        Pizza pizza1 = new Pizza.Builder().pastryType(PastryType.THICK).sauceType(SauceType.TOMATO).cheese(Cheese.MOZARELLA).build();
+        Pizza pizza1 = new Pizza.Builder().pastryType(PastryType.THICK).sauceType(SauceType.TOMATO).cheese(Cheese.MOZARELLA).cheese(Cheese.CHEDDAR).build();
         System.out.println(pizza1);
     }
 }
