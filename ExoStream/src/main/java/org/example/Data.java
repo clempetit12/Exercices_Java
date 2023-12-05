@@ -1,9 +1,6 @@
 package org.example;
 
-import java.util.Arrays;
-import java.util.DoubleSummaryStatistics;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,7 +28,7 @@ public class Data {
 
     public  Map<String, Long> frequencyOfWord(){
         Stream<String> words = Arrays.stream(text.split("\\s+"));
-        Map<String, Long> wordFrequencyMap = words.collect(Collectors.groupingBy(String::toLowerCase, Collectors.counting()));
+        Map<String, Long> wordFrequencyMap = words.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         return wordFrequencyMap;
 
     }
@@ -44,20 +41,9 @@ public class Data {
         return resultList;
     }
 
-    public  List<String> singleWords() {
+    public Set<String> singleWords() {
         Stream<String> words = Arrays.stream(text.split("\\s+"));
-
-        List<String> wordList = words.collect(Collectors.toList());
-
-        Map<String, Long> wordCounts = wordList.stream()
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-
-
-        List<String> nonRepeatingWords = wordList.stream()
-                .filter(word -> wordCounts.get(word) == 1)
-                .collect(Collectors.toList());
-
-        return nonRepeatingWords;
+        return words.collect(HashSet::new, HashSet::add, HashSet::addAll);
     }
 
     public  void  mostUsedWords() {
