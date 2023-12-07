@@ -1,8 +1,10 @@
 package org.example.classes;
 
 public class Developer extends Employee implements EmployeeInterface{
-    public Developer(String firstname, String lastname) {
-        super(firstname, lastname);
+
+
+    public Developer(int id, String firstname, String lastname, String performance, int salaire) {
+        super(id, firstname, lastname, performance, salaire);
     }
 
     @Override

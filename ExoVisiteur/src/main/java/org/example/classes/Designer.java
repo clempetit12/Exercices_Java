@@ -6,12 +6,11 @@ import lombok.Data;
 
 
 public class Designer extends Employee implements EmployeeInterface {
-    public Designer(String firstname, String lastname) {
-        super(firstname, lastname);
+
+
+    public Designer(int id, String firstname, String lastname, String performance, int salaire) {
+        super(id, firstname, lastname, performance, salaire);
     }
-
-
-
 
     @Override
     public void accept(EmployeeVisitor visitor) {
