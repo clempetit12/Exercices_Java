@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         try {
 
-            NavigationSystem navigationSystem = new NavigationSystem.NavigationSystemBuilder().build();
+            NavigationSystem navigationSystem = new NavigationSystem.NavigationSystemBuilder().destination("Hawai").build();
 
             int choice;
 

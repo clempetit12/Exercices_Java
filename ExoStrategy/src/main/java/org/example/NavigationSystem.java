@@ -10,6 +10,7 @@ public class NavigationSystem {
 
 private String destination;
 
+
 public void drive(NavigationStrategy navigationStrategy){
     if(navigationStrategy.navigate(destination) ) {
         System.out.println("Stratégie de navigation modifiée avec succès !");
