@@ -2,6 +2,8 @@ package org.example.classes;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +11,13 @@ import java.util.Random;
 
 @Data
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Product implements Subject {
 
-    private double stockLevel;
-    private Random random = new Random();
+    @NonNull
+    private long stockLevel;
 
+Random random = new Random();
     List<Observer> observers;
 
     public Product() {
@@ -32,7 +36,7 @@ observers.remove(observer);
     }
     public void randomStock() {
         double oldStockLevel = stockLevel;
-        stockLevel = random.nextDouble();
+        stockLevel = random.nextInt();
 
         if (oldStockLevel != stockLevel) {
             notifyObservers(stockLevel);
@@ -40,7 +44,7 @@ observers.remove(observer);
     }
 
     @Override
-    public void notifyObservers(double stockLevel) {
+    public void notifyObservers(long stockLevel) {
         observers.forEach(o -> o.update(stockLevel));
     }
 }

@@ -4,5 +4,5 @@ public interface Subject {
     void registerObserver(Observer observer);
     void removeObserver(Observer observer);
 
-    void notifyObservers(double stockLevel);
+    void notifyObservers(long stockLevel);
 }
