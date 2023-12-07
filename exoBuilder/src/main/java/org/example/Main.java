@@ -8,14 +8,11 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<String> garnitures = new ArrayList<>();
-        garnitures.add("mushrooms");
-        garnitures.add("pepperoni");
-        garnitures.add("ham");
 
-        Pizza pizza = new Pizza.Builder().pastryType(PastryType.THICK).sauceType(SauceType.TOMATO).cheese(Cheese.MOZARELLA).build();
+
+        Pizza pizza = new Pizza.Builder().pastryType(PastryType.THICK).sauceType(SauceType.TOMATO).cheese(Cheese.MOZARELLA).garnitures("mushroom").build();
         System.out.println(pizza);
-        Pizza pizza1 = new Pizza.Builder().pastryType(PastryType.THICK).sauceType(SauceType.TOMATO).cheese(Cheese.MOZARELLA).cheese(Cheese.CHEDDAR).build();
+        Pizza pizza1 = new Pizza.Builder().pastryType(PastryType.THICK).sauceType(SauceType.TOMATO).cheese(Cheese.MOZARELLA).garnitures("peperonni").garnitures("ham").build();
         System.out.println(pizza1);
     }
 }

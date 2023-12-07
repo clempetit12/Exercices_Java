@@ -2,6 +2,7 @@ package org.example.classes;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pizza {
@@ -9,14 +10,14 @@ public class Pizza {
     private SizePizza sizePizza;
     private PastryType pastryType;
     private Cheese cheese;
-    private List<String> garniture;
+    private List<String> garnitures;
     private SauceType sauceType;
 
     private Pizza(Builder builder) {
         this.sizePizza = builder.sizePizza;
         this.pastryType = builder.pastryType;
         this.cheese = builder.cheese;
-        this.garniture = builder.garniture;
+        this.garnitures = builder.garnitures;
         this.sauceType = builder.sauceType;
 
 
@@ -26,7 +27,7 @@ public class Pizza {
         private SizePizza sizePizza;
         private PastryType pastryType;
         private Cheese cheese;
-        private List<String> garniture;
+        private List<String> garnitures = new ArrayList<>();
         private SauceType sauceType;
 
         public Builder sizePizza(SizePizza sizePizza) {
@@ -42,7 +43,7 @@ public class Pizza {
         }
 
         public Builder cheese(Cheese cheese) {
-            if (this.cheese != null || this.cheese.equals(Cheese.WITHOUTCHEESE)) {
+            if (this.cheese != null  ) {
                 throw new IllegalStateException("Vous ne pouvez pas selectionner plusieurs fromages");
             } else {
                 this.cheese = cheese;
@@ -51,8 +52,8 @@ public class Pizza {
             }
         }
 
-        public Builder garniture(List<String> garniture) {
-            this.garniture = garniture;
+        public Builder garnitures(String garniture) {
+            this.garnitures.add(garniture);
             return this;
         }
 
@@ -77,7 +78,7 @@ public class Pizza {
                 "sizePizza=" + sizePizza +
                 ", pastryType=" + pastryType +
                 ", cheese=" + cheese +
-                ", garniture='" + garniture + '\'' +
+                ", garniture='" + garnitures + '\'' +
                 ", sauceType=" + sauceType +
                 '}';
     }
