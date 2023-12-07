@@ -6,7 +6,7 @@ import org.example.classes.Supplier;
 
 public class Main {
     public static void main(String[] args) {
-        Product product = new Product();
+        Product product = new Product(50);
         StockManager stockManager = new StockManager();
         Supplier supplier = new Supplier();
         product.registerObserver(stockManager);

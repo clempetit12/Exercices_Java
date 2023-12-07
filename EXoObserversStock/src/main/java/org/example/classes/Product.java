@@ -11,16 +11,17 @@ import java.util.Random;
 
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
+
 public class Product implements Subject {
 
-    @NonNull
+
     private long stockLevel;
 
 Random random = new Random();
     List<Observer> observers;
 
-    public Product() {
+    public Product(long stockLevel) {
+        this.stockLevel = stockLevel;
         observers = new ArrayList<>();
     }
 
@@ -35,7 +36,7 @@ Random random = new Random();
 observers.remove(observer);
     }
     public void randomStock() {
-        double oldStockLevel = stockLevel;
+        long oldStockLevel = stockLevel;
         stockLevel = random.nextInt(0,10000);
 
         if (oldStockLevel != stockLevel) {
