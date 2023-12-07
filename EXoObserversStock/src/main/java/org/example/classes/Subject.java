@@ -1,8 +1,10 @@
 package org.example.classes;
 
-public interface Subject {
-    void registerObserver(Observer observer);
-    void removeObserver(Observer observer);
+public interface Subject<T> {
+    void notifyObservers(Long element);
 
-    void notifyObservers(long stockLevel);
+    void registerObserver(Observer<T> observer);
+    void removeObserver(Observer<T> observer);
+
+    void notifyObservers(T element);
 }

@@ -1,5 +1,5 @@
 package org.example.classes;
 
-public interface Observer {
-    void update(long stockLevel);
+public interface Observer<T> {
+    void update(T element);
 }
