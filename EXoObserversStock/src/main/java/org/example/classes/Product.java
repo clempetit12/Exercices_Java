@@ -36,7 +36,7 @@ observers.remove(observer);
     }
     public void randomStock() {
         double oldStockLevel = stockLevel;
-        stockLevel = random.nextInt();
+        stockLevel = random.nextInt(0,10000);
 
         if (oldStockLevel != stockLevel) {
             notifyObservers(stockLevel);

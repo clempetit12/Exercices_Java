@@ -15,7 +15,9 @@ public class Main {
         product.randomStock();
         product.removeObserver(stockManager);
         product.randomStock();
-        
+
+        product.registerObserver(stockManager);
+        product.randomStock();
 
     }
 }
