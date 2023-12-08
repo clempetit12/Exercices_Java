@@ -1,16 +1,16 @@
 package org.example.zoo.builder;
 
 import org.example.zoo.entity.Animal;
-import org.example.zoo.entity.Chimpanzee;
-import org.example.zoo.entity.Girafe;
+import org.example.zoo.entity.Bird;
 
-public class GirafeBuilder extends AnimalBuilder{
-
+public class BirdBuilder extends AnimalBuilder{
 
     private String specie;
     private String name;
     private int age;
     private String color;
+    private String specialBehavior;
+
 
 
     @Override
@@ -32,8 +32,19 @@ public class GirafeBuilder extends AnimalBuilder{
     }
 
     @Override
+    public AnimalBuilder specialBehavior(String specialBehavior) {
+        this.specialBehavior = specialBehavior;
+        return this;
+    }
+
+    @Override
+    public String  getSpecialBehaviour() {
+        return specialBehavior;
+    }
+
+    @Override
     public Animal build() {
-        return new Girafe(this);
+        return new Bird(this);
     }
 
     public String getSpecie() {
@@ -66,5 +77,22 @@ public class GirafeBuilder extends AnimalBuilder{
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+
+
+    public void setSpecialBehavior(String specialBehavior) {
+        this.specialBehavior = specialBehavior;
+    }
+
+    @Override
+    public String toString() {
+        return "BirdBuilder{" +
+                "specie='" + specie + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", color='" + color + '\'' +
+                ", specialBehavior='" + specialBehavior + '\'' +
+                '}';
     }
 }
