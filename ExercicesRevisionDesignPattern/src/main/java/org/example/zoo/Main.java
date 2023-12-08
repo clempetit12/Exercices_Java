@@ -33,6 +33,7 @@ public class Main {
         Visitors visitors1 = new Visitors();
         Visitors visitors2 = new Visitors();
         zoo.registerObserver(visitors1);
+        zoo.registerObserver(visitors2);
 
 animalZoo.add(reptileFactory.createAnimal(new ReptileBuilder().age(2)
         .specie("iguane").specialBehavior("lunatique")));
@@ -43,6 +44,7 @@ Animal bird2 = birdFactory.createAnimal(new BirdBuilder()
 
 
         Zoo.displayAnimalList(animalZoo);
+
 
     }
 }
