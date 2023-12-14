@@ -67,4 +67,14 @@ public class ElephantBuilder extends AnimalBuilder {
     public void setColor(String color) {
         this.color = color;
     }
+
+    @Override
+    public String toString() {
+        return "ElephantBuilder{" +
+                "specie='" + specie + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", color='" + color + '\'' +
+                '}';
+    }
 }

@@ -65,4 +65,14 @@ public class ChimpanzeeBuilder extends AnimalBuilder {
     public void setColor(String color) {
         this.color = color;
     }
+
+    @Override
+    public String toString() {
+        return "ChimpanzeeBuilder{" +
+                "specie='" + specie + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", color='" + color + '\'' +
+                '}';
+    }
 }
