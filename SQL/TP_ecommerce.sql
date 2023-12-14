@@ -21,12 +21,12 @@ SELECT * FROM customers ORDER BY contactLastname;
 SELECT * FROM employees ORDER BY officeCode;
 
 -- 8 Sélectionner les clients qui ont payé pour plus de 100000 euros.
-SELECT customerNumber, amount FROM payments WHERE amount > 100000;
+SELECT DISTINCT customerNumber FROM payments WHERE amount > 100000;
 
 -- 9  Afficher le total des ventes par 'orderNumber' et 'status' ?
-SELECT orderNumber, status, SUM(amount) 
+SELECT orderNumber, status, SUM(amount) totalAmount
 FROM orders
-INNER JOIN payments ON orders.customerNumber = payments.customerNumber GROUP BY orderNumber, status;
+INNER JOIN payments ON orders.customerNumber = payments.customerNumber GROUP BY orderNumber, status ORDER BY status DESC, orderNumber;
 
 -- 10 Afficher les “orderNumber”, “productName”, “msrp”, “priceEach” des produits qui un productcode = ‘S10_1678’ et ont un msrp supérieur au priceEach.
  SELECT productName, msrp, priceEach, orderNumber, products.productCode
@@ -49,16 +49,16 @@ SELECT firstName, lastName, jobTitle FROM employees WHERE jobTitle = "president"
 SELECT FLOOR(SUM(amount)) AS montant_mars FROM payments WHERE paymentDate LIKE "2005-03-%";
 
 -- 15 Afficher le total des paiements par nom des clients
-SELECT contactLastName, SUM(amount)
+SELECT customerName, SUM(amount)
 FROM customers
-JOIN payments ON payments.customerNumber = customers.customerNumber GROUP BY contactLastName;
+JOIN payments ON payments.customerNumber = customers.customerNumber GROUP BY customerName ORDER BY customerName;
 
 
 -- 16 Afficher la date de commande et le numéro client des commandes annulées
 SELECT customerNumber, status, orderDate FROM orders WHERE status = "cancelled";
 
 -- 17 Afficher la liste (prénom et nom ) des subordonnées de Bow Anthony
-SELECT lastName, firstName, jobTitle FROM employees WHERE officeCode = 1 AND lastName <> "bow" AND firstName <> "anthony"  ;
+SELECT lastName, firstName FROM employees AS emp WHERE emp.reportsTo IN (SELECT employeeNumber FROM employees WHERE lastName = "bow" AND firstName="anthony")  ;
 
 -- 18 Afficher le nom et le prénom du ou des employés qui n'ont pas de supérieur hiérarchique
 SELECT lastName, firstName FROM employees WHERE reportsTo IS NULL ;
@@ -92,6 +92,7 @@ FROM
   employees manager ON e.reportsTo = manager.employeeNumber GROUP BY manager.lastname ;
   
   SELECT * FROM employees WHERE reportsTo = 1102;
+
 
 SELECT * FROM employees  WHERE lastName = "jennings" AND firstName = "leslie";
 SELECT * FROM employees;
