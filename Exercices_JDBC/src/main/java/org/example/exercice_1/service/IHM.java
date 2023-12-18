@@ -1,6 +1,6 @@
 package org.example.exercice_1.service;
 
-import org.example.exercice_1.Etudiant;
+import org.example.exercice_1.classe.Etudiant;
 
 import java.sql.*;
 import java.util.Scanner;
@@ -55,7 +55,8 @@ public class IHM {
         String lastName = scanner.next();
         System.out.println("Veuillez saisir le prénom de l'étudiant à supprimer : ");
         String firstName = scanner.next();
-        Etudiant.deleteStudents(lastName, firstName, connection);
+        int studentId = Etudiant.getStudentId(firstName,lastName,connection);
+        Etudiant.deleteStudents(studentId, connection);
     }
 
     private static void getAllStudentsFromClass(Connection connection) {

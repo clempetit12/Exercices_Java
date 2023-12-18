@@ -1,13 +1,13 @@
-package org.example.exercice_1;
+package org.example.exercice_1.classe;
 
 import java.sql.*;
 
 public class Etudiant {
-   private int id;
-   private String lastName;
-   private String firstName;
-   private int numeroClasse;
-   private String dateDiplome;
+    private int id;
+    private String lastName;
+    private String firstName;
+    private int numeroClasse;
+    private String dateDiplome;
 
     public Etudiant(int id, String lastName, String firstName, int numeroClasse, String dateDiplome) {
         this.id = id;
@@ -58,26 +58,26 @@ public class Etudiant {
     }
 
     public static void addStudents(String lastName, String firstName, int numeroClasse, String dateDiplome, Connection connection) {
-        try{
-        String request = "INSERT INTO etudiants (last_name, first_name, numero_classe, date_diplome) VALUES (? , ? , ?, ?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(request);
-        preparedStatement.setString(1, lastName);
-        preparedStatement.setString(2, firstName);
-        preparedStatement.setInt(3, numeroClasse);
-        preparedStatement.setString(4, dateDiplome);
-        int nbRows = preparedStatement.executeUpdate(); // retour int pour récupérer nombre de lignes
-        System.out.println("Nombre de lignes " + nbRows);
+        try {
+            String request = "INSERT INTO etudiants (last_name, first_name, numero_classe, date_diplome) VALUES (? , ? , ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(request);
+            preparedStatement.setString(1, lastName);
+            preparedStatement.setString(2, firstName);
+            preparedStatement.setInt(3, numeroClasse);
+            preparedStatement.setString(4, dateDiplome);
+            int nbRows = preparedStatement.executeUpdate(); // retour int pour récupérer nombre de lignes
+            System.out.println("Nombre de lignes " + nbRows);
 
-    }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }}
+        }
+    }
 
-    public static void getListStudents (Connection connection) {
+    public static void getListStudents(Connection connection) {
         try {
             String request = "SELECT * FROM etudiants";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(request);
-
             while (resultSet.next()) {
                 System.out.println(resultSet.getInt("id") + ") " + resultSet.getString("last_name") + " , "
                         + resultSet.getString("first_name") + " " + resultSet.getInt("numero_classe") + " " + resultSet.getString("date_diplome"));
@@ -101,26 +101,44 @@ public class Etudiant {
                         + resultSet.getString("first_name") + " " + resultSet.getInt("numero_classe") + " " + resultSet.getString("date_diplome"));
             }
             preparedStatement.close();
-        } catch(SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static void deleteStudents(String firstName, String lastName, Connection connection) {
+    public static void deleteStudents(int studentId, Connection connection) {
         try {
-
-            String request = "DELETE FROM etudiants WHERE last_name = ? AND first_name = ?";
+            String request = "DELETE FROM etudiants WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(request);
-            preparedStatement.setString(1, lastName);
-            preparedStatement.setString(2, firstName);
+            preparedStatement.setInt(1, studentId);
+
             int rows = preparedStatement.executeUpdate();
             System.out.println("Nombre de rangées " + rows);
             preparedStatement.close();
-        } catch(SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
+
     }
+
+    public static int getStudentId(String firstName, String lastName, Connection connection) {
+        int studentId = -1;
+        try {
+
+            String request = "SELECT id FROM etudiants WHERE last_name = ? AND first_name = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(request);
+            preparedStatement.setString(1, lastName);
+            preparedStatement.setString(2, firstName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                studentId = resultSet.getInt("id");
+            }
+            preparedStatement.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return studentId;
+    }
+
 }
