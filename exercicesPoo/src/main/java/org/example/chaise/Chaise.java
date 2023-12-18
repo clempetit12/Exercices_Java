@@ -3,8 +3,7 @@ package org.example.chaise;
 public class Chaise {
 
     private int nombrePieds;
-    private String couleur;
-    private String materiaux;
+    private String couleur,materiaux;
 
     public Chaise() {
     }
@@ -42,7 +41,8 @@ public class Chaise {
     @Override
     public String toString() {
         return " -------Affichage d'un nouvel objet ------- \n" +
-                "Je suis une chaise, avec " + nombrePieds + " pieds en " + materiaux + " et de couleur " + couleur +"\n" +
+                "Je suis une chaise, avec " + nombrePieds +
+                " pieds en " + materiaux + " et de couleur " + couleur +"\n" +
                 "----------------------------------------------";
 
     }

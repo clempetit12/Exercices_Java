@@ -3,7 +3,7 @@ package org.example.maison;
 import java.util.List;
 
 public class Maison {
-    int surface;
+    float surface;
 private Porte porte;
 
     public Maison(int surface,Porte porte) {
@@ -11,11 +11,11 @@ private Porte porte;
         this.porte = porte;
     }
 
-    public int getSurface() {
+    public float getSurface() {
         return surface;
     }
 
-    public void setSurface(int surface) {
+    public void setSurface(float surface) {
         this.surface = surface;
     }
 

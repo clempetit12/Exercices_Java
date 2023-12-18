@@ -1,15 +1,18 @@
 package org.example.compteBancaire;
 
-public class Compte  {
+public class Compte {
 
     private int id;
-    private int solde;
+    //mettre solde en double
+    private double solde;
 
-    int counter;
+    private static int counter = 0;
 
-    public Compte(int id, int solde) {
-        this.id = counter++;
+
+    public Compte(double solde) {
+
         this.solde = solde;
+        this.id = counter++;
 
     }
 
@@ -17,15 +20,12 @@ public class Compte  {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public int getSolde() {
+    public double getSolde() {
         return solde;
     }
 
-    public void setSolde(int solde) {
+    public void setSolde(double solde) {
         this.solde = solde;
     }
 
@@ -33,18 +33,17 @@ public class Compte  {
         return counter;
     }
 
-    public void setCounter(int counter) {
-        this.counter = counter;
+
+    public void versement(int montant) {
+        solde = solde + montant;
+        System.out.println("Le solde est à " + solde);
     }
 
-    public void versement( int montant) {
-int total = solde+montant;
-        System.out.println("Le solde est à " + total);
-    }
-
-    public void retrait( int montant) {
-        int total = solde-montant;
-        System.out.println("Le solde est à " + total);
+    public void retrait(int montant) {
+        if (montant > solde) System.out.println("Vous n'avez pas assez d'argent");
+         else
+             solde = solde - montant;
+        System.out.println("Le solde est à " + solde);
     }
 
     @Override

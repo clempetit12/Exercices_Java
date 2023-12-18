@@ -21,6 +21,6 @@ public class Teacher extends Person {
     }
 
     public void explain() {
-        System.out.println("Explanation begins.");
+        System.out.println(this.subject);
     }
 }

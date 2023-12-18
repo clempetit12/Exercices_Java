@@ -8,8 +8,7 @@ public class App {
         student1.sayHello();
         student1.goToClasses();
         student1.displayAge();
-        Teacher teacher1 = new Teacher();
-        teacher1.setAge(40);
+        Teacher teacher1 = new Teacher(40,"Explanation begins");
         teacher1.sayHello();
         teacher1.explain();
 

@@ -3,10 +3,12 @@ package org.example.compteBancaire;
 public class CompteSimple extends Compte {
 
     int decouvert;
+    private int id;
 
-    public CompteSimple(int id, int solde, int decouvert) {
-        super(id, solde);
+    public CompteSimple( int solde, int decouvert) {
+        super( solde);
         this.decouvert = decouvert;
+        this.id = getCounter();
     }
 
     public int getDecouvert() {
@@ -18,10 +20,12 @@ public class CompteSimple extends Compte {
     }
 
     public void retrait( int montant) {
-        if(montant>decouvert) {
+        if(getSolde()-montant<decouvert) {
             System.out.println("Vous ne pouvez pas retirer");
         } else {
-            retrait(montant);
+            super.retrait(montant);
+            double nouveauSolde = getSolde() - montant;
+            setSolde(nouveauSolde);
         }
 
 
