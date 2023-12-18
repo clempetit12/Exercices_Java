@@ -15,7 +15,7 @@ public class MainExercice1 {
         Connection connection = null;
         try {
             connection = ConnectionUtils.getMySQLConnection();
-            IHM.start(connection);
+            IHM.start();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

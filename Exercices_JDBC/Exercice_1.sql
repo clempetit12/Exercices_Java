@@ -9,3 +9,5 @@ first_name VARCHAR(200),
 numero_classe INT,
 date_diplome DATE
 );
+
+SELECT * FROM etudiants;
