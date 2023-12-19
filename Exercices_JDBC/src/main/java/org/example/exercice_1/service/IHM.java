@@ -21,15 +21,10 @@ public class IHM {
         int choix;
 
         do {
-            System.out.println("=== Menu ===");
-            System.out.println("1. Ajouter un étudiant");
-            System.out.println("2. Afficher tous les étudiants");
-            System.out.println("3. Afficher tous les étudiants d'une classe");
-            System.out.println("4. Supprimer un etudiant");
-            System.out.println("5. Chercher un étudiant");
-
+            menu();
             System.out.println("Sélectionner votre choix : ");
             choix = scanner.nextInt();
+            scanner.nextLine();
             switch (choix) {
                 case 1:
                     addStudent();
@@ -61,59 +56,94 @@ public class IHM {
         String lastName = scanner.next();
         System.out.println("Veuillez saisir le prénom de l'étudiant que vous recherchez : ");
         String firstName = scanner.next();
-        Etudiant.searchStudentByName(lastName,firstName);
+        Etudiant.searchStudentByName(lastName, firstName);
 
     }
 
 
-
-    private static void deleteStudent()  {
-        System.out.println("Veuillez saisir le nom de l'étudiant à supprimer : ");
-        String lastName = scanner.next();
-        System.out.println("Veuillez saisir le prénom de l'étudiant à supprimer : ");
-        String firstName = scanner.next();
-        int studentId = Etudiant.getStudentId(firstName,lastName);
-        Etudiant.deleteStudents(studentId);
-    }
-
-    private static void getAllStudentsFromClass() {
-        System.out.println("Veuillez saisir le numéro de classe : ");
-        int nc = scanner.nextInt();
-        Etudiant.getStudentsFromClass(nc);
-
-
-    }
-
-    private static void getAllStudents() {
-        Etudiant.getListStudents();
-    }
-
-    private static void addStudent() {
-        System.out.println("Veuillez saisir le nom d'un étudiant : ");
-        String lastName = scanner.next();
-        System.out.println("Veuillez saisir le prénom d'un étudiant : ");
-        String firstName = scanner.next();
-        System.out.println("Veuillez saisir le numéro de classe d'un étudiant : ");
-        int numeroClasse = scanner.nextInt();
+    private static void deleteStudent() {
+        System.out.println("Veuillez saisir l'id étudiant à supprimer : ");
+        int idEtudiant = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Veuillez saisir la date de diplôme d'un étudiant en format YYYY-MM-DD : ");
-        String dateDiplome = scanner.nextLine();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            Date diplomeDate = dateFormat.parse(dateDiplome);
-            System.out.println("Date de diplôme convertie en objet Date : " + diplomeDate);
-            Etudiant etudiant = new Etudiant(lastName,firstName,numeroClasse, (java.sql.Date) diplomeDate);
-            etudiant.addStudents();
-        } catch (ParseException e) {
-            System.out.println("Format de date invalide. Assurez-vous d'utiliser le format YYYY-MM-DD.");
-            e.printStackTrace(); // Vous pouvez gérer cette exception selon vos besoins.
+            Etudiant etudiant = Etudiant.getStudentId(idEtudiant);
+            etudiant.deleteStudents();
+            if (etudiant != null) {
+                if (etudiant.deleteStudents()) {
+                    System.out.println("Étudiant supprimé");
+                } else {
+                    System.out.println("Erreur lors de la suppression de l'étudiant");
+                }
+            } else {
+                System.out.println("Pas d'étudiant avec cet id");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+    private static void getAllStudentsFromClass(){
+        try{
+        System.out.println("Veuillez saisir le numéro de classe : ");
+        int nc=scanner.nextInt();
+        Etudiant.getStudentsFromClass(nc).forEach(e->System.out.println(e));
+        }catch(SQLException e){
+        System.out.println(e.getMessage());
+        }
         }
 
+private static void getAllStudents(){
+        try{
+        Etudiant.getListStudents().forEach(e->System.out.println(e));
+        }catch(SQLException e){
+        System.out.println(e.getMessage());
+        }
+        }
+
+private static void addStudent(){
+        System.out.println("Veuillez saisir le nom d'un étudiant : ");
+        String lastName=scanner.nextLine();
+        System.out.println("Veuillez saisir le prénom d'un étudiant : ");
+        String firstName=scanner.nextLine();
+        System.out.println("Veuillez saisir le numéro de classe d'un étudiant : ");
+        int numeroClasse=scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Veuillez saisir la date de diplôme d'un étudiant en format dd-mm-yyyy : ");
+        String dateDiplome=scanner.nextLine();
+        SimpleDateFormat dateFormat=new SimpleDateFormat("dd-mm-yyyy");
+        Date diplomeDate=null;
+        try{
+        diplomeDate=dateFormat.parse(dateDiplome);
+        }catch(ParseException e){
+        diplomeDate=new Date("01/01/2005");
+        }
+        Etudiant etudiant=new Etudiant(lastName,firstName,numeroClasse,diplomeDate);
+        try{
+        etudiant.addStudents();
+        if(etudiant.addStudents()){
+        System.out.println("Etudiant ajouté avec succès "+etudiant.getId());
+        }else{
+        System.out.println("Erreur ajout etudiant");
+        }
+
+        }catch(SQLException e){
+        System.out.println(e.getMessage());
+        }
+        }
+
+private static void menu(){
+        System.out.println("=== Menu ===");
+        System.out.println("1. Ajouter un étudiant");
+        System.out.println("2. Afficher tous les étudiants");
+        System.out.println("3. Afficher tous les étudiants d'une classe");
+        System.out.println("4. Supprimer un etudiant");
+        System.out.println("5. Chercher un étudiant");
 
 
-
-    }
-}
+        }
+        }
 
 
 
