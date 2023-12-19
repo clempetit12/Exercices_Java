@@ -5,9 +5,7 @@ import org.example.models.BankAccount;
 import org.example.models.Customer;
 import org.example.models.Operations;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +25,34 @@ public class OperationsDAO extends BaseDAO<Operations> {
         resultSet = preparedStatement.getGeneratedKeys();
         if (resultSet.next()) {
             element.setIdOperation(resultSet.getInt(1));
+            OperationsEnum statutEnum = OperationsEnum.valueOf(element.getOperationsEnum().name());
+            // Appelez la méthode pour mettre à jour le solde du compte
+            updateAccountBalance(element.getBankAccountId(), element.getAmount(), statutEnum);
         }
         return nbRows > 0;
+    }
+
+    public void updateAccountBalance(int accountId, long montant, OperationsEnum statut) throws SQLException {
+        String selectBalanceRequest = "SELECT solde FROM accounts WHERE account_id = ?";
+        try (PreparedStatement selectStatement = _connection.prepareStatement(selectBalanceRequest)) {
+            selectStatement.setInt(1, accountId);
+            ResultSet balanceResultSet = selectStatement.executeQuery();
+
+            if (balanceResultSet.next()) {
+                long soldeActuel = balanceResultSet.getLong("solde");
+
+                // Mettez à jour le solde en fonction du statut de l'opération (DEPOT ou RETRAIT)
+                long nouveauSolde = (statut == OperationsEnum.DEPOT) ? soldeActuel + montant : soldeActuel - montant;
+
+                // Mettez à jour le solde dans la table des comptes
+                String updateBalanceRequest = "UPDATE accounts SET solde = ? WHERE account_id = ?";
+                try (PreparedStatement updateStatement = _connection.prepareStatement(updateBalanceRequest)) {
+                    updateStatement.setLong(1, nouveauSolde);
+                    updateStatement.setInt(2, accountId);
+                    updateStatement.executeUpdate();
+                }
+            }
+        }
     }
 
     @Override
@@ -87,6 +111,7 @@ public class OperationsDAO extends BaseDAO<Operations> {
 
         return results;
     }
+
 
 
 }

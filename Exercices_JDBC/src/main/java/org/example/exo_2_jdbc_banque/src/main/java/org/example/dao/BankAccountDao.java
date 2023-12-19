@@ -1,13 +1,12 @@
 package org.example.dao;
 
 import lombok.Data;
+import org.example.enums.OperationsEnum;
 import org.example.models.BankAccount;
 import org.example.models.Customer;
 import org.example.models.Operations;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,4 +95,18 @@ public class BankAccountDao extends BaseDAO<BankAccount> {
         }
         return results;
     }
+
+    public int getGeneratedId() throws SQLException {
+        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                return generatedKeys.getInt(1);
+            } else {
+                throw new SQLException("Failed to retrieve generated ID.");
+            }
+        }
+
+    }
+
+
+
 }
