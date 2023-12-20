@@ -5,6 +5,7 @@ import lombok.Data;
 import org.example.dao.BankAccountDao;
 import org.example.dao.CustomerDao;
 import org.example.dao.OperationsDAO;
+import org.example.enums.OperationsEnum;
 import org.example.models.BankAccount;
 import org.example.models.Customer;
 import org.example.models.Operations;
@@ -42,10 +43,12 @@ public class BankService {
         }
     }
 
-    public boolean createBankAccount(Customer customer) {
-        BankAccount bankAccount = new BankAccount(customer);
+    public boolean createBankAccount(int idCustomer, long solde) {
         try {
+            BankAccount bankAccount = new BankAccount(solde,idCustomer);
+            Customer customer = customerDao.get(idCustomer);
             customer.getBankAccountList().add(bankAccount);
+            customerDao.update(customer);
             return bankAccountDao.save(bankAccount);
 
         } catch (SQLException e) {
@@ -56,7 +59,32 @@ public class BankService {
     public boolean makeOperation(Operations operations) {
         try {
 
-            return operationsDAO.save(operations);
+            operationsDAO.save(operations);
+
+            BankAccount bankAccount = bankAccountDao.get(operations.getBankAccountId());
+            bankAccount.addOperations(operations);
+            if (operations.getOperationsEnum() == OperationsEnum.DEPOT) {
+
+                bankAccount.setSoldAccount(bankAccount.getSoldAccount() + operations.getAmount());
+
+            } else {
+
+                if (bankAccount.getSoldAccount() - operations.getAmount() >= 0) {
+
+                    bankAccount.setSoldAccount(bankAccount.getSoldAccount() - operations.getAmount());
+
+                } else {
+
+                    System.out.println("Il n'y a pas assez de fonds sur le compte !");
+                    return false;
+                }
+            }
+
+
+            bankAccountDao.update(bankAccount);
+
+            System.out.println("Opération effectuée avec succès !");
+            return true;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

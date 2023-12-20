@@ -36,6 +36,7 @@ public class CustomerDao extends BaseDAO<Customer> {
         preparedStatement.setString(1, element.getFirstName());
         preparedStatement.setString(2, element.getLastName());
         preparedStatement.setString(3, element.getTelephoneNumber());
+        preparedStatement.setInt(4, element.getIdCustomer());
         int nbRows = preparedStatement.executeUpdate();
         return nbRows>0;
 

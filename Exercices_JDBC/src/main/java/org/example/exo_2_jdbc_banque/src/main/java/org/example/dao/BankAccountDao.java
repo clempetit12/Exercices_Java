@@ -18,12 +18,14 @@ public class BankAccountDao extends BaseDAO<BankAccount> {
         super(connection);
     }
 
+
+
     @Override
     public boolean save(BankAccount element) throws SQLException {
         request = "INSERT INTO accounts (solde,customer_id ) VALUES (?, ?) ";
         preparedStatement = _connection.prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setLong(1, element.getSoldAccount());
-        preparedStatement.setInt(2,element.getCustomer().getIdCustomer() );
+        preparedStatement.setInt(2,element.getIdCustomer() );
         int nbRows = preparedStatement.executeUpdate();
         resultSet = preparedStatement.getGeneratedKeys();
         if(resultSet.next()){
@@ -38,7 +40,7 @@ public class BankAccountDao extends BaseDAO<BankAccount> {
         request = "UPDATE  accounts SET solde  = ? , customer_id = ? WHERE account_id = ? ";
         preparedStatement = _connection.prepareStatement(request);
         preparedStatement.setLong(1, element.getSoldAccount());
-        preparedStatement.setInt(2,element.getCustomer().getIdCustomer() );
+        preparedStatement.setInt(2,element.getIdCustomer() );
         preparedStatement.setInt(3,element.getIdBankAccount() );
         int nbRows = preparedStatement.executeUpdate();
         return nbRows>0;
@@ -66,11 +68,8 @@ public class BankAccountDao extends BaseDAO<BankAccount> {
             long solde = resultSet.getLong("solde");
             int customer_id = resultSet.getInt("customer_id");
 
-            CustomerDao customerDao = new CustomerDao(_connection);
-            Customer customer =  customerDao.get(customer_id);
-
             List<Operations> operations = Operations.getOperationsForAccount(account_id);
-            bankAccount = new BankAccount(account_id, solde, customer, operations);
+            bankAccount = new BankAccount(account_id, solde, customer_id, operations);
         }
         return bankAccount;
     }
@@ -87,11 +86,9 @@ public class BankAccountDao extends BaseDAO<BankAccount> {
             long solde = resultSet.getLong("solde");
             int customer_id = resultSet.getInt("customer_id");
 
-            CustomerDao customerDao = new CustomerDao(_connection);
-            Customer customer =  customerDao.get(customer_id);
 
             List<Operations> operations = Operations.getOperationsForAccount(account_id);
-            BankAccount bankAccount = new BankAccount(account_id, solde, customer, operations);
+            BankAccount bankAccount = new BankAccount(account_id, solde, customer_id, operations);
             results.add(bankAccount);
         }
         return results;

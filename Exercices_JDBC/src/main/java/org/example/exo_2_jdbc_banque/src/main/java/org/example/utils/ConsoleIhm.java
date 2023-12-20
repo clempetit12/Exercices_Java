@@ -1,6 +1,7 @@
 package org.example.utils;
 
 import org.example.dao.BankAccountDao;
+import org.example.dao.CustomerDao;
 import org.example.enums.OperationsEnum;
 import org.example.models.BankAccount;
 import org.example.models.Customer;
@@ -18,33 +19,41 @@ public class ConsoleIhm {
         this.scanner = new Scanner(System.in);
     }
 
-public void start() {
-int choix;
-    do {
-        printMenu();
-        choix=scanner.nextInt();
-        scanner.nextLine();
-        switch (choix) {
-            case 1:
-                createCustomer();
-                break;
-            case 2:
-                withdrawIhm();
-                break;
-            case 3:
-                deposit();
-                break;
-            case 4:
-                displayAccount();
-                break;
-            case 5:
-                scanner.close();
-                break;
+    public void start() {
+        int choix;
+        do {
+            printMenu();
+            choix = scanner.nextInt();
+            scanner.nextLine();
+            switch (choix) {
+                case 1:
+                    createCustomer();
+                    break;
+                case 2:
+                    withdrawIhm();
+                    break;
+                case 3:
+                    deposit();
+                    break;
+                case 4:
+                    displayAccount();
+                    break;
+                case 5:
+                    createBankAccount();
+                    break;
+                case 6:
+                    scanner.close();
+                    break;
 
-        }
-    } while (choix != 0);
+            }
+        } while (choix != 0);
 
-}
+    }
+
+    private void createBankAccount() {
+
+
+    }
 
     private void displayAccount() {
         bankService.getAllAccounts().forEach(e -> System.out.println(e));
@@ -59,20 +68,8 @@ int choix;
         System.out.println("Merci de préciser l'id du compte bancaire");
         int id = scanner.nextInt();
         Customer customer = bankService.getCustomerbyid(idCustomer);
-        if (customer != null) {
-            BankAccount bankAccount = customer.getBankAccountById(id);
-            if (bankAccount != null) {
-                bankAccount.setSoldAccount(bankAccount.getSoldAccount()+ amount);
-            }
-        }
-        Operations deposit = new Operations(id,amount,OperationsEnum.DEPOT);
-        if (bankService.makeOperation(deposit)){
-            System.out.println("Le dépot à bien été effectué!");
-
-
-        } else {
-            System.out.println("le dépot n'a pas pu se faire");
-        };
+        Operations deposit = new Operations(id, amount, OperationsEnum.DEPOT);
+        bankService.makeOperation(deposit);
 
 
     }
@@ -82,13 +79,14 @@ int choix;
         long amount = scanner.nextInt();
         System.out.println("Merci de préciser l'id du compte bancaire");
         int id = scanner.nextInt();
-        Operations deposit = new Operations(id,amount,OperationsEnum.RETRAIT);
-        if (bankService.makeOperation(deposit)){
+        Operations deposit = new Operations(id, amount, OperationsEnum.RETRAIT);
+        if (bankService.makeOperation(deposit)) {
             System.out.println("Le dépot à bien été effectué!");
 
         } else {
             System.out.println("le dépot n'a pas pu se faire");
-        };
+        }
+        ;
     }
 
     private void createCustomer() {
@@ -98,13 +96,20 @@ int choix;
         String lastName = scanner.nextLine();
         System.out.println("Merci de saisir un numéro de téléphone");
         String telephone = scanner.nextLine();
-        Customer customer = new Customer(firstname,lastName,telephone);
-        if (bankService.createCustomer(customer)){
+
+        Customer customer = new Customer(firstname, lastName, telephone);
+        if (bankService.createCustomer(customer)) {
             System.out.println("Une personne a été créée avec succès !");
-           bankService.createBankAccount(customer);
+            System.out.println("Merci de saisir le solde de départ ");
+            long solde = scanner.nextInt();
+            if (bankService.createBankAccount( customer.getIdCustomer(), solde) ){
+                System.out.println("Le compte bancaire a été créé avec succès!");
+            } else {
+                System.out.println("La création du compte bancaire a échoué.");
+            }
         } else {
-            System.out.println("la création n'a pas pu se faire");
-        };
+            System.out.println("La création du client a échoué.");
+        }
 
     }
 
@@ -117,7 +122,6 @@ int choix;
         System.out.println("5. Quitter");
         System.out.println("Saisissez votre choix :");
     }
-
 
 
 }

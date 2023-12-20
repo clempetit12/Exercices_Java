@@ -88,5 +88,26 @@ public class OperationsDAO extends BaseDAO<Operations> {
         return results;
     }
 
+    public List<Operations> getOperationsForAccount(int accountId) throws SQLException {
+        List<Operations> operations = new ArrayList<>();
+        String request = "SELECT * FROM operations WHERE account_id = ?";
+        preparedStatement = _connection.prepareStatement(request);
+        resultSet = preparedStatement.executeQuery();
+        preparedStatement.setInt(1, accountId);
+        while (resultSet.next()) {
+            String statutAsString = resultSet.getString("statut");
+            OperationsEnum statutEnum = OperationsEnum.valueOf(statutAsString);
+
+            Operations operation = new Operations(
+                    resultSet.getInt("operation_id"),
+                    resultSet.getLong("montant"),
+                    statutEnum,
+                    resultSet.getInt("account_id")
+            );
+            operations.add(operation);
+        }
+
+        return operations;
+    }
 
 }

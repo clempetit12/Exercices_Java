@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS operations (
 operation_id INT AUTO_INCREMENT PRIMARY KEY,
 account_id INT,
 montant LONG,
-statut ENUM('DEPOT','RETRAIT'),
+ statut ENUM('DEPOT', 'RETRAIT'),
 CONSTRAINT fk_account_id FOREIGN KEY (account_id) REFERENCES accounts(account_id)
 
 );

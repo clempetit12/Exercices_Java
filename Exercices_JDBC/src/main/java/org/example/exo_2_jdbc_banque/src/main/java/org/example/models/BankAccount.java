@@ -5,30 +5,32 @@ import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class BankAccount {
     private int idBankAccount;
     @NonNull
     private long soldAccount;
     @NonNull
-    private Customer customer;
+    private int idCustomer;
     @NonNull
-    private List<Operations> operations;
+    private List<Operations> operations = new ArrayList<>();
 
     public BankAccount(int idBankAccount) {
         this.idBankAccount = idBankAccount;
     }
 
-    public BankAccount(@NonNull Customer customer) {
-        this.customer = customer;
+    public BankAccount(@NonNull long soldAccount, @NonNull int idCustomer) {
+        this.soldAccount = soldAccount;
+        this.idCustomer = idCustomer;
     }
 
-    public BankAccount(@NonNull long soldAccount, @NonNull Customer customer) {
-        this.soldAccount = soldAccount;
-        this.customer = customer;
+    public void addOperations (Operations operations1) {
+        operations.add(operations1);
     }
+
+
 }
