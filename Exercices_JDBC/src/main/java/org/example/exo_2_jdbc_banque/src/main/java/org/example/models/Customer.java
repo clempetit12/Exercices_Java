@@ -1,6 +1,5 @@
 package org.example.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 public class Customer {
     private int idCustomer;
     @NonNull
@@ -27,8 +25,6 @@ public class Customer {
         this.telephoneNumber = telephoneNumber;
         this.bankAccountList = bankAccountList;
     }
-
-
 
     public void findCustomerbyId(int id) {
 

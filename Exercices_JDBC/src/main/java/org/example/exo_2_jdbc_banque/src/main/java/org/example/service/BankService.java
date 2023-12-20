@@ -42,18 +42,12 @@ public class BankService {
         }
     }
 
-
     public boolean createBankAccount(Customer customer) {
         BankAccount bankAccount = new BankAccount(customer);
         try {
+            customer.getBankAccountList().add(bankAccount);
+            return bankAccountDao.save(bankAccount);
 
-            if (bankAccountDao.save(bankAccount)) {
-                customer.getBankAccountList().add(bankAccount);
-
-                return true;
-            } else {
-                return false;
-            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -82,15 +76,6 @@ public class BankService {
     public Customer getCustomerbyid(int customerId) {
         try {
             return customerDao.get(customerId);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    public List<Customer> getAllCustomers() {
-        try {
-            return customerDao.get();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

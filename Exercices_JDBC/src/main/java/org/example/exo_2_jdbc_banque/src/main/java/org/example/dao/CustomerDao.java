@@ -22,10 +22,10 @@ public class CustomerDao extends BaseDAO<Customer> {
         preparedStatement.setString(3, element.getTelephoneNumber());
         int nbRows = preparedStatement.executeUpdate();
         resultSet = preparedStatement.getGeneratedKeys();
-        if (resultSet.next()) {
+        if(resultSet.next()){
             element.setIdCustomer(resultSet.getInt(1));
         }
-        return nbRows > 0;
+        return nbRows>0;
 
     }
 
@@ -37,7 +37,7 @@ public class CustomerDao extends BaseDAO<Customer> {
         preparedStatement.setString(2, element.getLastName());
         preparedStatement.setString(3, element.getTelephoneNumber());
         int nbRows = preparedStatement.executeUpdate();
-        return nbRows > 0;
+        return nbRows>0;
 
     }
 
@@ -47,7 +47,7 @@ public class CustomerDao extends BaseDAO<Customer> {
         preparedStatement = _connection.prepareStatement(request);
         preparedStatement.setInt(1, element.getIdCustomer());
         int nbRows = preparedStatement.executeUpdate();
-        return nbRows > 0;
+        return nbRows>0;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class CustomerDao extends BaseDAO<Customer> {
         preparedStatement = _connection.prepareStatement(request);
         preparedStatement.setInt(1, id);
         resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
+        if(resultSet.next()){
             customer = new Customer(resultSet.getString("first_name"),
                     resultSet.getString("last_name"), resultSet.getString("telephone"));
         }
@@ -70,13 +70,11 @@ public class CustomerDao extends BaseDAO<Customer> {
         request = "SELECT * FROM customers ";
         preparedStatement = _connection.prepareStatement(request);
         resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
+        while (resultSet.next()){
             Customer customer = new Customer(resultSet.getString("first_name"),
                     resultSet.getString("last_name"), resultSet.getString("telephone"));
             results.add(customer);
         }
         return results;
     }
-
-
 }
