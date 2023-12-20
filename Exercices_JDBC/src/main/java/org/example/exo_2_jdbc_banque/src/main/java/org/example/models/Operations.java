@@ -30,6 +30,7 @@ public class Operations {
 
     public static List<Operations> getOperationsForAccount(int accountId) throws SQLException {
         List<Operations> operations = new ArrayList<>();
+
         return operations;
     }
 

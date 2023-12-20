@@ -94,7 +94,6 @@ public class BankService {
         public List<BankAccount> getAllAccounts () {
             try {
                 return bankAccountDao.get();
-
             }catch (SQLException e) {
                 throw new RuntimeException(e);
             }
