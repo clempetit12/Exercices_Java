@@ -17,7 +17,7 @@ hour_event TIME,
 id_location INT,
 price FLOAT,
 number_tickets_sold INT,
-CONSTRAINT fk_id_location FOREIGN KEY (id_location) REFERENCES locations(id_location)
+CONSTRAINT fk_id_location FOREIGN KEY (id_location) REFERENCES locations(id_location) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS customers (
