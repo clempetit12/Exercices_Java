@@ -44,6 +44,12 @@ public class Event {
         this.numberticketsSold = 0;
     }
 
+    public Event(int id, String name, int numberticketsSold) {
+        this.id = id;
+        this.name = name;
+        this.numberticketsSold = numberticketsSold;
+    }
+
     public int getId() {
         return id;
     }

@@ -7,6 +7,7 @@ import org.example.models.Tickets;
 import org.example.service.CustomerService;
 import org.example.service.EventService;
 import org.example.service.LocationService;
+import org.example.service.TicketsService;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -20,6 +21,7 @@ public class Ihm {
     private LocationService locationService = new LocationService();
     private CustomerService customerService = new CustomerService();
     private EventService eventService = new EventService();
+    private TicketsService ticketsService = new TicketsService();
 
     public Ihm() {
     }
@@ -179,7 +181,7 @@ public class Ihm {
             System.out.println("1/ ajouter un Evenement");
             System.out.println("2/ modifier un Evenement");
             System.out.println("3/ supprimer un Evenement");
-            System.out.println("4/ afficher la liste des evenements");
+            System.out.println("4/ afficher la liste des evenements disponibles");
             System.out.println("0/ retourner au menu generale");
             System.out.println("entrer votre choix :");
             int entry = s.nextInt();
@@ -261,6 +263,7 @@ public class Ihm {
 
     private void afficherListEventsDisponibles() {
         eventService.getAvailableEvents().forEach(e -> System.out.println(e));
+        this.menuEvenement();
     }
 
     public void addEvenement() {
@@ -308,15 +311,12 @@ public class Ihm {
             System.out.println("quel evenement voulez vous supprimer (0 pour retour) précisez l'id : ");
             int entry = s.nextInt();
 
-            if (entry == 0) {
-                this.menuEvenement();
-            } else {
-                Event event = eventService.getEventById(entry);
-                if (event != null) {
-                    eventService.deleteEvent(event.getId());
-                }
-                this.menuEvenement();
+            Event event = eventService.getEventById(entry);
+            if (event != null) {
+                eventService.deleteEvent(event.getId());
             }
+            this.menuEvenement();
+
         } catch (InputMismatchException e) {
             System.out.println("entrer une valeur numerique ");
             this.suprEvenement();
@@ -371,7 +371,6 @@ public class Ihm {
     }
 
 
-
     public void addClient() {
         try {
             System.out.println("--------ajouter CLient----------");
@@ -423,46 +422,50 @@ public class Ihm {
     public void suprClient() {
         try {
             System.out.println("--------supr CLient----------");
-            System.out.println("quel Client voulez vous supprimer précisé l(0 pour retour) : ");
+            System.out.println("quel Client voulez vous supprimer précisé id (0 pour retour) : ");
             int entry = s.nextInt();
 
             if (entry == 0) {
-                this.menuCLient();
+                this.menuLieux();
             } else {
                 Customer customer = customerService.getCustomerById(entry);
                 if (customer != null) {
-                    customerService.deleteCustomr(customer.getId());
+                    customerService.deleteCustomer(customer.getId());
+                    System.out.println("le customer a bien ete supprimé");
                 }
-                System.out.println("le CLient a bien ete supprimer");
+
                 this.menuCLient();
+
             }
         } catch (InputMismatchException e) {
             System.out.println("entrer une valeur numerique ");
-            this.suprClient();
+            this.suprLieu();
         }
     }
 
+
     public void achatBillet() {
         try {
-           
-                System.out.println("---------achat billet -----------");
-                
+
+            System.out.println("---------achat billet -----------");
+
             System.out.println("précisez l'id du client :");
             int client = s.nextInt();
-
-            System.out.println("choisissez  un évènement précisez l'id");
-            int event = s.nextInt();
-            System.out.println("précisez le nombre de places à acheter");
-            int nombreTickets = s.nextInt();
-            Event event1 = eventService.getEventById(event);
-            Tickets tickets = new Tickets(client,event,nombreTickets);
-
-            if(   customerService.buyTickets(tickets)) {
-            event1.setnumberticketsSold(event1.getnumberticketsSold()-nombreTickets);
-                eventService.updateeventTicketsSold(event1);
+            Customer customer = customerService.getCustomerById(client);
+            if (customer != null) {
+                System.out.println("choisissez  un évènement précisez l'id");
+                int event = s.nextInt();
+                System.out.println("précisez le nombre de places à acheter");
+                int nombreTickets = s.nextInt();
+                Event event1 = eventService.getEventById(event);
+                Tickets tickets = new Tickets(client, event, nombreTickets);
+                if (ticketsService.buyTickets(tickets)) {
+                    event1.setnumberticketsSold(event1.getnumberticketsSold() + tickets.getNumberTicketsBought());
+                    eventService.updateeventTicketsSold(event1);
+                }
+            } else {
+                System.out.println("il n'y a pas de client avec cet id");
             }
-
-          
             this.menuCLient();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("index out of bound");
@@ -478,11 +481,14 @@ public class Ihm {
             System.out.println("---------annulation billet -----------");
 
             System.out.println("précisez l'id de la vente :");
-            int vente = s.nextInt();
-
-            if(   customerService.buyTickets(tickets)) {
-                event1.setnumberticketsSold(event1.getnumberticketsSold()-nombreTickets);
-                eventService.updateeventTicketsSold(event1);
+            int idVente = s.nextInt();
+            Tickets tickets = ticketsService.getTicketById(idVente);
+            if (tickets != null) {
+                if (ticketsService.cancelTicket(idVente)) {
+                    Event event = eventService.getEventById(tickets.getIdEvent());
+                    event.setnumberticketsSold(event.getnumberticketsSold() - tickets.getNumberTicketsBought());
+                    eventService.updateeventTicketsSold(event);
+                }
             }
 
 
@@ -494,13 +500,14 @@ public class Ihm {
             System.out.println("entrer une valeur valide");
         }
     }
+
     public void affichageBillet() {
         try {
             System.out.println("---------afffichage des billets----------");
 
-            System.out.println("choisiser un client :");
+            System.out.println("choisissez un client :");
             int client = s.nextInt();
-
+            ticketsService.getTicketBoughtByCustomer(client).forEach(e -> System.out.println(e));
             this.menuCLient();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("index out of bound");
@@ -509,12 +516,6 @@ public class Ihm {
             System.out.println("entrer une valeur valide");
             this.affichageBillet();
         }
-    }
-
-    //fonctions global
-    public void afficheList(List list) {
-        list.forEach(System.out::println);
-        System.out.println();
     }
 
 

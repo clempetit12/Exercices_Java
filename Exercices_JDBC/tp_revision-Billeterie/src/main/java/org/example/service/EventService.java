@@ -3,8 +3,10 @@ package org.example.service;
 import org.example.dao.CustomerDao;
 import org.example.dao.EventDao;
 import org.example.dao.LocationDao;
+import org.example.models.Customer;
 import org.example.models.Event;
 import org.example.models.Location;
+import org.example.models.Tickets;
 import org.example.utils.DatabaseManager;
 
 import java.sql.Connection;
@@ -55,15 +57,21 @@ public class EventService {
     }
 
     public boolean deleteEvent(int id) {
-        try{
+        try {
             Event event = eventDao.get(id);
-            if(event != null) {
+            if (event != null) {
                 eventDao.delete(event);
+                System.out.println("Event avec id " + id + " supprimé avec succès.");
+            } else {
+                System.out.println("Event avec id " + id + " n'existe pas.");
             }
-        }catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } return true;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
+
     public Event getEventById(int id) {
         try {
             return eventDao.get(id);
@@ -79,11 +87,11 @@ public class EventService {
         }
     }
 
-    public boolean verifyDisponibilityEvent(Event event) {
+    public boolean verifyDisponibilityEvent(Event event, Tickets tickets) {
         try {
             Location location = locationDao.get(event.getIdLocation());
             int numberTicketsAvailable = event.getnumberticketsSold();
-            if (location.getcapacity() > numberTicketsAvailable) {
+            if (location.getcapacity() >= numberTicketsAvailable + tickets.getNumberTicketsBought()) {
                 return true;
             }
 

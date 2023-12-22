@@ -13,6 +13,13 @@ public class Tickets {
         this.numberTicketsBought = numberTicketsBought;
     }
 
+    public Tickets(int id, int idCustomer, int idEvent, int numberTicketsBought) {
+        this.id = id;
+        this.idCustomer = idCustomer;
+        this.idEvent = idEvent;
+        this.numberTicketsBought = numberTicketsBought;
+    }
+
     public Tickets(int idEvent, int numberTicketsBought) {
         this.idEvent = idEvent;
         this.numberTicketsBought = numberTicketsBought;
@@ -48,5 +55,15 @@ public class Tickets {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Tickets{" +
+                "id=" + id +
+                ", idCustomer=" + idCustomer +
+                ", idEvent=" + idEvent +
+                ", numberTicketsBought=" + numberTicketsBought +
+                '}';
     }
 }

@@ -17,12 +17,26 @@ SUM(amount) AS total
 FROM payments GROUP BY atelier_graphique;
 
 -- 4. Retounez les produits qui n'ont pas été vendus.
-SELECT (SELECT productName FROM products p WHERE p.productCode = od.productCode) AS produits, status
-FROM orders o
-JOIN orderDetails od ON o.orderNumber = od.orderNumber WHERE status = "cancelled";
+SELECT *
+FROM products p
+LEFT JOIN orderdetails od ON p.productCode = od.productCode
+WHERE od.productCode IS NULL OR od.quantityOrdered = 0;
+
 
 -- 5. Listez le montant payé pour chaque client.
-SELECT 
+SELECT (SELECT customerName FROM customers WHERE customers.customerNumber = payments.customerNumber) AS customer_Name
+, SUM(AMOUNT)
+FROM payments 
+ GROUP BY customer_Name 
+ ORDER BY customer_Name;
+
+-- 6. Indiquez le nombre de commandes « en attente » pour chaque client.
+SELECT c.customerName,COUNT(*) AS order_onHold
+FROM orders o
+JOIN customers c ON o.customerNumber = c.customerNumber
+WHERE o.status = 'On Hold'
+GROUP BY c.customerName;
+
 
 
 SELECT * FROM productLines;

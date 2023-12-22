@@ -1,6 +1,7 @@
 package org.example.dao;
 
 import jdk.jshell.spi.ExecutionControl;
+import org.example.models.Customer;
 import org.example.models.Event;
 import org.example.models.Location;
 
@@ -40,7 +41,7 @@ public class EventDao extends BaseDao<Event> {
         preparedStatement.setString(1, element.getname());
         preparedStatement.setDate(2, new java.sql.Date(element.getDate().getTime()));
         preparedStatement.setTime(3, new java.sql.Time(element.getDate().getTime()));
-        preparedStatement.setInt(4, element.getId());
+        preparedStatement.setInt(4, element.getIdLocation());
         preparedStatement.setFloat(5, element.getprice());
         preparedStatement.setInt(6, element.getnumberticketsSold());
         preparedStatement.setInt(7, element.getId());
@@ -91,14 +92,12 @@ public class EventDao extends BaseDao<Event> {
 
 public List<Event> getEventsAvailable() throws SQLException {
     List<Event> eventListAvailable = new ArrayList<>();
-    request = " SELECT event_name, capacity, number_tickets_sold FROM events INNER JOIN locations " +
+    request = " SELECT id_event, event_name, capacity, number_tickets_sold FROM events INNER JOIN locations " +
             "ON locations.id_location = events.id_location WHERE (capacity - number_tickets_sold) > 0";
     preparedStatement = _connection.prepareStatement(request);
     resultSet = preparedStatement.executeQuery();
     while (resultSet.next()){
         Event  event = new Event(resultSet.getInt("id_event"), resultSet.getString("event_name"),
-                resultSet.getDate("date_event"),resultSet.getTime("hour_event"),
-                resultSet.getInt("id_location"),resultSet.getFloat("price"),
                 resultSet.getInt("number_tickets_sold"));
         eventListAvailable.add(event);
     }

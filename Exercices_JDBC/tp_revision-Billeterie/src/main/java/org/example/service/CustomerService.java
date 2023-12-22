@@ -44,10 +44,10 @@ public class CustomerService {
         return customer;
     }
 
-    public boolean updateCustomer(Customer customer) {
+    public Customer updateCustomer(Customer customer) {
         try {
             customerDao.update(customer);
-            return true ;
+            return customer ;
 
         } catch (
                 SQLException e) {
@@ -55,16 +55,18 @@ public class CustomerService {
         }
     }
 
-    public boolean deleteCustomr(int id) {
-        try{
+    public boolean deleteCustomer(int id) {
+        try {
             Customer customer = customerDao.get(id);
-            if(customer != null) {
+            if (customer != null) {
                 customerDao.delete(customer);
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } return true;
+        }
+        return true;
     }
+
 
     public Customer getCustomerById(int id) {
         try {
@@ -74,32 +76,5 @@ public class CustomerService {
         }
     }
 
-    public boolean buyTickets (Tickets tickets) {
-        try {
-            Event event = eventDao.get(tickets.getIdEvent());
-            if (event.getnumberticketsSold() > tickets.getNumberTicketsBought()) {
-                return customerDao.buyTicketsForEvent(tickets);
-            } else {
-                System.out.println("Il n'y a plus de places disponibles !");
-            }
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return false;
-    }
-
-    public boolean cancelTicket (Tickets tickets) {
-        try {
-
-                return customerDao.buyTicketsForEvent(tickets);
-            } else {
-                System.out.println("Il n'y a plus de places disponibles !");
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return false;
-    }
 }

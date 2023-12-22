@@ -3,6 +3,7 @@ package org.example.dao;
 import jdk.jshell.spi.ExecutionControl;
 import org.example.models.Customer;
 import org.example.models.Event;
+import org.example.models.Location;
 import org.example.models.Tickets;
 
 import java.sql.Connection;
@@ -60,7 +61,7 @@ public class CustomerDao extends BaseDao<Customer> {
         preparedStatement.setInt(1, id);
         resultSet = preparedStatement.executeQuery();
         if(resultSet.next()){
-            customer = new Customer(resultSet.getString("first_name"),
+            customer = new Customer(resultSet.getInt("id_customer"), resultSet.getString("first_name"),
                     resultSet.getString("last_name"),
                     resultSet.getString("email")
                     );
@@ -84,31 +85,5 @@ public class CustomerDao extends BaseDao<Customer> {
         return customerList;
     }
 
-    public boolean buyTicketsForEvent(Tickets element) throws SQLException{
-        request = "INSERT INTO tickets_sales (id_customer,id_event,numberTicketsBought ) VALUES (?, ?, ?) ";
-        preparedStatement = _connection.prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
-        preparedStatement.setInt(1,element.getIdCustomer() );
-        preparedStatement.setInt(2, element.getIdEvent());
-        preparedStatement.setInt(3, element.getNumberTicketsBought());
-        int nbRows = preparedStatement.executeUpdate();
-        resultSet = preparedStatement.getGeneratedKeys();
-        if(resultSet.next()){
-            element.setId(resultSet.getInt(1));
-        }
-        return nbRows>0;
-    }
 
-    public boolean cancelTicket(Tickets element) throws SQLException{
-        request = "DELETE INTO tickets_sales WHERE id_tickets_sales = ? ";
-        preparedStatement = _connection.prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
-        preparedStatement.setInt(1,element.getIdCustomer() );
-        preparedStatement.setInt(2, element.getIdEvent());
-        preparedStatement.setInt(3, element.getNumberTicketsBought());
-        int nbRows = preparedStatement.executeUpdate();
-        resultSet = preparedStatement.getGeneratedKeys();
-        if(resultSet.next()){
-            element.setId(resultSet.getInt(1));
-        }
-        return nbRows>0;
-    }
 }
