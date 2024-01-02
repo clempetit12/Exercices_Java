@@ -461,7 +461,7 @@ public class Ihm {
                 Tickets tickets = new Tickets(client, event, nombreTickets);
                 if (ticketsService.buyTickets(tickets)) {
                     event1.setnumberticketsSold(event1.getnumberticketsSold() + tickets.getNumberTicketsBought());
-                    eventService.updateeventTicketsSold(event1);
+                    eventService.updateEventTicketsSold(event1);
                 }
             } else {
                 System.out.println("il n'y a pas de client avec cet id");
@@ -487,7 +487,7 @@ public class Ihm {
                 if (ticketsService.cancelTicket(idVente)) {
                     Event event = eventService.getEventById(tickets.getIdEvent());
                     event.setnumberticketsSold(event.getnumberticketsSold() - tickets.getNumberTicketsBought());
-                    eventService.updateeventTicketsSold(event);
+                    eventService.updateEventTicketsSold(event);
                 }
             }
 
