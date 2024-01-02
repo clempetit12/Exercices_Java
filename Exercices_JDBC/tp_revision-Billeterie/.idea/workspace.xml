@@ -5,30 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6216f15f-5595-43d7-9f4b-81490d006e26" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Classes/Ihm/Ihm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Classes/Ihm/Ihm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/CustomerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/CustomerDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/EventDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/EventDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/Tickets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/Tickets.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/CustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/EventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/EventService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/TicketsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/TicketsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/DatabaseManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/example/Classes/Ihm/Ihm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/Classes/Ihm/Ihm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/dao/CustomerDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/dao/CustomerDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/dao/EventDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/dao/EventDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/dao/LocationDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/dao/LocationDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/models/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/models/Customer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/models/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/models/Event.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/models/Location.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/models/Location.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/models/Tickets.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/models/Tickets.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/service/CustomerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/service/CustomerService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/service/EventService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/service/EventService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/service/LocationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/service/LocationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/service/TicketsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/service/TicketsService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/utils/DatabaseManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/utils/DatabaseManager.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
