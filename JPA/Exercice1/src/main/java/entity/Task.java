@@ -10,8 +10,9 @@ public class Task {
     private Long id;
     @Column(name = "title")
     private String title;
-    @Column(name = "completeed")
+    @Transient
     private boolean completeed;
+    @Column(name = "completeed")
     private String completeedString;
 
     public Task(String title, boolean completeed) {

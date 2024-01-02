@@ -57,7 +57,6 @@ public class ToDoDao extends BaseDao<Task> {
         System.out.println("La tâche a été supprimée avec succès");
 
 
-
         return true;
     }
 
