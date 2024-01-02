@@ -13,7 +13,7 @@
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/todoList"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value="2554"/>
+            <property name="javax.persistence.jdbc.password" value="25542554"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             
         </properties>

@@ -32,13 +32,13 @@ public class IHM {
                     displayTodo();
                     break;
                 case 0:
-                    scanner.close();
+                    closeAll();
                     break;
                 default:
                     System.out.println("choix invalide !");
             }
 
-        }while (choix != 0);
+        } while (choix != 0);
     }
 
     private void displayTodo() {
@@ -63,8 +63,9 @@ public class IHM {
         todoService.createTask(title);
     }
 
-    private void createTodo() {
-
+    private void closeAll() {
+        scanner.close();
+        todoService.close();
 
 
     }
