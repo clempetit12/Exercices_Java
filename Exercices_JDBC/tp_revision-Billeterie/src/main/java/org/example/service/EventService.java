@@ -101,7 +101,7 @@ public class EventService {
         return false;
     }
 
-    public boolean updateeventTicketsSold(Event event) {
+    public boolean updateEventTicketsSold(Event event) {
         try {
             return eventDao.updateEventTicketsSold(event);
         } catch (SQLException e) {
