@@ -67,5 +67,10 @@ public class ToDoDao extends BaseDao<Task> {
 
     }
 
+    public void close() {
+        em.close();
+        emf.close();
+    }
+
 
 }

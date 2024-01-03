@@ -35,7 +35,7 @@ public class IHM {
                     displayTodo();
                     break;
                 case 0:
-                    scanner.close();
+                    closeAll();
                     break;
                 default:
                     System.out.println("choix invalide !");
@@ -78,10 +78,8 @@ public class IHM {
         }
     }
 
-    private void createTodo() {
-
-
-
+    private void closeAll() {
+        todoService.close();
     }
 
 
@@ -89,7 +87,7 @@ public class IHM {
         System.out.println("=== ToDo ===");
         System.out.println("1. Ajout d'une tâche");
         System.out.println("2. Suppression d'une tâche ");
-        System.out.println("3. Modification d'une tâche");
+        System.out.println("3. Modification d'une tâche en tant que complétée");
         System.out.println("4. Affichage de toutes les tâches");
         System.out.println("0. Quitter");
         System.out.println("Saisissez votre choix :");

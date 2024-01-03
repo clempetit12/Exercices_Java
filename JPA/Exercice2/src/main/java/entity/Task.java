@@ -13,6 +13,7 @@ public class Task {
     @Column(name = "completeed")
     private boolean completeed;
 
+
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "task_id", referencedColumnName = "taskInfo_id")
     private TaskInfo taskInfo;

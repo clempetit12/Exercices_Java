@@ -64,6 +64,9 @@ public class TodoService {
         return true;
     }
 
+    public void close() {
+        toDoDao.close();
+    }
 
 
 }
