@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6216f15f-5595-43d7-9f4b-81490d006e26" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JPA/Exercice2/src/main/java/dao/ToDoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA/Exercice2/src/main/java/dao/ToDoDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../JPA/Exercice2/src/main/java/entity/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA/Exercice2/src/main/java/entity/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JPA/Exercice2/src/main/java/ihm/IHM.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA/Exercice2/src/main/java/ihm/IHM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JPA/Exercice2/src/main/java/service/TodoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA/Exercice2/src/main/java/service/TodoService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

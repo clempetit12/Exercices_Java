@@ -14,7 +14,7 @@ public class Task {
     private boolean completeed;
 
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+    @OneToOne(cascade =CascadeType.ALL)
     @JoinColumn(name = "task_id", referencedColumnName = "taskInfo_id")
     private TaskInfo taskInfo;
 

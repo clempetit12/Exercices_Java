@@ -15,56 +15,104 @@ public class ToDoDao extends BaseDao<Task> {
 
     @Override
     public boolean addTask(Task element) {
-        transaction.begin();
-        em.persist(element);
-        transaction.commit();
-        return true;
+        try{
+            transaction.begin();
+            em.persist(element);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if(transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     @Override
     public List<Task> displayTasks() {
-        transaction.begin();
         List<Task> taskList = null;
-        taskList = em.createQuery("select t from Task t", Task.class).getResultList();
-        for (Task t : taskList) {
-            System.out.println(t);
+        try {
+            transaction.begin();
+            taskList = em.createQuery("select t from Task t", Task.class).getResultList();
+
+            for (Task t : taskList) {
+                System.out.println(t);
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         }
-        transaction.commit();
 
         return taskList;
     }
 
+
     @Override
     public boolean taskCompleteed(Long id) {
-        transaction.begin();
-        Task task = em.find(Task.class, id);
-        task.setCompleteed(true);
-        transaction.commit();
-        System.out.println("La tâche est terminée avec id " + id);
 
-        return true;
+
+        try{
+            transaction.begin();
+            Task task = em.find(Task.class, id);
+            task.setCompleteed(true);
+            transaction.commit();
+            System.out.println("La tâche est terminée avec id " + id);
+
+            return true;
+        } catch (Exception e) {
+            if(transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean removeTask(Long id) {
-        transaction.begin();
-        Task task = em.find(Task.class, id);
-        em.remove(task);
-        transaction.commit();
-        System.out.println("La tâche a été supprimée avec succès");
+
+
+        try{
+            transaction.begin();
+            Task task = em.find(Task.class, id);
+            em.remove(task);
+            transaction.commit();
+            System.out.println("La tâche a été supprimée avec succès");
 
 
 
-        return true;
+            return true;
+        } catch (Exception e) {
+            if(transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean addTaskInfo(TaskInfo element) {
-        transaction.begin();
-        em.persist(element);
-        transaction.commit();
-        return true;
 
+
+        try{
+            transaction.begin();
+            em.persist(element);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if(transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public void close() {
