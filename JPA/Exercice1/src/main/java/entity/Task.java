@@ -10,8 +10,10 @@ public class Task {
     private Long id;
     @Column(name = "title")
     private String title;
-    @Column(name = "completeed")
+    @Transient
     private boolean completeed;
+    @Column(name = "completeed")
+    private String completeedString;
 
     public Task(String title, boolean completeed) {
         this.title = title;
@@ -50,12 +52,16 @@ public class Task {
         this.completeed = completeed;
     }
 
+    public void setCompleteedString(String completedString) {
+        this.completeedString = completedString;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", completeed=" + completeed +
+                ", completeed=" + completeedString +
                 '}';
     }
 }
