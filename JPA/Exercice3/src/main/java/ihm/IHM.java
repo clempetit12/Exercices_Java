@@ -1,12 +1,16 @@
 package ihm;
 
 import com.mysql.cj.log.Log;
+import dao.ToDoDao;
+import dao.UserDao;
 import entity.Task;
 import entity.TaskInfo;
 import entity.User;
 import service.TodoService;
 import service.UserService;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,12 +19,21 @@ import java.util.Scanner;
 
 public class IHM {
 
+    private EntityManagerFactory emf;
     private Scanner scanner = new Scanner(System.in);
     private int choix;
-    private static TodoService todoService = new TodoService();
-    private static UserService userService = new UserService();
+    private static TodoService todoService;
+    private static UserDao userDao;
+    private static ToDoDao toDoDao;
+    private static UserService userService;
 
     public IHM() {
+        emf = Persistence.createEntityManagerFactory("todoList");
+        todoService = new TodoService(toDoDao);
+        userDao = new UserDao(emf);
+        userService = new UserService(userDao);
+        toDoDao=new ToDoDao(emf);
+
     }
 
     public void start() {
@@ -200,7 +213,7 @@ public class IHM {
         System.out.println("4. Affichage de toutes les tâches");
         System.out.println("5. Modification d'une tâche");
         System.out.println("6. Ajout d'un utilisateur ");
-        System.out.println("7. Ajouter une tâche à un utilisateur");
+        System.out.println("7. Ajouter de tâches à un utilisateur");
         System.out.println("8. Afficher les tâches d'un utilisateur");
         System.out.println("9. Supprimer un utilisateur");
         System.out.println("0. Quitter");

@@ -13,12 +13,16 @@ import java.util.List;
 
 public class UserDao extends BaseDao<User> {
 
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("todoList");
-    private static EntityManager em = emf.createEntityManager();
-    private static EntityTransaction transaction = em.getTransaction();
+    private EntityManagerFactory emf;
+
+    public UserDao(EntityManagerFactory entityManagerFactory) {
+        this.emf = entityManagerFactory;
+    }
 
     @Override
     public boolean add(User element) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
             em.persist(element);
@@ -45,6 +49,8 @@ public class UserDao extends BaseDao<User> {
 
     @Override
     public boolean remove(Long id) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
             User user = em.find(User.class, id);
@@ -73,17 +79,11 @@ public class UserDao extends BaseDao<User> {
     }
 
     public User findUser(Long id) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
         try {
-            transaction.begin();
-            User user = em.find(User.class, id);
-
-            user.getTaskList().size();
-            transaction.commit();
-            return user;
+            return em.find(User.class, id);
         } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
             e.printStackTrace();
             return null;
         }

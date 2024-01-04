@@ -6,7 +6,10 @@ import entity.User;
 
 public class UserService {
 
-    private static UserDao userDao = new UserDao();
+    private  UserDao userDao;
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     public User addUser(User user) {
         if (userDao.add(user)){

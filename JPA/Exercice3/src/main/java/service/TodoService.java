@@ -14,9 +14,10 @@ import java.util.List;
 
 public class TodoService {
 
-    private static ToDoDao toDoDao = new ToDoDao();
-    private static UserDao userDao = new UserDao();
-
+    private  ToDoDao toDoDao;
+    public TodoService(ToDoDao toDoDao) {
+        this.toDoDao = toDoDao;
+    }
     public Task createTask(Task task) {
             if (toDoDao.add(task)  ) {
                 System.out.println("Une tâche a bien été créé   !");

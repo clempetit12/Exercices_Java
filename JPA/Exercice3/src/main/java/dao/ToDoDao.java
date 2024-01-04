@@ -10,30 +10,42 @@ import java.util.List;
 
 public class ToDoDao extends BaseDao<Task> {
 
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("todoList");
-    private static EntityManager em = emf.createEntityManager();
-    private static EntityTransaction transaction = em.getTransaction();
+    private EntityManagerFactory emf;
+
+    public ToDoDao(EntityManagerFactory entityManagerFactory) {
+        this.emf = entityManagerFactory;
+    }
 
     @Override
     public boolean add(Task element) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
             em.persist(element);
             transaction.commit();
             return true;
         } catch (Exception e) {
-            if (transaction.isActive()) {
+            if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
             e.printStackTrace();
             return false;
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+            if (emf != null && emf.isOpen()) {
+                emf.close();
+            }
         }
-
     }
 
     @Override
     public List<Task> display() {
         List<Task> taskList = null;
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
             taskList = em.createQuery("select t from Task t", Task.class).getResultList();
@@ -56,6 +68,8 @@ public class ToDoDao extends BaseDao<Task> {
 
     @Override
     public boolean taskCompleteed(Long id) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
             Task task = em.find(Task.class, id);
@@ -75,7 +89,8 @@ public class ToDoDao extends BaseDao<Task> {
 
     @Override
     public boolean remove(Long id) {
-
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
 
         try {
             transaction.begin();
@@ -97,6 +112,8 @@ public class ToDoDao extends BaseDao<Task> {
 
     @Override
     public boolean update(Long id, String title, String description, Date endingDate, Integer priority) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
             Task task = em.find(Task.class, id);
@@ -126,7 +143,8 @@ public class ToDoDao extends BaseDao<Task> {
     @Override
     public boolean addTaskInfo(TaskInfo element) {
 
-
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
             em.persist(element);
@@ -142,7 +160,7 @@ public class ToDoDao extends BaseDao<Task> {
     }
 
     public void close() {
-        em.close();
+
         emf.close();
     }
 
