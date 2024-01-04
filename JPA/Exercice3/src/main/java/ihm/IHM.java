@@ -29,10 +29,11 @@ public class IHM {
 
     public IHM() {
         emf = Persistence.createEntityManagerFactory("todoList");
-        todoService = new TodoService(toDoDao);
+
         userDao = new UserDao(emf);
         userService = new UserService(userDao);
         toDoDao=new ToDoDao(emf);
+        todoService = new TodoService(toDoDao);
 
     }
 

@@ -31,13 +31,7 @@ public class ToDoDao extends BaseDao<Task> {
             }
             e.printStackTrace();
             return false;
-        } finally {
-            if (em != null && em.isOpen()) {
-                em.close();
-            }
-            if (emf != null && emf.isOpen()) {
-                emf.close();
-            }
+
         }
     }
 
