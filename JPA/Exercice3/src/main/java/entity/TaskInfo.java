@@ -27,6 +27,15 @@ public class TaskInfo {
     public TaskInfo() {
     }
 
+    public TaskInfo(Date finishDate, Integer priorityTask, Task task, String description) {
+        this.finishDate = finishDate;
+        this.priorityTask = priorityTask;
+        this.task = task;
+        this.description = description;
+    }
+
+
+
     public Long getTaskInfo_id() {
         return id;
     }

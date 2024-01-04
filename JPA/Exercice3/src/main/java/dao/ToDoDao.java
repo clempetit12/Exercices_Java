@@ -15,7 +15,7 @@ public class ToDoDao extends BaseDao<Task> {
     private static EntityTransaction transaction = em.getTransaction();
 
     @Override
-    public boolean addTask(Task element) {
+    public boolean add(Task element) {
         try {
             transaction.begin();
             em.persist(element);
@@ -32,7 +32,7 @@ public class ToDoDao extends BaseDao<Task> {
     }
 
     @Override
-    public List<Task> displayTasks() {
+    public List<Task> display() {
         List<Task> taskList = null;
         try {
             transaction.begin();
@@ -74,7 +74,7 @@ public class ToDoDao extends BaseDao<Task> {
     }
 
     @Override
-    public boolean removeTask(Long id) {
+    public boolean remove(Long id) {
 
 
         try {

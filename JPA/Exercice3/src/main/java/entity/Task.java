@@ -18,6 +18,9 @@ public class Task {
     @JoinColumn(name = "taskinfo_id", referencedColumnName = "taskInfo_id")
     private TaskInfo taskInfo;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     public Task(String title, boolean completeed) {
         this.title = title;
         this.completeed = completeed;
@@ -27,6 +30,13 @@ public class Task {
         this.title = title;
         this.taskInfo = taskInfo;
         this.completeed = false;
+    }
+
+    public Task(String title, boolean completeed, TaskInfo taskInfo, User user) {
+        this.title = title;
+        this.completeed = completeed;
+        this.taskInfo = taskInfo;
+        this.user = user;
     }
 
     public Task() {
@@ -67,6 +77,15 @@ public class Task {
 
     public void setTaskInfo(TaskInfo taskInfo) {
         this.taskInfo = taskInfo;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+        user.getTaskList().add(this);
     }
 
     @Override

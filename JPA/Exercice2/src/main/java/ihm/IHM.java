@@ -34,6 +34,9 @@ public class IHM {
                 case 4:
                     displayTodo();
                     break;
+                case 5:
+                    updateTask();
+                    break;
                 case 0:
                     closeAll();
                     break;
@@ -42,6 +45,29 @@ public class IHM {
             }
 
         }while (choix != 0);
+    }
+
+    private void updateTask() {
+        try {
+            System.out.println("Veuillez indiquer l'id de la tâche que vous souhaitez modifier :");
+            Long id = scanner.nextLong();
+            scanner.nextLine();
+            System.out.println("Veuillez indiquer le nouveau titre : ");
+            String title = scanner.nextLine();
+            System.out.println("Veuillez indiquer la description de la  tâche");
+            String description = scanner.nextLine();
+            System.out.println("Veuillez indiquer la dateButoire de la tâche (format dd-MM-yyyy)");
+            String date_string = scanner.next();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = formatter.parse(date_string);
+            System.out.println("Veuillez indiquer la priorité");
+            Integer priority = scanner.nextInt();
+            scanner.nextLine();
+            todoService.updateTask(id,title,description,date,priority);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     private void displayTodo() {
@@ -72,6 +98,7 @@ public class IHM {
             Date date = formatter.parse(date_string);
             System.out.println("Veuillez indiquer la priorité");
             Integer priority = scanner.nextInt();
+            scanner.nextLine();
             todoService.createTask(title, description, date, priority);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -89,6 +116,7 @@ public class IHM {
         System.out.println("2. Suppression d'une tâche ");
         System.out.println("3. Modification d'une tâche en tant que complétée");
         System.out.println("4. Affichage de toutes les tâches");
+        System.out.println("5. Modification d'une tâche");
         System.out.println("0. Quitter");
         System.out.println("Saisissez votre choix :");
 
