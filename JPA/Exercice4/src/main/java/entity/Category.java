@@ -17,7 +17,7 @@ public class Category {
     private String name;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name="category_tag",
+    @JoinTable(name="category_task",
             joinColumns = @JoinColumn(name="category_id"),
             inverseJoinColumns = @JoinColumn(name="task_id"))
     private List<Task> taskList = new ArrayList<>();
