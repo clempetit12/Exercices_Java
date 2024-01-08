@@ -29,6 +29,8 @@ public class AggencyDao implements BaseDao<Agency> {
             e.printStackTrace();
             return false;
 
+        } finally {
+            em.close();
         }
     }
 
@@ -58,6 +60,8 @@ return false;
             e.printStackTrace();
             return null;
 
+        }finally {
+            em.close();
         }
     }
 

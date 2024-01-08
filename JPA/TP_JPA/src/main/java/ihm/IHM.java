@@ -82,8 +82,13 @@ public class IHM {
 
     private void deleteCustomer() {
         System.out.println("Veuillez indiquer l'id du client à supprimer ");
-        Long id  = scanner.nextLong();
-        customerService.deleteCustomer(id);
+        Long id = scanner.nextLong();
+        Customer customer = customerService.findCustomer(id);
+        if (customer != null) {
+            customerService.deleteCustomer(id);
+        } else {
+            System.out.println("Aucun client trouvé avec cet id !");
+        }
     }
 
     private void deleteAccount() {

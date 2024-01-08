@@ -33,6 +33,8 @@ public class AccountDao implements BaseDao<Account> {
             e.printStackTrace();
             return false;
 
+        }finally {
+            em.close();
         }
     }
 
@@ -66,9 +68,8 @@ public class AccountDao implements BaseDao<Account> {
             e.printStackTrace();
             return false;
         } finally {
-            if (em != null && em.isOpen()) {
-                em.close();
-            }
+            em.close();
+
         }
     }
 
@@ -93,6 +94,8 @@ public class AccountDao implements BaseDao<Account> {
             }
             e.printStackTrace();
             return null;
+        }finally {
+            em.close();
         }
     }
 
@@ -145,9 +148,8 @@ public class AccountDao implements BaseDao<Account> {
             e.printStackTrace();
             throw new RuntimeException("Erreur lors de la création du compte associé à l'agence et au client", e);
         } finally {
-            if (em != null && em.isOpen()) {
-                em.close();
-            }
+            em.close();
+
         }
     }
 
