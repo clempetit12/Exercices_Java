@@ -56,7 +56,7 @@ public class AccountDao implements BaseDao<Account> {
                 System.out.println("Le compte a été supprimé avec succès");
                 return true;
             } else {
-                System.out.println("Aucun compte trouvé avec l'ID défini.");
+                System.out.println("Aucun compte trouvé avec l'ID spécifié.");
                 return false;
             }
         } catch (Exception e) {
@@ -65,7 +65,10 @@ public class AccountDao implements BaseDao<Account> {
             }
             e.printStackTrace();
             return false;
-
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
         }
     }
 

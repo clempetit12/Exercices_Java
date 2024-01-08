@@ -90,8 +90,13 @@ public class IHM {
         System.out.println("Veuillez indiquer l'id du compte ");
         Long id = scanner.nextLong();
         Account account = accountService.findAccount(id);
+
+        if (account != null) {
             accountService.deleteAccount(id);
-     
+            System.out.println("Le compte a été supprimé avec succès.");
+        } else {
+            System.out.println("Aucun compte trouvé avec l'ID spécifié.");
+        }
     }
 
 
