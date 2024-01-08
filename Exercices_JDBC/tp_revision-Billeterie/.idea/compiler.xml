@@ -7,7 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Tp_Revision" />
-        <module name="tp_revision-Billeterie" />
       </profile>
     </annotationProcessing>
   </component>

@@ -99,7 +99,6 @@ public class Account {
                 ", wording='" + wording + '\'' +
                 ", Iban='" + Iban + '\'' +
                 ", sold=" + sold +
-                ", customerList=" + customerList +
                 '}';
     }
 }

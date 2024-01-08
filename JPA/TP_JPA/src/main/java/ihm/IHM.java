@@ -56,6 +56,12 @@ public class IHM {
                 case 3:
                     createAccount();
                     break;
+                case 4:
+                    linkAccountToCustomer();
+                    break;
+                case 5:
+                    displayAllAccounts();
+                    break;
                 case 0:
                     closeAll();
                     break;
@@ -64,6 +70,34 @@ public class IHM {
             }
 
         } while (choix != 0);
+    }
+
+    private void displayAllAccounts() {
+        System.out.println("Quel est l'id du client :");
+        Long customerId = scanner.nextLong();
+        Customer customer = customerService.findCustomer(customerId);
+        for (Account a: customer.getAccountList()) {
+            System.out.println(a);
+        }
+
+    }
+
+    private void linkAccountToCustomer() {
+        System.out.println("Quel est l'id du compte :");
+        Long accountId = scanner.nextLong();
+        Account account = accountService.findAccount(accountId);
+        if (account != null) {
+            System.out.println("Quel est l'id du client :");
+            Long customerId = scanner.nextLong();
+            Customer customer = customerService.findCustomer(customerId);
+            if (customer != null) {
+                account.getCustomerList().add(customer);
+                accountService.addCustomerToAccount(customerId,accountId);
+            }
+
+
+        }
+
     }
 
 
@@ -125,6 +159,8 @@ public class IHM {
         System.out.println("1. Création d'une banque");
         System.out.println("2. Création d'un client");
         System.out.println("3. Création d'un compte");
+        System.out.println("4. Rattacher un compte existant à un client");
+        System.out.println("5. Afficher tous les comptes existants d'un client");
         System.out.println("0. Quitter");
         System.out.println("Saisissez votre choix :");
 

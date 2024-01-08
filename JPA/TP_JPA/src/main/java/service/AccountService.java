@@ -31,6 +31,10 @@ public void createAccount (Account account, Long idCustomer, Long idAgency){
 
 
 }
+
+public void addCustomerToAccount(Long customerId, Long accountId) {
+        accountDao.addCustomerToAccount(customerId,accountId);
+}
 }
 
 

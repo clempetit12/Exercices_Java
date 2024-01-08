@@ -62,28 +62,35 @@ return false;
         }
     }
 
-    public boolean addCustomerToAccount(Long customerId, Long accountId) {
+    public void addCustomerToAccount(Long customerId, Long accountId) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
+
         try {
             transaction.begin();
+
             Customer customer = em.find(Customer.class, customerId);
-            Account account = em.find(Account.class,accountId);
+            Account account = em.find(Account.class, accountId);
+
             account.getCustomerList().add(customer);
+            customer.getAccountList().add(account);
+
             em.merge(account);
+            em.merge(customer);
 
             transaction.commit();
             System.out.println("Le client a bien été ajouté au compte avec succès");
-
-            return true;
         } catch (Exception e) {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
             e.printStackTrace();
-            return false;
+        } finally {
+            em.close();
         }
     }
+
+
 
     public void createAccount(Account account, Long idCustomer, Long idAgency) {
         EntityManager em = emf.createEntityManager();
