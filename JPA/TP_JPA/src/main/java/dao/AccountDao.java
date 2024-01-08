@@ -65,10 +65,7 @@ public class AccountDao implements BaseDao<Account> {
             }
             e.printStackTrace();
             return false;
-        } finally {
-            if (em != null && em.isOpen()) {
-                em.close();
-            }
+
         }
     }
 

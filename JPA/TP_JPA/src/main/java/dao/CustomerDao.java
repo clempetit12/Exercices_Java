@@ -65,10 +65,7 @@ public class CustomerDao implements BaseDao<Customer> {
                 }
                 e.printStackTrace();
                 return false;
-            } finally {
-                if (em != null && em.isOpen()) {
-                    em.close();
-                }
+            
             }
         }
 
