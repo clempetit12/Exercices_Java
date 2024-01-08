@@ -90,20 +90,8 @@ public class IHM {
         System.out.println("Veuillez indiquer l'id du compte ");
         Long id = scanner.nextLong();
         Account account = accountService.findAccount(id);
-
-        if (account != null) {
-            if (account.getCustomerList() != null && !account.getCustomerList().isEmpty()) {
-                System.out.println("Removing account from associated customers.");
-                for (Customer customer : account.getCustomerList()) {
-                    customer.getAccountList().remove(account);
-                }
-                account.setCustomerList(null);
-            }
             accountService.deleteAccount(id);
-            System.out.println("Le compte a été supprimé avec succès.");
-        } else {
-            System.out.println("Aucun compte trouvé avec l'ID spécifié.");
-        }
+     
     }
 
 
