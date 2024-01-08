@@ -12,6 +12,7 @@ import service.CustomerService;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
@@ -134,14 +135,21 @@ public class IHM {
         System.out.println("A quelle agence souhaitez vous rattacher ce compte :");
         Long id = scanner.nextLong();
        Agency agency = agencyService.findAgency(id);
-        System.out.println("A quel client souhaitez vous attacher ce compte  :");
-        Long customerId = scanner.nextLong();
-        System.out.println("Quel est le libelle :");
-        String libelle = scanner.next();
-        System.out.println("Quel est l'iban (longeur max 27");
-        String iban = scanner.next();
-        Account account = new Account(libelle,iban,agency);
-       accountService.createAccount(account,customerId,id);
+       if (agency!= null) {
+           System.out.println("A quel client souhaitez vous attacher ce compte  :");
+           Long customerId = scanner.nextLong();
+           System.out.println("Quel est le libelle :");
+           String libelle = scanner.next();
+           System.out.println("Quel est l'iban (longeur max 27");
+           String iban = scanner.next();
+           System.out.println("Quel est votre solde ");
+           BigDecimal solde = scanner.nextBigDecimal();
+           Account account = new Account(libelle,iban,solde,agency);
+           accountService.createAccount(account,customerId,id);
+       } else {
+           System.out.println("L'agence n'existe pas ! ");
+       }
+
 
 
     }

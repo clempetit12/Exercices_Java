@@ -7,12 +7,13 @@ import entity.Customer;
 
 public class AccountService {
     private AccountDao accountDao;
+
     public AccountService(AccountDao accountDao) {
         this.accountDao = accountDao;
     }
 
     public Account createAccount(Account account) {
-        if(accountDao.add(account)){
+        if (accountDao.add(account)) {
             System.out.println("Un compte a bien été créé !");
         }
         return account;
@@ -26,15 +27,15 @@ public class AccountService {
         return accountDao.find(id);
     }
 
-public void createAccount (Account account, Long idCustomer, Long idAgency){
-        accountDao.createAccount(account,idCustomer,idAgency);
+    public void createAccount(Account account, Long idCustomer, Long idAgency) {
+        accountDao.createAccount(account, idCustomer, idAgency);
 
 
-}
+    }
 
-public void addCustomerToAccount(Long customerId, Long accountId) {
-        accountDao.addCustomerToAccount(customerId,accountId);
-}
+    public void addCustomerToAccount(Long customerId, Long accountId) {
+        accountDao.addCustomerToAccount(customerId, accountId);
+    }
 }
 
 
