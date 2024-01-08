@@ -25,7 +25,7 @@ public class Account {
     @Column(precision = 10, scale = 2)
     private BigDecimal sold;
 
-    @ManyToMany(mappedBy = "accountList")
+    @ManyToMany(mappedBy = "accountList", cascade = {CascadeType.MERGE, CascadeType.PERSIST} )
     private List<Customer> customerList = new ArrayList<>();
     public Long getId() {
         return id;

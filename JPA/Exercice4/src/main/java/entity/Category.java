@@ -16,7 +16,7 @@ public class Category {
     @Column(name = "nom_categorie")
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinTable(name="category_task",
             joinColumns = @JoinColumn(name="category_id"),
             inverseJoinColumns = @JoinColumn(name="task_id"))

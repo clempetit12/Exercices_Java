@@ -73,6 +73,11 @@ task.setUser(user);
         }
         return true;
     }
+    public Task findTask (Long id) {
+        return toDoDao.findTask(id);
+
+    }
+
 
 
 }

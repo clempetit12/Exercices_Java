@@ -24,4 +24,8 @@ public class CustomerService {
     public Customer findCustomer(Long id) {
         return customerDao.find(id);
     }
+
+    public void deleteCustomer (Long id) {
+        customerDao.delete(id);
+    }
 }

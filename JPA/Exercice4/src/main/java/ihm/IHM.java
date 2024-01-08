@@ -264,6 +264,10 @@ public class IHM {
     private void RemoveTodo() {
         System.out.println("Veuillez indiquer l'id de la tâche à supprimer :");
         Long id = scanner.nextLong();
+        Task task = todoService.findTask(id);
+        if (task.getCategoryList() != null) {
+            System.out.println("Vous ne pouvez pas supprimer la tâhce car elle est associée à une catégorie");
+        }
         todoService.deleteTask(id);
     }
 

@@ -17,7 +17,8 @@ public class Customer {
     private String lastName;
     private String firstName;
     private Date birthDate;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+
     @JoinTable(name="customers_accounts",
             joinColumns = @JoinColumn(name="customer_id"),
             inverseJoinColumns = @JoinColumn(name="account_id"))

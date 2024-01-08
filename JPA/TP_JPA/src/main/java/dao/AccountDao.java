@@ -7,6 +7,8 @@ import entity.Customer;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountDao implements BaseDao<Account> {
 
@@ -36,8 +38,40 @@ public class AccountDao implements BaseDao<Account> {
 
     @Override
     public boolean delete(Long id) {
-return false;
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+            transaction.begin();
+            Account account = em.find(Account.class, id);
+
+            if (account != null) {
+                List<Customer> customerList = account.getCustomerList();
+                for (Customer customer : customerList) {
+                    customer.getAccountList().remove(account);
+                }
+                account.setCustomerList(null);
+                em.remove(account);
+                transaction.commit();
+                System.out.println("Le compte a été supprimé avec succès");
+                return true;
+            } else {
+                System.out.println("Aucun compte trouvé avec l'ID défini.");
+                return false;
+            }
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
     }
+
 
     @Override
     public void close() {

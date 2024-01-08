@@ -2,6 +2,7 @@ package dao;
 
 import entity.Task;
 import entity.TaskInfo;
+import entity.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -155,6 +156,17 @@ public class ToDoDao extends BaseDao<Task> {
 
     public void close() {
         emf.close();
+    }
+
+    public Task findTask(Long id) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        try {
+            return em.find(Task.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

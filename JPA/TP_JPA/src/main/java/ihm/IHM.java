@@ -15,6 +15,7 @@ import javax.persistence.Persistence;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class IHM {
@@ -63,6 +64,12 @@ public class IHM {
                 case 5:
                     displayAllAccounts();
                     break;
+                case 6:
+                    deleteAccount();
+                    break;
+                case 7:
+                    deleteCustomer();
+                    break;
                 case 0:
                     closeAll();
                     break;
@@ -72,6 +79,34 @@ public class IHM {
 
         } while (choix != 0);
     }
+
+    private void deleteCustomer() {
+        System.out.println("Veuillez indiquer l'id du client à supprimer ");
+        Long id  = scanner.nextLong();
+        customerService.deleteCustomer(id);
+    }
+
+    private void deleteAccount() {
+        System.out.println("Veuillez indiquer l'id du compte ");
+        Long id = scanner.nextLong();
+        Account account = accountService.findAccount(id);
+
+        if (account != null) {
+            if (account.getCustomerList() != null && !account.getCustomerList().isEmpty()) {
+                System.out.println("Removing account from associated customers.");
+                for (Customer customer : account.getCustomerList()) {
+                    customer.getAccountList().remove(account);
+                }
+                account.setCustomerList(null);
+            }
+            accountService.deleteAccount(id);
+            System.out.println("Le compte a été supprimé avec succès.");
+        } else {
+            System.out.println("Aucun compte trouvé avec l'ID spécifié.");
+        }
+    }
+
+
 
     private void displayAllAccounts() {
         System.out.println("Quel est l'id du client :");
@@ -103,9 +138,9 @@ public class IHM {
 
 
     public void createAgency() {
-        System.out.println("Quel nom souhaitez vous donner à votre agence :");
+        System.out.println("Quel nom souhaitez vous donner à votre agence : ");
         String name = scanner.nextLine();
-        System.out.println("Quel est l'adresse de cette agence ?:");
+        System.out.println("Quelle est l'adresse de cette agence ? : ");
         String adress = scanner.nextLine();
         Agency agency = new Agency();
         agency.setAdress(adress);
@@ -169,6 +204,8 @@ public class IHM {
         System.out.println("3. Création d'un compte");
         System.out.println("4. Rattacher un compte existant à un client");
         System.out.println("5. Afficher tous les comptes existants d'un client");
+        System.out.println("6. Supprimer un compte");
+        System.out.println("7. Supprimer un client");
         System.out.println("0. Quitter");
         System.out.println("Saisissez votre choix :");
 

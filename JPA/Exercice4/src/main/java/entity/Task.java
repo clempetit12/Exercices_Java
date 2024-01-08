@@ -92,6 +92,14 @@ public class Task {
         user.getTaskList().add(this);
     }
 
+    public List<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
+
     @Override
     public String toString() {
         return "Task{" +

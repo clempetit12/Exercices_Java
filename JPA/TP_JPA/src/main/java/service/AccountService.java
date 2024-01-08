@@ -36,6 +36,10 @@ public class AccountService {
     public void addCustomerToAccount(Long customerId, Long accountId) {
         accountDao.addCustomerToAccount(customerId, accountId);
     }
+
+    public void deleteAccount(Long id) {
+        accountDao.delete(id);
+    }
 }
 
 
