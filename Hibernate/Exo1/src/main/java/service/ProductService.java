@@ -15,29 +15,33 @@ public class ProductService {
     }
 
     public boolean createProduct(Product product) {
-return productDao.createProduct(product);
+return productDao.create(product);
     }
 
     public Product getProductById(Long id) {
-        return productDao.getProductById(id);
+        return productDao.getById(id);
     }
 
     public void deleteProduct(Long id) {
-        productDao.deleteProduct(id);
+        productDao.delete(id);
     }
 
-    public boolean updateProduct(Long id, String brand, String reference, Date purchaseDate, Double price, int stock){
-       return productDao.updateProduct(id,brand,reference,purchaseDate,price,stock);
+    public boolean updateProduct(Long id, Product product){
+       return productDao.update(id,product);
     }
 
     public List<Product> getAllProducts() {
-        return productDao.getAllProducts();
+        return productDao.getAll();
     }
     public List<Product> getProductsByPrice(Double price) {
-        return productDao.getProductsByPrice(price);
+        return productDao.getByPrice(price);
     }
     public List<Product> getProductsByDate(Date date1, Date date2) {
-        return productDao.getproductsByDate(date1,date2);
+        return productDao.getByDate(date1,date2);
+    }
+
+    public void close() {
+        productDao.close();
     }
 
 }

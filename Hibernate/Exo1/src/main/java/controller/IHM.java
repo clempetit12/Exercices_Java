@@ -52,13 +52,17 @@ public class IHM {
                     displayProductsDate();
                     break;
                 case 0:
-                    scanner.close();
+                    closeAll();
                     break;
                 default:
                     System.out.println("choix invalide !");
             }
 
         } while (choix != 0);
+    }
+
+    private void closeAll() {
+        productService.close();
     }
 
     private void displayAllProducts() {
@@ -165,7 +169,8 @@ public class IHM {
             System.out.println("Quel est le stock de votre produit ? :");
             int stock = scanner.nextInt();
             scanner.nextLine();
-            productService.updateProduct(id, brand, reference, date, price, stock);
+            Product product = new Product(brand,reference, date, price, stock);
+            productService.updateProduct(id, product );
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
