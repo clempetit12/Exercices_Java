@@ -55,7 +55,7 @@ public class IHM {
                     displayProductsStock();
                     break;
                 case 9:
-                    displayStockBrand();
+                    displayValueStockBrand();
                     break;
                 case 10:
                     displayAveragePriceProducts();
@@ -78,7 +78,7 @@ public class IHM {
 
     private void deleteProductsFromBrand() {
         try {
-            System.out.println("Précisez la marque dont vous souhaitez supprimer les produits");
+            System.out.println("Précisez la marque dont vous souhaitez supprimer les produits : ");
             String brand = scanner.next();
             productService.deleteProductFromBrand(brand);
         } catch (Exception e) {
@@ -88,12 +88,12 @@ public class IHM {
 
     private void displayProductsFromBrand() {
         try {
-            System.out.println("Précisez la marque dont vous souhaitez afficher les produits");
+            System.out.println("Précisez la marque dont vous souhaitez afficher les produits : ");
             String brand = scanner.next();
             List<Product> productList = productService.getProductsFromBrand(brand);
             for (Product p : productList
             ) {
-                System.out.println("Le produit " + p);
+                System.out.println("Le produit de la marque " + brand + " est le suivant " +  p);
             }
         }catch (Exception e) {
             System.out.println(e.getMessage());
@@ -109,19 +109,18 @@ public class IHM {
         }
     }
 
-    private void displayStockBrand() {
+    private void displayValueStockBrand() {
         try {
             System.out.println("Précisez la marque dont vous souhaitez afficher les stocks");
             String brand = scanner.next();
-            List<Integer> productList = productService.getStockBrand(brand);
+            List<Double> productList = productService.getValueStockBrand(brand);
             int totalStock = 0;
-            for (Integer i : productList
+            for (Double i : productList
             ) {
-                System.out.println("Les stocks des produits dont la marque est " + brand + " sont : " + i);
+                System.out.println("La valeur du stock pour le produit de la marque  " + brand + " est : " + i);
                 totalStock += i;
-
             }
-            System.out.println("Le stock total est de " + totalStock);
+            System.out.println("La valeur du stock totale est de " + totalStock);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

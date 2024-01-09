@@ -48,8 +48,8 @@ return productDao.create(product);
         return  productDao.getByStock(stock);
     }
 
-    public List<Integer> getStockBrand(String brand) {
-        return productDao.getStockBrand(brand);
+    public List<Double> getValueStockBrand(String brand) {
+        return productDao.getValueStockBrand(brand);
     }
 
     public Double getAveragePrice() {

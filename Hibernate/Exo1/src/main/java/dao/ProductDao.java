@@ -163,6 +163,8 @@ public class ProductDao implements Repository<Product> {
                 productQuery.setParameter("date2", date2);
                 productList = productQuery.list();
                 return productList;
+            } else {
+                System.out.println("La " + date1 + " n'est pas avant la " + date2);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -216,13 +218,13 @@ public class ProductDao implements Repository<Product> {
         return null;
     }
 
-    public List<Integer> getStockBrand(String brand) {
+    public List<Double> getValueStockBrand(String brand) {
         Session session = null;
         try {
             session = sessionFactory.openSession();
             session.getTransaction().begin();
-            List<Integer> stockList = new ArrayList<>();
-            Query<Integer> stockQuery = session.createQuery("select stock from Product where brand like :brand");
+            List<Double> stockList = new ArrayList<>();
+            Query<Double> stockQuery = session.createQuery("select (stock*price) from Product where brand like :brand");
             stockQuery.setParameter("brand", brand);
             stockList = stockQuery.list();
             return stockList;
