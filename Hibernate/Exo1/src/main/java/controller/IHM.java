@@ -77,48 +77,68 @@ public class IHM {
     }
 
     private void deleteProductsFromBrand() {
-        System.out.println("Précisez la marque dont vous souhaitez supprimer les produits");
-        String brand = scanner.next();
-        productService.deleteProductFromBrand(brand);
+        try {
+            System.out.println("Précisez la marque dont vous souhaitez supprimer les produits");
+            String brand = scanner.next();
+            productService.deleteProductFromBrand(brand);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void displayProductsFromBrand() {
-        System.out.println("Précisez la marque dont vous souhaitez afficher les produits");
-        String brand = scanner.next();
-        List<Product> productList = productService.getProductsFromBrand(brand);
-        for (Product p: productList
-             ) {
-            System.out.println("Le produit " + p);
+        try {
+            System.out.println("Précisez la marque dont vous souhaitez afficher les produits");
+            String brand = scanner.next();
+            List<Product> productList = productService.getProductsFromBrand(brand);
+            for (Product p : productList
+            ) {
+                System.out.println("Le produit " + p);
+            }
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
     private void displayAveragePriceProducts() {
-        Double averagePrice = productService.getAveragePrice();
-        System.out.println("Le prix moyen des produits est de " + averagePrice);
+        try {
+            Double averagePrice = productService.getAveragePrice();
+            System.out.println("Le prix moyen des produits est de " + averagePrice);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void displayStockBrand() {
-        System.out.println("Précisez la marque dont vous souhaitez afficher les stocks");
-        String brand = scanner.next();
-        List<Integer> productList = productService.getStockBrand(brand);
-        int totalStock = 0;
-        for (Integer i : productList
-        ) {
-            System.out.println("Les stocks des produits dont la marque est " + brand + " sont : " + i);
-            totalStock += i;
+        try {
+            System.out.println("Précisez la marque dont vous souhaitez afficher les stocks");
+            String brand = scanner.next();
+            List<Integer> productList = productService.getStockBrand(brand);
+            int totalStock = 0;
+            for (Integer i : productList
+            ) {
+                System.out.println("Les stocks des produits dont la marque est " + brand + " sont : " + i);
+                totalStock += i;
 
+            }
+            System.out.println("Le stock total est de " + totalStock);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        System.out.println("Le stock total est de " + totalStock);
     }
 
     private void displayProductsStock() {
-        System.out.println("Indiquez le stock référent pour afficher les produits dont le stock est inférieur : ");
-        int stock = scanner.nextInt();
-        for (Product p : productService.getProductsByStock(stock)
-        ) {
-            System.out.println("L'id du produit est " + p.getIdProduct() + " et sa référence est : " + p.getReference()
-            + "le stock est de " + p.getStock());
+        try {
+            System.out.println("Indiquez le stock référent pour afficher les produits dont le stock est inférieur : ");
+            int stock = scanner.nextInt();
+            for (Product p : productService.getProductsByStock(stock)
+            ) {
+                System.out.println("L'id du produit est " + p.getIdProduct() + " et sa référence est : " + p.getReference()
+                        + "le stock est de " + p.getStock());
 
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -136,12 +156,16 @@ public class IHM {
     }
 
     private void displayProductsPrice() {
-        System.out.println("Renseigner le prix  : ");
-        Double price = scanner.nextDouble();
-        List<Product> productList = productService.getProductsByPrice(price);
-        for (Product p : productList
-        ) {
-            System.out.println("Les produits dont le prix est supérieur à " + price + " sont :" + p);
+        try {
+            System.out.println("Renseigner le prix  : ");
+            Double price = scanner.nextDouble();
+            List<Product> productList = productService.getProductsByPrice(price);
+            for (Product p : productList
+            ) {
+                System.out.println("Les produits dont le prix est supérieur à " + price + " sont :" + p);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -199,21 +223,27 @@ public class IHM {
     }
 
     private void displayProduct() {
-        System.out.println("Quel est l'id du produit que vous voulez afficher' ? :");
-        Long id = scanner.nextLong();
-        Product product = productService.getProductById(id);
-        System.out.println(product);
+        try {
+            System.out.println("Quel est l'id du produit que vous voulez afficher' ? :");
+            Long id = scanner.nextLong();
+            Product product = productService.getProductById(id);
+            System.out.println(product);
 
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
-
 
     public void deleteProduct() {
-        System.out.println("Quel est l'id du produit que vous voulez supprimer' ? :");
-        Long id = scanner.nextLong();
-        productService.deleteProduct(id);
+        try {
+            System.out.println("Quel est l'id du produit que vous voulez supprimer' ? :");
+            Long id = scanner.nextLong();
+            productService.deleteProduct(id);
 
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
-
     public void updateProduct() {
         try {
             System.out.println("Quel est l'id du produit que vous voulez modifier' ? :");

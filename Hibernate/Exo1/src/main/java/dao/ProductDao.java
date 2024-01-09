@@ -30,7 +30,6 @@ public class ProductDao implements Repository<Product> {
             session = sessionFactory.openSession();
             session.getTransaction().begin();
             session.save(element);
-            System.out.println("Le produit a été créée avec id " + element.getIdProduct());
             return true;
 
         } catch (Exception e) {
