@@ -8,12 +8,6 @@
     <!-- a SessionFactory instance listed as /jndi/name -->
     <session-factory>
 
-        <!--<mapping class="heritage.joined.CreditCardPayment"></mapping>-->
-        <!--<mapping class="heritage.joined.Payment"></mapping>-->
-        <!--<mapping class="heritage.joined.PayPalPayment"></mapping>-->
-        <!--        <mapping class="heritage.single_table.CreditCardPayment1"></mapping>-->
-        <!--        <mapping class="heritage.single_table.Payment1"></mapping>-->
-        <!--        <mapping class="heritage.single_table.PayPalPayment1"></mapping>-->
         <mapping class="service.ProductService"></mapping>
         <mapping class="entity.Product"></mapping>
         <mapping class="dao.ProductDao"></mapping>

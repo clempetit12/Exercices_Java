@@ -6,6 +6,7 @@ import service.ProductService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,8 +20,6 @@ public class IHM {
     public IHM() {
         productDao = new ProductDao();
         productService = new ProductService(productDao);
-
-
     }
 
 
@@ -34,25 +33,25 @@ public class IHM {
                     createProduct();
                     break;
                 case 2:
-                    displayProduct();
+                    updateProduct();
                     break;
                 case 3:
                     deleteProduct();
                     break;
                 case 4:
-                    updateProduct();
+                    displayProduct();
                     break;
                 case 5:
                     displayAllProducts();
                     break;
                 case 6:
-                    displayProductsPrice();
+                    displayProductsByPrice();
                     break;
                 case 7:
-                    displayProductsDate();
+                    displayProductsByDate();
                     break;
                 case 8:
-                    displayProductsStock();
+                    displayProductsByStock();
                     break;
                 case 9:
                     displayValueStockBrand();
@@ -76,74 +75,77 @@ public class IHM {
         } while (choix != 0);
     }
 
-    private void deleteProductsFromBrand() {
+    public void createProduct() {
         try {
-            System.out.println("Précisez la marque dont vous souhaitez supprimer les produits : ");
-            String brand = scanner.next();
-            productService.deleteProductFromBrand(brand);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void displayProductsFromBrand() {
-        try {
-            System.out.println("Précisez la marque dont vous souhaitez afficher les produits : ");
-            String brand = scanner.next();
-            List<Product> productList = productService.getProductsFromBrand(brand);
-            for (Product p : productList
-            ) {
-                System.out.println("Le produit de la marque " + brand + " est le suivant " +  p);
+            System.out.println("Combien de produits souhaitez vous ajouter ");
+            int nombreProduit = scanner.nextInt();
+            scanner.nextLine();
+            for (int i = 0; i < nombreProduit; i++) {
+               Product product = productInfo();
+                productService.createProduct(product);
             }
-        }catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void displayAveragePriceProducts() {
-        try {
-            Double averagePrice = productService.getAveragePrice();
-            System.out.println("Le prix moyen des produits est de " + averagePrice);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-
-    private void displayValueStockBrand() {
+    public void updateProduct() {
         try {
-            System.out.println("Précisez la marque dont vous souhaitez afficher les stocks");
+            System.out.println("Quel est l'id du produit que vous voulez modifier' ? :");
+            Long id = scanner.nextLong();
+            Product product = productInfo();
+            productService.updateProduct(id, product);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public Product productInfo() {
+        try {
+
+            System.out.println("Quelle est la marque de votre produit ? :");
             String brand = scanner.next();
-            List<Double> productList = productService.getValueStockBrand(brand);
-            int totalStock = 0;
-            for (Double i : productList
-            ) {
-                System.out.println("La valeur du stock pour le produit de la marque  " + brand + " est : " + i);
-                totalStock += i;
-            }
-            System.out.println("La valeur du stock totale est de " + totalStock);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void displayProductsStock() {
-        try {
-            System.out.println("Indiquez le stock référent pour afficher les produits dont le stock est inférieur : ");
+            System.out.println("Quelle est la référence de votre produit ? :");
+            String reference = scanner.next();
+            System.out.println("Quelle est la date d'achat de votre produit (format dd-MM-yyyy) ? :");
+            String date_string = scanner.next();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = formatter.parse(date_string);
+            System.out.println("Quel est le prix de votre produit ? :");
+            Double price = scanner.nextDouble();
+            System.out.println("Quel est le stock de votre produit ? :");
             int stock = scanner.nextInt();
-            for (Product p : productService.getProductsByStock(stock)
-            ) {
-                System.out.println("L'id du produit est " + p.getIdProduct() + " et sa référence est : " + p.getReference()
-                        + "le stock est de " + p.getStock());
+            scanner.nextLine();
+            Product product = new Product(brand, reference, date, price, stock);
+            return product;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
-            }
+    return null;
+    }
+
+    public void deleteProduct() {
+        try {
+            System.out.println("Quel est l'id du produit que vous voulez supprimer' ? :");
+            Long id = scanner.nextLong();
+            productService.deleteProduct(id);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private void closeAll() {
-        scanner.close();
-        productService.close();
+    private void displayProduct() {
+        try {
+            System.out.println("Quel est l'id du produit que vous voulez afficher' ? :");
+            Long id = scanner.nextLong();
+            Product product = productService.getProductById(id);
+            System.out.println(product);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void displayAllProducts() {
@@ -154,9 +156,9 @@ public class IHM {
         }
     }
 
-    private void displayProductsPrice() {
+    private void displayProductsByPrice() {
         try {
-            System.out.println("Renseigner le prix  : ");
+            System.out.println("Renseigner le prix pour afficher les produits dont le prix est supérieur : ");
             Double price = scanner.nextDouble();
             List<Product> productList = productService.getProductsByPrice(price);
             for (Product p : productList
@@ -168,7 +170,7 @@ public class IHM {
         }
     }
 
-    private void displayProductsDate() {
+    private void displayProductsByDate() {
         try {
             System.out.println("Indiquer la première date (format dd-MM-yyyy) ? :");
             String date_string = scanner.next();
@@ -188,92 +190,87 @@ public class IHM {
         }
     }
 
-    public void createProduct() {
+    private void displayProductsByStock() {
         try {
-            System.out.println("Combien de produits souhaitez vous ajouter ");
-            int nombreProduit = scanner.nextInt();
-            scanner.nextLine();
-            for (int i = 0; i < nombreProduit; i++) {
-                System.out.println("Quelle est la marque de votre produit ? :");
-                String brand = scanner.next();
-                System.out.println("Quelle est la référence de votre produit ? :");
-                String reference = scanner.next();
-                System.out.println("Quelle est la date d'achat de votre produit (format dd-MM-yyyy) ? :");
-                String date_string = scanner.next();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                Date date = formatter.parse(date_string);
-                System.out.println("Quel est le prix de votre produit ? :");
-                Double price = scanner.nextDouble();
-                System.out.println("Quel est le stock de votre produit ? :");
-                int stock = scanner.nextInt();
-                scanner.nextLine();
-                Product product = new Product(brand, reference, date, price, stock);
-                productService.createProduct(product);
-
+            System.out.println("Indiquez le stock référent pour afficher les produits dont le stock est inférieur : ");
+            int stock = scanner.nextInt();
+            for (Product p : productService.getProductsByStock(stock)
+            ) {
+                System.out.println("L'id du produit est " + p.getIdProduct() + " et sa référence est : " + p.getReference()
+                        + "le stock est de " + p.getStock());
 
             }
-
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-
-    }
-
-    private void displayProduct() {
-        try {
-            System.out.println("Quel est l'id du produit que vous voulez afficher' ? :");
-            Long id = scanner.nextLong();
-            Product product = productService.getProductById(id);
-            System.out.println(product);
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void deleteProduct() {
+    private void displayValueStockBrand() {
         try {
-            System.out.println("Quel est l'id du produit que vous voulez supprimer' ? :");
-            Long id = scanner.nextLong();
-            productService.deleteProduct(id);
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    public void updateProduct() {
-        try {
-            System.out.println("Quel est l'id du produit que vous voulez modifier' ? :");
-            Long id = scanner.nextLong();
-            System.out.println("Quelle est la marque de votre produit ? :");
+            System.out.println("Précisez la marque dont vous souhaitez afficher la valeur des stocks");
             String brand = scanner.next();
-            System.out.println("Quelle est la référence de votre produit ? :");
-            String reference = scanner.next();
-            System.out.println("Quelle est la date d'achat de votre produit (format dd-MM-yyyy) ? :");
-            String date_string = scanner.next();
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-            Date date = formatter.parse(date_string);
-            System.out.println("Quel est le prix de votre produit ? :");
-            Double price = scanner.nextDouble();
-            System.out.println("Quel est le stock de votre produit ? :");
-            int stock = scanner.nextInt();
-            scanner.nextLine();
-            Product product = new Product(brand, reference, date, price, stock);
-            productService.updateProduct(id, product);
+            List<Double> productList = productService.getValueStockBrand(brand);
+            int totalStock = 0;
+            for (Double i : productList
+            ) {
+                System.out.println("La valeur du stock pour le produit de la marque  " + brand + " est : " + i);
+                totalStock += i;
+            }
+            System.out.println("La valeur du stock totale est de " + totalStock);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
 
+    private void displayAveragePriceProducts() {
+        try {
+            Double averagePrice = productService.getAveragePrice();
+            System.out.println("Le prix moyen des produits est de " + averagePrice);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+    private void displayProductsFromBrand() {
+        try {
+            System.out.println("Précisez la marque dont vous souhaitez afficher les produits : ");
+            String brand = scanner.next();
+            List<Product> productList = productService.getProductsFromBrand(brand);
+            for (Product p : productList
+            ) {
+                System.out.println("Le produit de la marque " + brand + " est le suivant " +  p);
+            }
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void deleteProductsFromBrand() {
+        try {
+            System.out.println("Précisez la marque dont vous souhaitez supprimer les produits : ");
+            String brand = scanner.next();
+            productService.deleteProductFromBrand(brand);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+
+    private void closeAll() {
+        scanner.close();
+        productService.close();
     }
 
     private void printMenu() {
         System.out.println("=== Test ===");
         System.out.println("1. Créer produits");
-        System.out.println("2. Afficher informations d'un produit");
+        System.out.println("2. Modifier les informations d'un produit");
         System.out.println("3. Supprimer un produit");
-        System.out.println("4. Modifier les informations d'un produit");
+        System.out.println("4. Afficher informations d'un produit");
         System.out.println("5. Afficher la totalité des produits");
         System.out.println("6. Afficher les produits dont le prix est supérieur au montant précisé");
         System.out.println("7. Afficher les produits achetés entre deux dates");

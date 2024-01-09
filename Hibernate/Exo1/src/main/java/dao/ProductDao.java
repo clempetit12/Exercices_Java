@@ -206,7 +206,6 @@ public class ProductDao implements Repository<Product> {
         try {
             session = sessionFactory.openSession();
             session.getTransaction().begin();
-            List<Product> productList = new ArrayList<>();
             Query<Double> productQuery = session.createQuery("select avg(price) from Product");
             double averagePrice = productQuery.uniqueResult();
             return averagePrice;
