@@ -4,6 +4,7 @@ import dao.ProductDao;
 import entity.Product;
 import service.ProductService;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
@@ -92,8 +93,13 @@ public class IHM {
         try {
             System.out.println("Quel est l'id du produit que vous voulez modifier' ? :");
             Long id = scanner.nextLong();
-            Product product = productInfo();
-            productService.updateProduct(id, product);
+            Product product = productService.getProductById(id);
+            if(product != null) {
+                Product product1 = productInfo();
+                productService.updateProduct(id, product1);
+            } else {
+                System.out.println("Aucune produit avec id " + id);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -129,7 +135,13 @@ public class IHM {
         try {
             System.out.println("Quel est l'id du produit que vous voulez supprimer' ? :");
             Long id = scanner.nextLong();
-            productService.deleteProduct(id);
+            Product product = productService.getProductById(id);
+            if (product != null) {
+                productService.deleteProduct(id);
+            } else {
+                System.out.println("Aucun produit avec id " + id);
+            }
+
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -141,19 +153,28 @@ public class IHM {
             System.out.println("Quel est l'id du produit que vous voulez afficher' ? :");
             Long id = scanner.nextLong();
             Product product = productService.getProductById(id);
-            System.out.println(product);
-
+            if (product != null) {
+                System.out.println(product);
+            } else {
+                System.out.println("Aucun produit avec id " + id);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     private void displayAllProducts() {
-        for (Product p : productService.getAllProducts()
-        ) {
-            System.out.println(p);
+        List<Product> productList = productService.getAllProducts();
+        if (productList != null) {
+            for (Product p :productList
+            ) {
+                System.out.println(p);
 
+            }
+        } else {
+            System.out.println("Il n'y a pas de liste de produits");
         }
+
     }
 
     private void displayProductsByPrice() {
@@ -161,10 +182,15 @@ public class IHM {
             System.out.println("Renseigner le prix pour afficher les produits dont le prix est supérieur : ");
             Double price = scanner.nextDouble();
             List<Product> productList = productService.getProductsByPrice(price);
-            for (Product p : productList
-            ) {
-                System.out.println("Les produits dont le prix est supérieur à " + price + " sont :" + p);
+            if (productList != null && !productList.isEmpty()) {
+                for (Product p : productList
+                ) {
+                    System.out.println("Les produits dont le prix est supérieur à " + price + " sont :" + p);
+                }
+            } else {
+                System.out.println("Pas de produits dont le prix est inférieur à "+ price);
             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -181,9 +207,13 @@ public class IHM {
             SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MM-yyyy");
             Date date2 = formatter2.parse(date_string2);
             List<Product> productList = productService.getProductsByDate(date1, date2);
+            if (productList != null && !productList.isEmpty()) {
             for (Product p : productList
             ) {
                 System.out.println("Les produits dont l'achat est compris entre les date " + date1 + " et " + date2 + " sont " + p);
+            }}else {
+                System.out.println("Pas de produits dont l'achat est compris entre "
+                + date1 + " et " + date2);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -194,11 +224,15 @@ public class IHM {
         try {
             System.out.println("Indiquez le stock référent pour afficher les produits dont le stock est inférieur : ");
             int stock = scanner.nextInt();
-            for (Product p : productService.getProductsByStock(stock)
+            List<Product> productList = productService.getProductsByStock(stock);
+            if (productList != null && !productList.isEmpty()) {
+            for (Product p : productList
             ) {
                 System.out.println("L'id du produit est " + p.getIdProduct() + " et sa référence est : " + p.getReference()
                         + "le stock est de " + p.getStock());
 
+            } }else {
+                System.out.println("Pas de produits dont le stock est inférieur à " + stock);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -210,13 +244,17 @@ public class IHM {
             System.out.println("Précisez la marque dont vous souhaitez afficher la valeur des stocks");
             String brand = scanner.next();
             List<Double> productList = productService.getValueStockBrand(brand);
-            int totalStock = 0;
-            for (Double i : productList
-            ) {
-                System.out.println("La valeur du stock pour le produit de la marque  " + brand + " est : " + i);
-                totalStock += i;
+            if (productList != null && !productList.isEmpty()) {
+                int totalStock = 0;
+                for (Double i : productList
+                ) {
+                    System.out.println("La valeur du stock pour le produit de la marque  " + brand + " est : " + i);
+                    totalStock += i;
+                }
+                System.out.println("La valeur du stock totale est de " + totalStock);
+            } else {
+                System.out.println("Pas de produits correspondants");
             }
-            System.out.println("La valeur du stock totale est de " + totalStock);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -225,7 +263,9 @@ public class IHM {
     private void displayAveragePriceProducts() {
         try {
             Double averagePrice = productService.getAveragePrice();
-            System.out.println("Le prix moyen des produits est de " + averagePrice);
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            String formatedPrice = decimalFormat.format(averagePrice);
+            System.out.println("Le prix moyen des produits est de " + formatedPrice);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -238,9 +278,14 @@ public class IHM {
             System.out.println("Précisez la marque dont vous souhaitez afficher les produits : ");
             String brand = scanner.next();
             List<Product> productList = productService.getProductsFromBrand(brand);
-            for (Product p : productList
-            ) {
-                System.out.println("Le produit de la marque " + brand + " est le suivant " +  p);
+            if(productList != null && !productList.isEmpty()) {
+                for (Product p : productList
+                ) {
+                    System.out.println("Le produit de la marque " + brand + " est le suivant " + p);
+                }
+            } else {
+                System.out.println("Aucun produit correspondant à la marque "
+                + brand);
             }
         }catch (Exception e) {
             System.out.println(e.getMessage());

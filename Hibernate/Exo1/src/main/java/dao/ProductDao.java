@@ -1,9 +1,10 @@
 package dao;
 
-import repository.Repository;
+import interfaces.Repository;
 import entity.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -26,14 +27,19 @@ public class ProductDao implements Repository<Product> {
     @Override
     public boolean create(Product element) {
         Session session = null;
+        Transaction transaction = null;
         try {
             session = sessionFactory.openSession();
-            session.getTransaction().begin();
+            transaction = session.beginTransaction();
             session.save(element);
+            session.getTransaction().commit();
             return true;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+          e.printStackTrace();
         } finally {
             session.close();
 
@@ -44,15 +50,14 @@ public class ProductDao implements Repository<Product> {
     @Override
     public Product getById(Long id) {
         Session session = null;
+
         try {
             session = sessionFactory.openSession();
-            session.getTransaction().begin();
             Product product = (Product) session.get(Product.class, id);
-            session.getTransaction().commit();
             return product;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } finally {
             session.close();
 
@@ -63,9 +68,10 @@ public class ProductDao implements Repository<Product> {
     @Override
     public void delete(Long id) {
         Session session = null;
+        Transaction transaction = null;
         try {
             session = sessionFactory.openSession();
-            session.getTransaction().begin();
+            transaction = session.beginTransaction();
             Product product = getById(id);
 
 
@@ -74,7 +80,10 @@ public class ProductDao implements Repository<Product> {
             }
             session.getTransaction().commit();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         } finally {
             session.close();
 
@@ -84,9 +93,10 @@ public class ProductDao implements Repository<Product> {
     @Override
     public boolean update(Long id, Product element) {
         Session session = null;
+        Transaction transaction = null;
         try {
             session = sessionFactory.openSession();
-            session.getTransaction().begin();
+            transaction = session.beginTransaction();
             Product product = getById(id);
             if (product != null) {
                 product.setBrand(element.getBrand());
@@ -100,7 +110,10 @@ public class ProductDao implements Repository<Product> {
             return true;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         } finally {
             session.close();
 
@@ -113,15 +126,13 @@ public class ProductDao implements Repository<Product> {
         Session session = null;
         try {
             session = sessionFactory.openSession();
-            session.getTransaction().begin();
             List<Product> productList = new ArrayList<>();
             Query<Product> productQuery = session.createQuery(" from Product");
             productList = productQuery.list();
-
             return productList;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } finally {
             session.close();
 
@@ -134,15 +145,16 @@ public class ProductDao implements Repository<Product> {
         Session session = null;
         try {
             session = sessionFactory.openSession();
-            session.getTransaction().begin();
+
             List<Product> productList = new ArrayList<>();
             Query<Product> productQuery = session.createQuery(" from Product where price > :price ");
             productQuery.setParameter("price", price);
             productList = productQuery.list();
+
             return productList;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } finally {
             session.close();
 
@@ -155,7 +167,6 @@ public class ProductDao implements Repository<Product> {
         Session session = null;
         try {
             session = sessionFactory.openSession();
-            session.getTransaction().begin();
             List<Product> productList = new ArrayList<>();
             if (date1.before(date2)) {
                 Query<Product> productQuery = session.createQuery("from Product where purchaseDate between :date1 and :date2");
@@ -167,7 +178,7 @@ public class ProductDao implements Repository<Product> {
                 System.out.println("La " + date1 + " n'est pas avant la " + date2);
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } finally {
             session.close();
         }
@@ -179,16 +190,16 @@ public class ProductDao implements Repository<Product> {
         Session session = null;
         try {
             session = sessionFactory.openSession();
-            session.getTransaction().begin();
             List<Product> productList = new ArrayList<>();
             if (stock > 0) {
                 Query<Product> productQuery = session.createQuery("from Product where stock < :stock");
                 productQuery.setParameter("stock", stock);
                 productList = productQuery.list();
+
                 return productList;
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } finally {
             session.close();
         }
@@ -205,12 +216,11 @@ public class ProductDao implements Repository<Product> {
         Session session = null;
         try {
             session = sessionFactory.openSession();
-            session.getTransaction().begin();
             Query<Double> productQuery = session.createQuery("select avg(price) from Product");
             double averagePrice = productQuery.uniqueResult();
             return averagePrice;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } finally {
             session.close();
         }
@@ -221,7 +231,6 @@ public class ProductDao implements Repository<Product> {
         Session session = null;
         try {
             session = sessionFactory.openSession();
-            session.getTransaction().begin();
             List<Double> stockList = new ArrayList<>();
             Query<Double> stockQuery = session.createQuery("select (stock*price) from Product where brand like :brand");
             stockQuery.setParameter("brand", brand);
@@ -229,7 +238,7 @@ public class ProductDao implements Repository<Product> {
             return stockList;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } finally {
             session.close();
         }
@@ -240,7 +249,6 @@ public class ProductDao implements Repository<Product> {
         Session session = null;
         try {
             session = sessionFactory.openSession();
-            session.getTransaction().begin();
             List<Product> productList = new ArrayList<>();
             Query<Product> productQuery = session.createQuery("from Product where brand like :brand");
             productQuery.setParameter("brand", brand);
@@ -248,7 +256,7 @@ public class ProductDao implements Repository<Product> {
             return productList;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } finally {
             session.close();
         }
@@ -257,9 +265,10 @@ public class ProductDao implements Repository<Product> {
 
     public void deleteProductBrand(String brand) {
         Session session = null;
+        Transaction transaction = null;
         try {
             session = sessionFactory.openSession();
-            session.getTransaction().begin();
+            transaction = session.beginTransaction();
             List<Product> productList = getProductsFromBrand(brand);
             for (Product p: productList
                  ) {
@@ -269,7 +278,10 @@ public class ProductDao implements Repository<Product> {
 
             session.getTransaction().commit();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         } finally {
             session.close();
 

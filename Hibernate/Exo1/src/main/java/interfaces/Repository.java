@@ -1,4 +1,4 @@
-package repository;
+package interfaces;
 
 import entity.Product;
 
@@ -7,12 +7,15 @@ import java.util.List;
 
 public interface Repository<T> {
 
+
+
     public boolean create (T element);
     public Product getById(Long id);
 
     public void delete(Long id);
 
     public boolean update(Long id, T element);
+
 
     public List<T> getAll();
     public List<T> getByPrice(Double price);

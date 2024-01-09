@@ -11,7 +11,7 @@
         <mapping class="service.ProductService"></mapping>
         <mapping class="entity.Product"></mapping>
         <mapping class="dao.ProductDao"></mapping>
-        <mapping class="repository.Repository"></mapping>
+        <mapping class="interfaces.Repository"></mapping>
         <mapping class="controller.IHM"></mapping>
 
 
