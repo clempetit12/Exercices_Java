@@ -179,7 +179,7 @@ public class IHM {
         System.out.println("3. Supprimer un produit");
         System.out.println("4. Modifier les informations d'un produit");
         System.out.println("5. Afficher la totalité des produits");
-        System.out.println("6. Afficher les produits dont le prix est supérieur à 100€");
+        System.out.println("6. Afficher les produits dont le prix est supérieur au montant précisé");
         System.out.println("7. Afficher les produits achetés entre deux dates");
         System.out.println("0. Quitter");
         System.out.println("Saisissez votre choix :");
