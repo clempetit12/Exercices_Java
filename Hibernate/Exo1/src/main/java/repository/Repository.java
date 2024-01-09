@@ -1,4 +1,4 @@
-package Interfaces;
+package repository;
 
 import entity.Product;
 
@@ -17,7 +17,10 @@ public interface Repository<T> {
     public List<T> getAll();
     public List<T> getByPrice(Double price);
     public List<T> getByDate(Date date1, Date date2);
+    public List<T> getByStock(int stock);
 
     public void close();
+
+    public Double getAveragePrice();
 
 }

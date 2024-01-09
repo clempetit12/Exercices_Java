@@ -44,4 +44,24 @@ return productDao.create(product);
         productDao.close();
     }
 
+    public List<Product> getProductsByStock(int stock) {
+        return  productDao.getByStock(stock);
+    }
+
+    public List<Integer> getStockBrand(String brand) {
+        return productDao.getStockBrand(brand);
+    }
+
+    public Double getAveragePrice() {
+        return productDao.getAveragePrice();
+    }
+
+    public List<Product> getProductsFromBrand(String brand) {
+        return productDao.getProductsFromBrand(brand);
+    }
+
+    public void deleteProductFromBrand(String brand) {
+        productDao.deleteProductBrand(brand);
+    }
+
 }

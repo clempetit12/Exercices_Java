@@ -51,6 +51,21 @@ public class IHM {
                 case 7:
                     displayProductsDate();
                     break;
+                case 8:
+                    displayProductsStock();
+                    break;
+                case 9:
+                    displayStockBrand();
+                    break;
+                case 10:
+                    displayAveragePriceProducts();
+                    break;
+                case 11:
+                    displayProductsFromBrand();
+                    break;
+                case 12:
+                    deleteProductsFromBrand();
+                    break;
                 case 0:
                     closeAll();
                     break;
@@ -61,13 +76,60 @@ public class IHM {
         } while (choix != 0);
     }
 
+    private void deleteProductsFromBrand() {
+        System.out.println("Précisez la marque dont vous souhaitez supprimer les produits");
+        String brand = scanner.next();
+        productService.deleteProductFromBrand(brand);
+    }
+
+    private void displayProductsFromBrand() {
+        System.out.println("Précisez la marque dont vous souhaitez afficher les produits");
+        String brand = scanner.next();
+        List<Product> productList = productService.getProductsFromBrand(brand);
+        for (Product p: productList
+             ) {
+            System.out.println("Le produit " + p);
+        }
+    }
+
+    private void displayAveragePriceProducts() {
+        Double averagePrice = productService.getAveragePrice();
+        System.out.println("Le prix moyen des produits est de " + averagePrice);
+    }
+
+    private void displayStockBrand() {
+        System.out.println("Précisez la marque dont vous souhaitez afficher les stocks");
+        String brand = scanner.next();
+        List<Integer> productList = productService.getStockBrand(brand);
+        int totalStock = 0;
+        for (Integer i : productList
+        ) {
+            System.out.println("Les stocks des produits dont la marque est " + brand + " sont : " + i);
+            totalStock += i;
+
+        }
+        System.out.println("Le stock total est de " + totalStock);
+    }
+
+    private void displayProductsStock() {
+        System.out.println("Indiquez le stock référent pour afficher les produits dont le stock est inférieur : ");
+        int stock = scanner.nextInt();
+        for (Product p : productService.getProductsByStock(stock)
+        ) {
+            System.out.println("L'id du produit est " + p.getIdProduct() + " et sa référence est : " + p.getReference()
+            + "le stock est de " + p.getStock());
+
+        }
+    }
+
     private void closeAll() {
+        scanner.close();
         productService.close();
     }
 
     private void displayAllProducts() {
-        for (Product p: productService.getAllProducts()
-             ) {
+        for (Product p : productService.getAllProducts()
+        ) {
             System.out.println(p);
 
         }
@@ -77,9 +139,9 @@ public class IHM {
         System.out.println("Renseigner le prix  : ");
         Double price = scanner.nextDouble();
         List<Product> productList = productService.getProductsByPrice(price);
-        for (Product p: productList
-             ) {
-            System.out.println("Les produits dont le prix est supérieur à " + price + " sont :"+ p);
+        for (Product p : productList
+        ) {
+            System.out.println("Les produits dont le prix est supérieur à " + price + " sont :" + p);
         }
     }
 
@@ -93,12 +155,12 @@ public class IHM {
             String date_string2 = scanner.next();
             SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MM-yyyy");
             Date date2 = formatter2.parse(date_string2);
-            List<Product> productList= productService.getProductsByDate(date1,date2);
-            for (Product p: productList
+            List<Product> productList = productService.getProductsByDate(date1, date2);
+            for (Product p : productList
             ) {
                 System.out.println("Les produits dont l'achat est compris entre les date " + date1 + " et " + date2 + " sont " + p);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -169,8 +231,8 @@ public class IHM {
             System.out.println("Quel est le stock de votre produit ? :");
             int stock = scanner.nextInt();
             scanner.nextLine();
-            Product product = new Product(brand,reference, date, price, stock);
-            productService.updateProduct(id, product );
+            Product product = new Product(brand, reference, date, price, stock);
+            productService.updateProduct(id, product);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -186,6 +248,11 @@ public class IHM {
         System.out.println("5. Afficher la totalité des produits");
         System.out.println("6. Afficher les produits dont le prix est supérieur au montant précisé");
         System.out.println("7. Afficher les produits achetés entre deux dates");
+        System.out.println("8. Afficher les produits dont le stock est inférieur au montant précisé");
+        System.out.println("9. Afficher la valeur du stock d'une marque");
+        System.out.println("10. Afficher le prix moyen des produits");
+        System.out.println("11. Afficher la liste des produits d'une marque choisie");
+        System.out.println("12. Supprimer les produits d'une marque choisie");
         System.out.println("0. Quitter");
         System.out.println("Saisissez votre choix :");
 
