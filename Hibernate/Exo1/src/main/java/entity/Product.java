@@ -30,9 +30,8 @@ public class Product {
 
     private int stock;
 
-    @ManyToOne
-    @JoinColumn(name = "id_order")
-    private Orders order;
+    @ManyToMany(mappedBy = "productList", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Orders> ordersList;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Image> imageList ;

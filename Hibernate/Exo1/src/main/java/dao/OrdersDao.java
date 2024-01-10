@@ -11,6 +11,10 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -102,19 +106,23 @@ public class OrdersDao implements Repository<Orders> {
         Session session = null;
         try {
             session = sessionFactory.openSession();
-            List<Orders> orderList = new ArrayList<>();
-            Query<Orders> orderQuery = session.createQuery(" from Orders");
-            orderList = orderQuery.list();
-            return orderList;
+            List<Orders> orderList = session.createQuery(
+                    "SELECT DISTINCT o FROM Orders o LEFT JOIN FETCH o.productList",
+                    Orders.class
+            ).getResultList();
 
+            return orderList;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            session.close();
-
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
         }
         return null;
     }
+
+
 
     @Override
     public List<Orders> getByPrice(Double price) {

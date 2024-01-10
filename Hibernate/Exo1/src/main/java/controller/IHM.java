@@ -103,12 +103,23 @@ public class IHM {
 
     private void displayAllOrders() {
         List<Orders> ordersList = ordersService.displayAllOrderss();
-        for (Orders o : ordersList) {
+        for (Orders order : ordersList) {
+            System.out.println("Order ID: " + order.getIdOrder());
+            System.out.println("Order Purchase Date: " + order.getOrderPurchase());
+            System.out.println("Total: " + order.getTotal());
 
-            System.out.println("Elements de la commande : " + o);
+            System.out.println("Products:");
+            List<Product> productList = order.getProductList();
+            if (productList != null) {
+                for (Product product : productList) {
+                    System.out.println("  - " + product.toString());
+                }
+            }
 
+            System.out.println("------------------------------------");
         }
     }
+
 
     private void createorders() {
         Date date = new Date();
@@ -118,6 +129,7 @@ public class IHM {
             int nombreProduit = scanner.nextInt();
             scanner.nextLine();
             List<Product> productList = new ArrayList<>();
+            List<Orders> ordersList = new ArrayList<>();
             Double total = 1.0;
             for (int i = 0; i < nombreProduit; i++) {
                 System.out.println("Veuillez indiquer l'id des produits que vous souhaitez ajouter à la commande : ");
@@ -144,12 +156,15 @@ public class IHM {
             adressService.createAdress(adress1);
             Orders order = new Orders(date,adress1,productList,total);
             order.setAdress(adress1);
+            ordersList.add(order);
+            ordersService.createOrders(order);
             ordersService.updateOrder(order.getIdOrder(),order);
             for (Product p: order.getProductList()
-                 ) { p.setOrder(order);
+                 ) { p.setOrdersList(ordersList);
+                productService.updateProduct(p.getIdProduct(),p);
             }
             System.out.println(order);
-            ordersService.createOrders(order);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
