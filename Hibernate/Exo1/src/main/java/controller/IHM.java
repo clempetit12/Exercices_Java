@@ -142,7 +142,6 @@ public class IHM {
                 System.out.println("Aucun produit avec id " + id);
             }
 
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -206,6 +205,9 @@ public class IHM {
             String date_string2 = scanner.next();
             SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MM-yyyy");
             Date date2 = formatter2.parse(date_string2);
+            if (date1.after(date2)) {
+                System.out.println("Erreur : La première date doit être avant la deuxième date. Veuillez réessayer.");
+            }
             List<Product> productList = productService.getProductsByDate(date1, date2);
             if (productList != null && !productList.isEmpty()) {
             for (Product p : productList
@@ -245,13 +247,13 @@ public class IHM {
             String brand = scanner.next();
             List<Double> productList = productService.getValueStockBrand(brand);
             if (productList != null && !productList.isEmpty()) {
-                int totalStock = 0;
                 for (Double i : productList
                 ) {
-                    System.out.println("La valeur du stock pour le produit de la marque  " + brand + " est : " + i);
-                    totalStock += i;
+                    System.out.println("La valeur du stock pour le produit de la marque  " + brand + " est : " + i + " €");
+
                 }
-                System.out.println("La valeur du stock totale est de " + totalStock);
+                Double totalValueStock = productService.getTotalValueStock(brand);
+                System.out.println("La valeur totale du stock est de " + totalValueStock + " €");
             } else {
                 System.out.println("Pas de produits correspondants");
             }
@@ -265,7 +267,7 @@ public class IHM {
             Double averagePrice = productService.getAveragePrice();
             DecimalFormat decimalFormat = new DecimalFormat("#.##");
             String formatedPrice = decimalFormat.format(averagePrice);
-            System.out.println("Le prix moyen des produits est de " + formatedPrice);
+            System.out.println("Le prix moyen des produits est de " + formatedPrice + " € ");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -302,16 +304,13 @@ public class IHM {
         }
     }
 
-
-
-
     private void closeAll() {
         scanner.close();
         productService.close();
     }
 
     private void printMenu() {
-        System.out.println("=== Test ===");
+        System.out.println("=== Menu ===");
         System.out.println("1. Créer produits");
         System.out.println("2. Modifier les informations d'un produit");
         System.out.println("3. Supprimer un produit");

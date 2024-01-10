@@ -64,4 +64,7 @@ return productDao.create(product);
         productDao.deleteProductBrand(brand);
     }
 
+    public Double getTotalValueStock(String brand) {
+        return productDao.getTotalValueStock(brand);
+    }
 }
