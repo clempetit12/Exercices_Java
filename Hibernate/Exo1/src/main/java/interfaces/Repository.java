@@ -14,7 +14,7 @@ public interface Repository<T> {
     public boolean update(Long id, T element);
     public void delete(Long id);
 
-    public Product getById(Long id);
+    public T getById(Long id);
 
     public List<T> getAll();
     public List<T> getByPrice(Double price);

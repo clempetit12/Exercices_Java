@@ -61,6 +61,8 @@ public class ProductDao implements Repository<Product> {
                 product.setPurchaseDate(element.getPurchaseDate());
                 product.setPrice(element.getPrice());
                 product.setStock(element.getStock());
+                product.setImageList(element.getImageList());
+                product.setCommentsList(element.getCommentsList());
                 session.update(product);
                 session.getTransaction().commit();
             }
@@ -302,5 +304,23 @@ public class ProductDao implements Repository<Product> {
     @Override
     public void close() {
         sessionFactory.close();
+    }
+
+    public List<Product> getProductsByGrade(int grade) {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            List<Product> productList = new ArrayList<>();
+                Query<Product> productQuery = session.createQuery("from Product p where exists(select c from p.commentsList c where c.grade >:grade) ");
+               productQuery.setParameter("grade",grade);
+                productList = productQuery.list();
+                return productList;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
     }
 }

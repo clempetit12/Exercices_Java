@@ -1,15 +1,14 @@
 package controller;
 
-import dao.ProductDao;
-import entity.Product;
-import service.ProductService;
+import dao.*;
+import entity.*;
+import entity.Orders;
+import org.hibernate.Hibernate;
+import service.*;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class IHM {
 
@@ -18,9 +17,26 @@ public class IHM {
     private static ProductService productService;
     private static ProductDao productDao;
 
+    private static ImageService imageService;
+    private static ImageDao imageDao;
+    private static CommentService commentService;
+    private static CommentDao commentDao;
+    private static OrdersService ordersService;
+    private static OrdersDao ordersDao;
+    private static AdressService adressService;
+    private static AdressDao adressDao;
+
     public IHM() {
         productDao = new ProductDao();
         productService = new ProductService(productDao);
+        imageDao = new ImageDao();
+        imageService = new ImageService(imageDao);
+        commentDao = new CommentDao();
+        commentService = new CommentService(commentDao);
+        ordersDao=new OrdersDao();
+        ordersService=new OrdersService(ordersDao);
+        adressDao=new AdressDao();
+        adressService=new AdressService(adressDao);
     }
 
 
@@ -66,6 +82,15 @@ public class IHM {
                 case 12:
                     deleteProductsFromBrand();
                     break;
+                case 13:
+                    displayProductsByGrade();
+                    break;
+                case 14:
+                    createorders();
+                    break;
+                case 15:
+                    displayAllOrders();
+                    break;
                 case 0:
                     closeAll();
                     break;
@@ -76,25 +101,118 @@ public class IHM {
         } while (choix != 0);
     }
 
+    private void displayAllOrders() {
+        List<Orders> ordersList = ordersService.displayAllOrderss();
+        for (Orders o : ordersList) {
+
+            System.out.println("Elements de la commande : " + o);
+
+        }
+    }
+
+    private void createorders() {
+        Date date = new Date();
+
+        try {
+            System.out.println("Combien de produits souhaitez vous ajouter à la commande ");
+            int nombreProduit = scanner.nextInt();
+            scanner.nextLine();
+            List<Product> productList = new ArrayList<>();
+            Double total = 1.0;
+            for (int i = 0; i < nombreProduit; i++) {
+                System.out.println("Veuillez indiquer l'id des produits que vous souhaitez ajouter à la commande : ");
+                Long idProduct = scanner.nextLong();
+                System.out.println("Veuillez indiquer la quantité à ajouter : ");
+                int quantity = scanner.nextInt();
+                Product product = productService.getProductById(idProduct);
+                product.setStock(product.getStock()-quantity);
+                productService.updateProduct(idProduct,product);
+                Double price = product.getPrice();
+                productList.add(product);
+                total += quantity*price;
+            }
+            System.out.println("Adresse de la commande");
+            System.out.println("Veuillez saisir la ville de la commande");
+            String city = scanner.next();
+            System.out.println("Veuillez saisir la rue");
+            String street = scanner.nextLine();
+            scanner.nextLine();
+            System.out.println("Veuillez saisir le codePostal");
+            int codePostal = scanner.nextInt();
+            scanner.nextLine();
+            Adress adress1 = new Adress(street,city,codePostal);
+            adressService.createAdress(adress1);
+            Orders order = new Orders(date,adress1,productList,total);
+            order.setAdress(adress1);
+            ordersService.updateOrder(order.getIdOrder(),order);
+            for (Product p: order.getProductList()
+                 ) { p.setOrder(order);
+            }
+            System.out.println(order);
+            ordersService.createOrders(order);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void displayProductsByGrade() {
+        System.out.println("Veuillez saisir la note dont vous voulez voir les produits qui ont une note supérieure : ");
+        int grade = scanner.nextInt();
+        scanner.nextLine();
+        List<Product> productList = productService.displayProductsByGrade(grade);
+        for (Product p : productList) {
+            System.out.println("Voici les produits qui ont une note supérieure à " + grade + " : " + p);
+        }
+    }
+
+    private Image createImage() {
+        System.out.println("Veuillez saisir le lien url de l'image : ");
+        String url = scanner.next();
+        Image image = new Image(url);
+        imageService.createImage(image);
+        return image;
+    }
+
+    private Comments createComment() {
+        try {
+            System.out.println("Veuillez saisir un commentaire : ");
+            String content = scanner.nextLine();
+            scanner.nextLine();
+            System.out.println("Veuillez saisir la date du commentaire (format dd-MM-yyyy) ? :");
+            String date_string = scanner.next();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = formatter.parse(date_string);
+            System.out.println("Veuillez donner une note au commentaire");
+            int grade = scanner.nextInt();
+            scanner.nextLine();
+            Comments comments = new Comments(content, date, grade);
+            return comments;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     public void createProduct() {
         try {
             System.out.println("Combien de produits souhaitez vous ajouter ");
             int nombreProduit = scanner.nextInt();
             scanner.nextLine();
             for (int i = 0; i < nombreProduit; i++) {
-               Product product = productInfo();
+                Product product = productInfo();
                 productService.createProduct(product);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
+
     public void updateProduct() {
         try {
             System.out.println("Quel est l'id du produit que vous voulez modifier' ? :");
             Long id = scanner.nextLong();
             Product product = productService.getProductById(id);
-            if(product != null) {
+            if (product != null) {
                 Product product1 = productInfo();
                 productService.updateProduct(id, product1);
             } else {
@@ -122,13 +240,22 @@ public class IHM {
             System.out.println("Quel est le stock de votre produit ? :");
             int stock = scanner.nextInt();
             scanner.nextLine();
-            Product product = new Product(brand, reference, date, price, stock);
+            List<Image> imageList = new ArrayList<>();
+            Image image = createImage();
+            imageList.add(image);
+            Comments comments = createComment();
+            List<Comments> commentsList = new ArrayList<>();
+            commentsList.add(comments);
+            Product product = new Product(brand, reference, date, price, stock, imageList, commentsList);
+            product.addToImageList(image);
+            product.addToCommentList(comments);
+            product.setCommentsList(commentsList);
             return product;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-    return null;
+        return null;
     }
 
     public void deleteProduct() {
@@ -165,7 +292,7 @@ public class IHM {
     private void displayAllProducts() {
         List<Product> productList = productService.getAllProducts();
         if (productList != null) {
-            for (Product p :productList
+            for (Product p : productList
             ) {
                 System.out.println(p);
 
@@ -187,7 +314,7 @@ public class IHM {
                     System.out.println("Les produits dont le prix est supérieur à " + price + " sont :" + p);
                 }
             } else {
-                System.out.println("Pas de produits dont le prix est inférieur à "+ price);
+                System.out.println("Pas de produits dont le prix est inférieur à " + price);
             }
 
         } catch (Exception e) {
@@ -210,12 +337,13 @@ public class IHM {
             }
             List<Product> productList = productService.getProductsByDate(date1, date2);
             if (productList != null && !productList.isEmpty()) {
-            for (Product p : productList
-            ) {
-                System.out.println("Les produits dont l'achat est compris entre les date " + date1 + " et " + date2 + " sont " + p);
-            }}else {
+                for (Product p : productList
+                ) {
+                    System.out.println("Les produits dont l'achat est compris entre les date " + date1 + " et " + date2 + " sont " + p);
+                }
+            } else {
                 System.out.println("Pas de produits dont l'achat est compris entre "
-                + date1 + " et " + date2);
+                        + date1 + " et " + date2);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -226,14 +354,16 @@ public class IHM {
         try {
             System.out.println("Indiquez le stock référent pour afficher les produits dont le stock est inférieur : ");
             int stock = scanner.nextInt();
+            scanner.nextLine();
             List<Product> productList = productService.getProductsByStock(stock);
             if (productList != null && !productList.isEmpty()) {
-            for (Product p : productList
-            ) {
-                System.out.println("L'id du produit est " + p.getIdProduct() + " et sa référence est : " + p.getReference()
-                        + "le stock est de " + p.getStock());
+                for (Product p : productList
+                ) {
+                    System.out.println("L'id du produit est " + p.getIdProduct() + " et sa référence est : " + p.getReference()
+                            + "le stock est de " + p.getStock());
 
-            } }else {
+                }
+            } else {
                 System.out.println("Pas de produits dont le stock est inférieur à " + stock);
             }
         } catch (Exception e) {
@@ -274,22 +404,21 @@ public class IHM {
     }
 
 
-
     private void displayProductsFromBrand() {
         try {
             System.out.println("Précisez la marque dont vous souhaitez afficher les produits : ");
             String brand = scanner.next();
             List<Product> productList = productService.getProductsFromBrand(brand);
-            if(productList != null && !productList.isEmpty()) {
+            if (productList != null && !productList.isEmpty()) {
                 for (Product p : productList
                 ) {
                     System.out.println("Le produit de la marque " + brand + " est le suivant " + p);
                 }
             } else {
                 System.out.println("Aucun produit correspondant à la marque "
-                + brand);
+                        + brand);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -323,6 +452,10 @@ public class IHM {
         System.out.println("10. Afficher le prix moyen des produits");
         System.out.println("11. Afficher la liste des produits d'une marque choisie");
         System.out.println("12. Supprimer les produits d'une marque choisie");
+        System.out.println("13. Afficher produits avec note supérieur à la note renseignée");
+        System.out.println("14. Créer une ou plusieurs commandes");
+        System.out.println("15. Afficher toutes les commandes");
+
         System.out.println("0. Quitter");
         System.out.println("Saisissez votre choix :");
 

@@ -67,4 +67,8 @@ return productDao.create(product);
     public Double getTotalValueStock(String brand) {
         return productDao.getTotalValueStock(brand);
     }
+
+    public List<Product> displayProductsByGrade(int grade) {
+        return productDao.getProductsByGrade(grade);
+    }
 }
