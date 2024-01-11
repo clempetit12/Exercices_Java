@@ -130,7 +130,7 @@ public class ProductDao implements Repository<Product> {
         try {
             session = sessionFactory.openSession();
             List<Product> productList = new ArrayList<>();
-            Query<Product> productQuery = session.createQuery(" from Product");
+            Query<Product> productQuery = session.createQuery(" SELECT DISTINCT p FROM Product p LEFT JOIN FETCH p.commentsList\n");
             productList = productQuery.list();
             return productList;
 
@@ -311,7 +311,11 @@ public class ProductDao implements Repository<Product> {
         try {
             session = sessionFactory.openSession();
             List<Product> productList = new ArrayList<>();
-                Query<Product> productQuery = session.createQuery("from Product p where exists(select c from p.commentsList c where c.grade >:grade) ");
+            Query<Product> productQuery = session.createQuery(
+                    "SELECT DISTINCT p FROM Product p " +
+                            "LEFT JOIN FETCH p.commentsList c " +
+                            "WHERE EXISTS (SELECT c FROM p.commentsList c WHERE c.grade > :grade)", Product.class
+            );
                productQuery.setParameter("grade",grade);
                 productList = productQuery.list();
                 return productList;

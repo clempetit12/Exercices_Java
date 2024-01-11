@@ -59,8 +59,6 @@ public class Orders {
         result.append("idOrder=").append(idOrder);
         result.append(", orderPurchase=").append(orderPurchase);
         result.append(", productList=");
-
-        // Initialize the collection to avoid lazy loading issues
         Hibernate.initialize(productList);
 
         result.append(productList);

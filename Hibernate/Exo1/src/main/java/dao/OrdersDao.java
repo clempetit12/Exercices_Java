@@ -107,7 +107,8 @@ public class OrdersDao implements Repository<Orders> {
         try {
             session = sessionFactory.openSession();
             List<Orders> orderList = session.createQuery(
-                    "SELECT DISTINCT o FROM Orders o LEFT JOIN FETCH o.productList",
+                    "SELECT DISTINCT o FROM Orders o \n" +
+                            "LEFT JOIN FETCH o.productList p\n",
                     Orders.class
             ).getResultList();
 

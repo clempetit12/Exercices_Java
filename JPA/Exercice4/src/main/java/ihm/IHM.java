@@ -189,7 +189,6 @@ public class IHM {
             task.setUser(user);
             todoService.createTask(task);
             user.add(task);
-
         }
 
         } catch(Exception e) {

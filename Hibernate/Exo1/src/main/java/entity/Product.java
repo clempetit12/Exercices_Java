@@ -89,6 +89,7 @@ public class Product {
                 ", price=" + price +
                 ", stock=" + stock +
                 ", imageList=" + imageList +
+                ", commentsList=" + commentsList +
                 '}';
     }
 }

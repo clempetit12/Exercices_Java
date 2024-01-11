@@ -304,6 +304,8 @@ public class IHM {
         }
     }
 
+
+
     private void displayAllProducts() {
         List<Product> productList = productService.getAllProducts();
         if (productList != null) {
@@ -311,7 +313,10 @@ public class IHM {
             ) {
                 System.out.println(p);
 
-            }
+                }
+
+
+
         } else {
             System.out.println("Il n'y a pas de liste de produits");
         }
