@@ -1,0 +1,65 @@
+Algo à réviser :
+
+- tri à bulles 
+
+function sort(tab){
+    var changed;
+    do{
+        changed = false;
+        for(var i=0; i < tab.length-1; i++) {
+            if(tab[i] > tab[i+1]) {
+                var tmp = tab[i];
+                tab[i] = tab[i+1];
+                tab[i+1] = tmp;
+                changed = true;
+            }
+        }
+    } while(changed);
+}
+var tab = [5, 8, 11, 6, 1, 9, 3];
+sort(tab);
+console.log(tab);
+- tri à selection 
+
+function sort(tab){
+  for(var i = 0; i < tab.length; i++){
+    //stocker l'index de l'élément minimum
+    var min = i; 
+    for(var j = i+1; j < tab.length; j++){
+      if(tab[j] < tab[min]){
+       // mettre à jour l'index de l'élément minimum
+       min = j; 
+      }
+    }
+    var tmp = tab[i];
+    tab[i] = tab[min];
+    tab[min] = tmp;
+  }
+  return tab;
+};
+var tab = [5, 8, 11, 6, 1, 9, 3];
+sort(tab);
+console.log(tab);
+- fizzbuzz
+- suite de fibonacci
+
+function fibonacci(nbr) {
+   var n1 = 0;
+   var n2 = 1;
+   var somme = 0;
+ 
+   for(let i = 2; i <= nbr; i++){
+      //somme des deux derniers nombres
+      somme = n1 + n2; 
+      //assigner la dernière valeur à la première
+      n1 = n2; 
+      //attribuer la somme au dernier
+      n2 = somme; 
+   }
+ 
+   return nbr ? n2 : n1;
+}
+console.log(fibonacci(8));
+
+MQTT : 
+nécessitant une communication légère et asynchrone entre appareils.
