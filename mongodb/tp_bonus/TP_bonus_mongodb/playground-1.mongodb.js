@@ -54,7 +54,7 @@ use("Bonus");
 //     {
 //       $match: {
 //         "Seances.Libelle": {
-//           $all: ["Basket ball", "Volley ball"]
+//           $all: ["Volley ball","Basket ball"]
 //         }
 //       }
 //     },
@@ -62,15 +62,26 @@ use("Bonus");
 //       $project: {
 //         _id: 1,
 //         NomGymnase: 1,
-//         "Seances.Libelle" : 1
+//         "Seances.Libelle": 1
 //       }
 //     }
 //   ])
   
+
+// db.gymnase.find({
+//     "$nor": [
+//       {"Seances.Libelle": {"$ne": "Basket ball"}},
+//       {"Seances.Libelle": {"$ne": "Volley ball"}}
+//     ]
+//   },
+//   {
+//     "_id": 0,
+//     "NomGymnase": 1,
+//     "Ville": 1,
+//     "Seances.Libelle": 1
+//   })
   
-  
-  
-  
+
 
   // Quels sont les entraîneurs qui sont aussi joueurs 
 
@@ -143,47 +154,74 @@ use("Bonus");
 //   ])
   
 
-  // Quels entraîneurs n’entraînent que du hand ball ou du basketball ?
-//   db.sportifs.aggregate([
-//     {
-//       $match: {
-//         $or: [
-//           {
-//             $and: [
-//               {
-//                 "Sports.Entrainer": {
-//                   $in: [/^basket ball$/i, /^hand ball$/i]
-//                 }
-//               },
-//               {
-//                 "Sports.Entrainer": {
-//                   $size: 2
-//                 }
-//               }
-//             ]
-//           },
-//           {
-//             $and: [
-//               {
-//                 "Sports.Entrainer": {
-//                   $in: [/^basket ball$/i, /^hand ball$/i]
-//                 }
-//               },
-//               {
-//                 "Sports.Entrainer": {
-//                   $size: 1
-//                 }
-//               }
-//             ]
-//           }
-//         ]
-//       }
-//     }
-//   ]) 
+//   Quels entraîneurs n’entraînent que du hand ball ou du basketball ?
+db.sportifs.aggregate([
+    {
+      $match: {
+        $or: [
+          {
+            $and: [
+              {
+                "Sports.Entrainer": {
+                  $in: [/^basket ball$/i, /^hand ball$/i]
+                }
+              },
+              {
+                "Sports.Entrainer": {
+                  $size: 2
+                }
+              }
+            ]
+          },
+    
+          {
+            $and : [ {"Sports.Entrainer": {$eq :"Hand ball"},
+            "Sports.Entrainer": {
+                $size: 0} } ]
+        
+          
+
+          },
+          {
+            $and : [
+                { "Sports.Entrainer":{$eq :"Basket ball" } ,
+                "Sports.Entrainer": {
+                    $size: 0} }
+            ]
+           
+            
+          }
+        ]
+      }
+    }
+  ])
+  
   
   // Pour chaque sportif donner le nombre de sports qu’il arbitre?
 
-  db.sportifs.aggregate({$group : {_id : "$Nom", nombre_sports_arbitrer : {$sum : 1}}})
-
+ 
   
-  
+  db.sportifs.aggregate([
+    {
+      $unwind: "$Sports.Arbitrer"
+    },
+    {
+      $group: {
+        _id: {
+          IdSportif: "$IdSportif",
+          Nom: "$Nom",
+          Prenom: "$Prenom"
+        },
+        nombre_sports_arbitrer: { $sum: 1 }
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        IdSportif: "$_id.IdSportif",
+        Nom: "$_id.Nom",
+        Prenom: "$_id.Prenom",
+        nombre_sports_arbitrer: 1
+      }
+    }
+  ]);

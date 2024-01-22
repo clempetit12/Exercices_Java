@@ -1,0 +1,15 @@
+{ "_id": ObjectId("auteur1"), "nom": "Alice Dupont", "email": "alice@example.com" }
+{ "_id": ObjectId("auteur2"), "nom": "Bob Martin", "email": "bob@example.com" }
+{ "_id": ObjectId("auteur3"), "nom": "Clara Schmidt", "email": "clara@example.com" }
+{ "_id": ObjectId("auteur4"), "nom": "David Johnson", "email": "david@example.com" }
+{ "_id": ObjectId("auteur5"), "nom": "Eva Brown", "email": "eva@example.com" }
+{ "_id": ObjectId("auteur6"), "nom": "François Lemaire", "email": "francois@example.com" }
+{ "_id": ObjectId("auteur7"), "nom": "Gina Williams", "email": "gina@example.com" }
+{ "_id": ObjectId("auteur8"), "nom": "Hector Davis", "email": "hector@example.com" }
+{ "_id": ObjectId("auteur9"), "nom": "Isabelle Wilson", "email": "isabelle@example.com" }
+{ "_id": ObjectId("auteur10"), "nom": "Jean Dupuis", "email": "jean@example.com" }
+{ "_id": ObjectId("auteur11"), "nom": "Karen Smith", "email": "karen@example.com" }
+{ "_id": ObjectId("auteur12"), "nom": "Louis Martinez", "email": "louis@example.com" }
+{ "_id": ObjectId("auteur13"), "nom": "Monica Garcia", "email": "monica@example.com" }
+{ "_id": ObjectId("auteur14"), "nom": "Nathan Anderson", "email": "nathan@example.com" }
+{ "_id": ObjectId("auteur15"), "nom": "Olivia Thomas", "email": "olivia@example.com" }
