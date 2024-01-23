@@ -40,6 +40,10 @@ public class Product {
     }
 
 
+    public Product(String brand, Double price) {
+        this.brand = brand;
+        this.price = price;
+    }
 
     public Product() {
     }

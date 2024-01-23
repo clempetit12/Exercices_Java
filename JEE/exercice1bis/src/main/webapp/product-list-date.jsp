@@ -3,18 +3,37 @@
 <html>
 <head>
     <title>Produits entre deux dates</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-<h1>La liste des produits </h1>
+<h1>La liste des produits entre deux dates </h1>
 
+<table class=" table m-4">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Price</th>
+    </tr>
+    </thead>
+    <tbody>
 <c:forEach items="${produits3}" var="produit">
-    <div>
-        idProduct : ${produit.getIdProduct()}
-        brand : ${produit.getBrand()}
-        price : ${produit.getPrice()}
-    </div>
+    <tr >
+
+
+        <td class="text-center">  ${produit.getIdProduct()}</td>
+        <td class="text-center">   ${produit.getBrand()}</td>
+        <td class="text-center">   ${produit.getPrice()}</td>
+    </tr>
+
+
+
+
+
 
 
 </c:forEach>
+    </tbody>
+</table>
 </body>
 </html>

@@ -43,6 +43,14 @@ public class ServletProduct extends HttpServlet {
 
 
 
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+        Long idP ;
+        idP = Long.parseLong(id);
+        entity.Product product = productService.getProductById(idP);
+        productService.deleteProduct(product.getIdProduct());
+    }
 
 
 }
