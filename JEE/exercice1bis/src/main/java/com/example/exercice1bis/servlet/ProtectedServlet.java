@@ -16,43 +16,63 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@WebServlet(name="protected", value="/protected")
-    public class ProtectedServlet extends HttpServlet {
+@WebServlet(name = "protected", value = "/protected")
+public class ProtectedServlet extends HttpServlet {
 
     private List<User> userList;
-        private UserDao userDao;
-        private UserService userService;
-        @Override
-        public void init() throws ServletException {
-            userList= new ArrayList<>();
-            userDao = new UserDao();
-            userService = new UserService(userDao);
+    private UserDao userDao;
+    private UserService userService;
 
-        }
+    @Override
+    public void init() throws ServletException {
+        userList = new ArrayList<>();
+        userDao = new UserDao();
+        userService = new UserService(userDao);
 
-        @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
+            User user = new User(email, password);
+            if (userService.getByNamePassword(user)) {
+                HttpSession session = req.getSession();
 
+                boolean logged = (session.getAttribute("isLogged") != null) ? (boolean) session.getAttribute("isLogged") : false;
+                System.out.println("Email: " + email);
+                System.out.println("Password: " + password);
+                System.out.println("Logged: " + logged);
 
-            HttpSession session = req.getSession();
-            resp.setContentType("text/html");
-            PrintWriter out = resp.getWriter();
-            out.println("<html><body>");
-
-            boolean logged = (session.getAttribute("isLogged")!=null) ? (boolean) session.getAttribute("isLogged") :false;
-
-            if(!logged){
-                out.println("<div> Pas connecté </div>");
-            }else{
-                out.println("<div>Connecté</div>");
+                if (!logged) {
+                    req.setAttribute("message", "Pas connecté");
+                    session.setAttribute("isLogged", false);
+                    System.out.println("connecté");
+                } else {
+                    req.setAttribute("message", "Connecté");
+                    session.setAttribute("isLogged", true);
+                    System.out.println("non connecté ");
+                }
+            } else {
+                req.setAttribute("message", "Erreur d'authentification");
             }
-            out.println("</body></html>");
+
+            req.getRequestDispatcher("autentification-valide.jsp").forward(req, resp);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-
+    }
 
 
 }
+
+
+
+
+
+
+
+
+
+

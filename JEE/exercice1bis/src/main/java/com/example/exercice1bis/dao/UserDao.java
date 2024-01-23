@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 
 import java.util.Date;
 import java.util.List;
@@ -102,13 +103,22 @@ public class UserDao implements interfaces.Repository<User> {
     }
 
 
-    public User getByEmailPassword(User user) {
+    public boolean getByEmailPassword(User user) {
         Session session = null;
+        Transaction transaction = null;
 
         try {
             session = sessionFactory.openSession();
-            User user = session.get(User.class, id);
-            return user;
+            transaction = session.beginTransaction();
+            Query<User> query = session.createQuery("FROM User WHERE email = :email AND password = :password", User.class);
+            query.setParameter("email", user.getEmail());
+            query.setParameter("password", user.getPassword());
+            User user1 = query.uniqueResult();
+            transaction.commit();;
+            if(user1 != null) {
+                return true;
+            }
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,7 +126,7 @@ public class UserDao implements interfaces.Repository<User> {
             session.close();
 
         }
-        return null;
+        return false;
     }
 
 }

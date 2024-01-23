@@ -30,7 +30,7 @@
 
   </li>
 
-  <a class="btn btn-warning" type="button " href="protected">Authentification</a>
+  <a  href="protected" class="btn btn-warning" type="button ">Authentification</a>
 
 
 

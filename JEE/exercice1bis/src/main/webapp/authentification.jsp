@@ -8,7 +8,7 @@
 <body>
 <div class="container">
     <h2> Formulaire d'authentification </h2>
-    <form action="protected" method="post">
+    <form action="user" method="post">
         <div class="mb-3">
             <label for="email" class="form-label">email</label>
             <input type="text" class="form-control" id="email" name="email">
