@@ -100,8 +100,8 @@ use("restaurant")
     {
         $limit: 10
     }
-]) */
-
+])
+ */
 //7. Afficher la liste des 10 premiers restaurants avec un nouveau champ qui va afficher
 //le nombre d’avis (grades) par restaurant et il faudra faire le tri par nombre d’avis.
 
