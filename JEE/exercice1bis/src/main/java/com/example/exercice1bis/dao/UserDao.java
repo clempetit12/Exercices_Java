@@ -100,4 +100,23 @@ public class UserDao implements interfaces.Repository<User> {
     public void close() {
 
     }
+
+
+    public User getByEmailPassword(User user) {
+        Session session = null;
+
+        try {
+            session = sessionFactory.openSession();
+            User user = session.get(User.class, id);
+            return user;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+
+        }
+        return null;
+    }
+
 }
