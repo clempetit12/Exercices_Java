@@ -5,13 +5,15 @@
 
 <hibernate-configuration>
 
-    <!-- a SessionFactory instance listed as /jndi/name -->
+
     <session-factory>
 
         <mapping class="service.ProductService"></mapping>
         <mapping class="entity.Product"></mapping>
         <mapping class="dao.ProductDao"></mapping>
+        <mapping class="com.example.exercice1bis.entity.User"></mapping>
         <mapping class="interfaces.Repository"></mapping>
+
 
 
 

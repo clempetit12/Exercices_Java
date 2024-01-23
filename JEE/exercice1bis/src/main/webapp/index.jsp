@@ -25,6 +25,12 @@
     <a href="produitForm">Formulaire création produit</a>
 
   </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <a href="user">Formulaire création user</a>
+
+  </li>
+
+  <a class="btn btn-warning" type="button " href="protected">Authentification</a>
 
 
 
