@@ -5,8 +5,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,8 +99,10 @@ public class ServletForm extends HttpServlet {
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-
-        entity.Product product = new entity.Product(brand, price);
+        Part filePart = req.getPart("image");
+        System.out.println("image" +filePart);
+        String imageContent = convertPartToString(filePart);
+        entity.Product product = new entity.Product(brand,imageContent,price);
         System.out.println("new product" + product);
         if (isUpdate) {
             String id = req.getParameter("id");
@@ -109,7 +115,22 @@ public class ServletForm extends HttpServlet {
         req.setAttribute("produits", productList);
         response.sendRedirect("index.jsp");
     }
+    private String convertPartToString(Part part) throws IOException {
+        // Lire le contenu de la partie (flux d'entrée de la partie)
+        InputStream inputStream = part.getInputStream();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+        byte[] bytes = outputStream.toByteArray();
+        outputStream.close();
+        inputStream.close();
 
+        // Convertir les bytes en chaîne (vous pouvez choisir l'encodage approprié)
+        return new String(bytes, StandardCharsets.UTF_8);
+    }
 }
 
 

@@ -22,6 +22,7 @@ public class Product {
     private Long idProduct;
 
     private String brand;
+    private String image;
 
     private String reference;
 
@@ -42,6 +43,12 @@ public class Product {
 
     public Product(String brand, Double price) {
         this.brand = brand;
+        this.price = price;
+    }
+
+    public Product(String brand, String image, Double price) {
+        this.brand = brand;
+        this.image = image;
         this.price = price;
     }
 
@@ -94,6 +101,14 @@ public class Product {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

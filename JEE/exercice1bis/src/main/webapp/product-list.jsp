@@ -15,6 +15,7 @@
     <thead>
     <tr>
         <th scope="col">ID</th>
+        <th scope="col">Image</th>
         <th scope="col">Brand</th>
         <th scope="col">Price</th>
         <th scope="col">Delete</th>
@@ -26,6 +27,7 @@
     <c:forEach items="${produits}" var="produit">
         <tr>
             <td>${produit.getIdProduct()}</td>
+            <td>${produit.getImage()}</td>
             <td>${produit.getBrand()}</td>
             <td>${produit.getPrice()}</td>
             <td><button class="btn btn-secondary" onclick="deleteProduct(${produit.getIdProduct()})">Delete</button></td>

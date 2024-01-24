@@ -10,9 +10,23 @@
 <body>
 <jsp:include page="includes/header.jsp"/>
 <div class="container">
+
+    <form action="upload" method="post" enctype="multipart/form-data">
+        <div>
+            <input type="file" name="image"/>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Charger</button>
+        </div>
+
+    </form>
    <h2>"${produit == null ? 'Création' : 'Edition'}"</h2>
-    <form  action ="${produit == null ? 'insert' : 'update'}" method="post">
+    <form  action ="${produit == null ? 'insert' : 'update'}" method="post" >
         <input type="hidden" id="id" name="id" value="${produit != null ? produit.getIdProduct() : ''}">
+
+        <div class="mb-3">
+            <img id="imagePreview" src="webapp/images/image" alt="Default Image" style="max-width: 200px; max-height: 200px;"/>
+        </div>
         <div class="mb-3">
             <label for="brand" class="form-label">brand</label>
             <input type="text" class="form-control" id="brand" name="brand" value="${ produit != null ? produit.getBrand() : " "}">
