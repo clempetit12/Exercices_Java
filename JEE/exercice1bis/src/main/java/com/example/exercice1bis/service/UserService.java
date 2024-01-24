@@ -19,7 +19,7 @@ public class UserService {
         return userDao.getById(id);
     }
 
-    public boolean getByNamePassword(User user) {
+    public User getByNamePassword(User user) {
 
         System.out.println("User exists: " + user);
         return userDao.getByEmailPassword(user);

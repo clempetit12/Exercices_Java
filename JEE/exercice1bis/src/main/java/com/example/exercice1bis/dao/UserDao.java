@@ -103,7 +103,7 @@ public class UserDao implements interfaces.Repository<User> {
     }
 
 
-    public boolean getByEmailPassword(User user) {
+    public User getByEmailPassword(User user) {
         Session session = null;
         Transaction transaction = null;
 
@@ -116,7 +116,7 @@ public class UserDao implements interfaces.Repository<User> {
             User user1 = query.uniqueResult();
             transaction.commit();;
             if(user1 != null) {
-                return true;
+                return user1;
             }
 
 
@@ -126,7 +126,7 @@ public class UserDao implements interfaces.Repository<User> {
             session.close();
 
         }
-        return false;
+        return null;
     }
 
 }

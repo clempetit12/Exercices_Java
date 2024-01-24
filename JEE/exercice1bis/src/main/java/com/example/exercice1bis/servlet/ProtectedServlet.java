@@ -3,12 +3,11 @@ package com.example.exercice1bis.servlet;
 import com.example.exercice1bis.dao.UserDao;
 import com.example.exercice1bis.entity.User;
 import com.example.exercice1bis.service.UserService;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
+import org.hibernate.Session;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -30,35 +29,42 @@ public class ProtectedServlet extends HttpServlet {
         userService = new UserService(userDao);
 
     }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("autentification-valide.jsp").forward(req, resp);
+    }
+
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
             User user = new User(email, password);
-            if (userService.getByNamePassword(user)) {
+            User user1 = userService.getByNamePassword(user);
+            if (user1 != null) {
                 HttpSession session = req.getSession();
-
-                boolean logged = (session.getAttribute("isLogged") != null) ? (boolean) session.getAttribute("isLogged") : false;
+                session.setAttribute("user",user.getEmail());
+                session.setMaxInactiveInterval(30*60);
+                Cookie userName = new Cookie("userEmail", user.getEmail());
+                System.out.println(userName);
+                userName.setMaxAge(30*60);
+                resp.addCookie(userName);
                 System.out.println("Email: " + email);
                 System.out.println("Password: " + password);
-                System.out.println("Logged: " + logged);
+                req.setAttribute("message", "Connecté");
+                resp.sendRedirect("index.jsp");
 
-                if (!logged) {
-                    req.setAttribute("message", "Pas connecté");
-                    session.setAttribute("isLogged", false);
-                    System.out.println("connecté");
-                } else {
-                    req.setAttribute("message", "Connecté");
-                    session.setAttribute("isLogged", true);
-                    System.out.println("non connecté ");
+
                 }
-            } else {
-                req.setAttribute("message", "Erreur d'authentification");
+            else {
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                PrintWriter out= resp.getWriter();
+                out.println("<font color=red>Either user name or password is wrong.</font>");
+                rd.include(req, resp);
             }
 
-            req.getRequestDispatcher("autentification-valide.jsp").forward(req, resp);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
