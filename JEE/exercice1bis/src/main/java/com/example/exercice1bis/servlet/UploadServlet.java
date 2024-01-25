@@ -33,6 +33,7 @@ public class UploadServlet extends HttpServlet {
         String fileName = image.getSubmittedFileName();
 
         image.write(uploadPath + File.separator + fileName);
+        resp.sendRedirect("product-list.jsp");
 
 
     }

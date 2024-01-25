@@ -3,6 +3,7 @@ package com.example.exercice1bis.servlet;
 import com.example.exercice1bis.dao.UserDao;
 import com.example.exercice1bis.entity.User;
 import com.example.exercice1bis.service.UserService;
+import com.example.exercice1bis.utils.Definition;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@WebServlet(name = "protected", value = "/protected")
+@WebServlet(name = "user", value = "/user")
 public class ProtectedServlet extends HttpServlet {
 
     private List<User> userList;
@@ -56,7 +57,7 @@ public class ProtectedServlet extends HttpServlet {
                 resp.sendRedirect("index.jsp");
 
 
-                }
+            }
             else {
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
                 PrintWriter out= resp.getWriter();
@@ -72,13 +73,3 @@ public class ProtectedServlet extends HttpServlet {
 
 
 }
-
-
-
-
-
-
-
-
-
-

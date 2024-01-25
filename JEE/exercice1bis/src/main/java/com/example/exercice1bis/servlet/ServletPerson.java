@@ -41,7 +41,8 @@ public class ServletPerson extends HttpServlet {
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
-            User user1 = new User(email, password);
+            String name = req.getParameter("name");
+            User user1 = new User(email, password,name);
             userService.createUser(user1);
             req.setAttribute("users", userList);
             req.getRequestDispatcher("product-form.jsp").forward(req, resp);
