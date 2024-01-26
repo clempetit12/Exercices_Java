@@ -16,6 +16,7 @@
             <label for="lastName">LastName</label>
             <input type="text" class="form-control" id="lastName" name="lastName" >
         </div>
+    </div>
         <div class="form-group col-md-6">
             <label for="firstName">FirstName</label>
             <input type="text" class="form-control" id="firstName" name="firstName" >

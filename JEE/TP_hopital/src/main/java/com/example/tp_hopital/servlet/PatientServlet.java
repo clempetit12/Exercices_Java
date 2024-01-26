@@ -4,7 +4,10 @@ import com.example.tp_hopital.dao.CareFileDao;
 import com.example.tp_hopital.dao.ConsultationDao;
 import com.example.tp_hopital.dao.PatientDao;
 import com.example.tp_hopital.dao.PrescriptionDao;
+import com.example.tp_hopital.entities.CareFile;
+import com.example.tp_hopital.entities.Consultation;
 import com.example.tp_hopital.entities.Patient;
+import com.example.tp_hopital.entities.Prescription;
 import com.example.tp_hopital.services.HopitalService;
 import com.example.tp_hopital.utils.Definition;
 import jakarta.servlet.RequestDispatcher;
@@ -40,7 +43,6 @@ private List<Patient> patientList;
 
     @Override
     public void init() throws ServletException {
-patientList = new ArrayList<>();
         patientDao = new PatientDao();
         consultationDao = new ConsultationDao();
         careFileDao = new CareFileDao();
@@ -58,18 +60,6 @@ patientList = new ArrayList<>();
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        patientList = hopitalService.getPatientList();
-        for (Patient patient : patientList
-        ) {
-            System.out.println(patient.getIdPatient());
-        }
-        request.setAttribute("patients", patientList);
-
-        request.getRequestDispatcher("patients.jsp").forward(request,response);
-        HttpSession session = request.getSession();
-
-        boolean logged = (session.getAttribute("isLogged") != null) ? (boolean)session.getAttribute("isLogged") : false;
-
             String action = request.getServletPath();
 
             try {
@@ -86,6 +76,22 @@ patientList = new ArrayList<>();
                     case "/search":
                         searchPatient(request, response);
                         break;
+                    case "/delete":
+                        deletePatients(request, response);
+                        break;
+                    case "/details":
+                        detailsPatient(request, response);
+                        break;
+                    case "/formConsultation":
+                        showFormConsultation(request, response);
+                        break;
+                    case "/insertConsultation":
+                        addConsultation(request, response);
+                        break;
+                    case "/detailsConsultation":
+                        showDetailConsultation(request, response);
+                        break;
+
                     default:
                         response.sendRedirect("/listPatients");
                         break;
@@ -110,14 +116,20 @@ patientList = new ArrayList<>();
 
     private void showPatients(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
+
         patientList = hopitalService.getPatientList();
-        for (Patient patient : patientList
-        ) {
-            System.out.println(patient.getIdPatient());
-        }
         request.setAttribute("patients", patientList);
 
         request.getRequestDispatcher("patients.jsp").forward(request,response);
+    }
+
+    private void showFormConsultation(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+
+
+        System.out.println("formConsultation");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Definition.VIEW_PATH + "form-consultation.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void addPatient(HttpServletRequest request, HttpServletResponse response)
@@ -169,89 +181,108 @@ try
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher(Definition.VIEW_PATH+"form-patient.jsp");
+        System.out.println("form");
+    RequestDispatcher dispatcher = request.getRequestDispatcher(Definition.VIEW_PATH + "form-patient.jsp");
         dispatcher.forward(request, response);
+
     }
-//
-//    private void showProduct(HttpServletRequest request, HttpServletResponse response)
-//            throws SQLException, IOException, ServletException {
-//
-//        if(request.getParameter("id") != null) {
-//            int id = Integer.parseInt((request.getParameter("id")));
-//            Produit produit = service.findById(id);
-//            request.setAttribute("produit", produit);
-//            request.getRequestDispatcher(Definition.VIEW_PATH+"produit.jsp").forward(request,response);
-//        }
-//        else {
-//            request.setAttribute("produits", service.findAll());
-//            request.getRequestDispatcher(Definition.VIEW_PATH+"produits.jsp").forward(request,response);
-//        }
-//    }
-//
-//    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-//            throws SQLException, ServletException, IOException {
-//
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        Produit existingProduit = service.findById(id);
-//        RequestDispatcher dispatcher = request.getRequestDispatcher(Definition.VIEW_PATH+"form-produit.jsp");
-//        request.setAttribute("produit", existingProduit);
-//        dispatcher.forward(request, response);
-//
-//
-//    }
-//
-//    private void insertProduct(HttpServletRequest request, HttpServletResponse response)
-//            throws SQLException, IOException, ServletException {
-//
-//        Part imagePart = request.getPart("image");
-//
-//        String fileType = imagePart.getContentType();
-//
-//        if(fileType.equalsIgnoreCase("image/png")){
-//
-//            byte[] imageBytes = null;
-//            if (imagePart != null) {
-//                InputStream inputStream = imagePart.getInputStream();
-//                imageBytes = inputStream.readAllBytes();
-//            }
-//            String marque = request.getParameter("marque");
-//            String reference = request.getParameter("reference");
-//            int stock = Integer.parseInt(request.getParameter("stock"));
-//            double prix = Double.parseDouble(request.getParameter("prix"));
-//            LocalDate dateAchat = LocalDate.parse(request.getParameter("dateAchat"));
-//
-//            Produit produit = new Produit(marque, reference, Date.from(dateAchat.atStartOfDay(ZoneId.systemDefault()).toInstant()), prix, stock, imageBytes);
-//
-//            Integer id = request.getParameter("id") !=null ? Integer.valueOf(request.getParameter("id")) : null;
-//
-//            if(id != null){
-//                produit.setId(id);
-//            }
-//
-//            if(service.create(produit)) {
-//                response.sendRedirect("list");
-//            }else{
-//                response.sendRedirect(Definition.VIEW_PATH+"form-produit.jsp");
-//            }
-//        }else{
-//            response.sendRedirect(Definition.VIEW_PATH+"form-produit.jsp");
-//        }
-//    }
-//
-//
-//    private void updateProduct(HttpServletRequest request, HttpServletResponse response)
-//            throws SQLException, IOException {
-//
-//    }
-//
-//    private void deleteUser(HttpServletRequest request, HttpServletResponse response)
-//            throws SQLException, IOException {
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        Produit produit = service.findById(id);
-//        if(produit != null){
-//            service.delete(produit);
-//        }
-//        response.sendRedirect("list");
-//    }
+    private void deletePatients(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        Patient patient = hopitalService.getPatientById(id);
+        if(patient != null){
+           if( hopitalService.deletePatient(patient)) {
+               System.out.println("Le patient à bien été supprimé avec id " + patient.getIdPatient());
+        }
+        response.sendRedirect("listPatients");
+    }
+    }
+    private void detailsPatient(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if(request.getParameter("id") != null) {
+            Long id = Long.parseLong(request.getParameter("id"));
+            Patient patient = hopitalService.getPatientById(id);
+            request.setAttribute("patient", patient);
+            request.getRequestDispatcher(Definition.VIEW_PATH+"patient.jsp").forward(request,response);
+        }
+        else {
+            request.setAttribute("patients", hopitalService.getPatientList());
+            request.getRequestDispatcher(Definition.VIEW_PATH+"patients.jsp").forward(request,response);
+        }
+
+    }
+
+    private void showDetailConsultation(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if(request.getParameter("id") != null) {
+            Long id = Long.parseLong(request.getParameter("id"));
+            Consultation consultation = hopitalService.getConsultationById(id);
+            request.setAttribute("consultation", consultation);
+            request.getRequestDispatcher(Definition.VIEW_PATH+"consultation.jsp").forward(request,response);
+        }
+        else {
+            request.setAttribute("patients", hopitalService.getPatientList());
+            request.getRequestDispatcher(Definition.VIEW_PATH+"patients.jsp").forward(request,response);
+        }
+
+    }
+
+    private void addConsultation(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        try {
+            String doctorName = request.getParameter("doctorName");
+            System.out.println(doctorName);
+            String dateOfConsultation = request.getParameter("dateConsultation");
+            System.out.println(dateOfConsultation);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = formatter.parse(dateOfConsultation);
+            Long patientId = Long.parseLong(request.getParameter("patientId"));
+            System.out.println(patientId);
+            Consultation consultation = new Consultation();
+            consultation.setDoctorName(doctorName);
+            consultation.setConsultationDate(date);
+            Patient patient = hopitalService.getPatientById(patientId);
+            consultation.setPatient(patient);
+            hopitalService.createConsultation(consultation);
+
+            String[] careArray = request.getParameterValues("care[]");
+            System.out.println(careArray);
+            String[] durationArray = request.getParameterValues("duration[]");
+            String[] medicationArray = request.getParameterValues("medication[]");
+            String[] durationMArray = request.getParameterValues("durationM[]");
+
+            if (consultation.getCareFile() == null) {
+                consultation.setCareFile(new ArrayList<>());
+            }
+
+            if (consultation.getPrescription() == null) {
+                consultation.setPrescription(new ArrayList<>());
+            }
+
+            for (int i = 0; i < careArray.length; i++) {
+                CareFile careFile = new CareFile();
+                careFile.setCare(careArray[i]);
+                careFile.setDuration(durationArray[i]);
+                careFile.setConsultation(consultation);
+                consultation.getCareFile().add(careFile);
+            }
+
+
+            for (int i = 0; i < medicationArray.length; i++) {
+                Prescription prescription = new Prescription();
+                prescription.setMedication(medicationArray[i]);
+                prescription.setDuration(Integer.parseInt(durationMArray[i]));
+                prescription.setConsultation(consultation);
+                consultation.getPrescription().add(prescription);
+            }
+
+            hopitalService.updateConsultation(consultation);
+            response.sendRedirect(Definition.VIEW_PATH+"patients.jsp");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+    }
+
 
 }

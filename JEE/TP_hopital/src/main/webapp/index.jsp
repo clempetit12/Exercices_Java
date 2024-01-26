@@ -8,6 +8,6 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="patients.jsp">Démarrage</a>
+<a href="listPatients">Démarrage</a>
 </body>
 </html>

@@ -4,6 +4,7 @@ package com.example.tp_hopital.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,14 @@ public class Consultation {
     private Patient patient;
 
     public Consultation() {
+    }
+
+    public Consultation(Date consultationDate, String doctorName, Patient patient) {
+        this.consultationDate = consultationDate;
+        this.doctorName = doctorName;
+        this.patient = patient;
+        this.prescription = new ArrayList<>();
+        this.careFile = new ArrayList<>();
     }
 
     public Long getIdConsultation() {

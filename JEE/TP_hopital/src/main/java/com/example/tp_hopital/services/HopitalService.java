@@ -48,8 +48,8 @@ public class HopitalService {
         return consultationDao.create(consultation);
     }
 
-    public Patient getConsultationById(Long id) {
-        return patientDao.findById(id);
+    public Consultation getConsultationById(Long id) {
+        return consultationDao.findById(id);
     }
 
     public List<Consultation> findConsultationByPatient(Long id) {
@@ -62,5 +62,11 @@ public class HopitalService {
     }
     public boolean createCareFile(CareFile careFile) {
         return careFileDao.create(careFile);
+    }
+    public boolean deletePatient(Patient patient) {
+        return patientDao.delete(patient);
+    }
+    public boolean updateConsultation(Consultation consultation) {
+        return consultationDao.update(consultation);
     }
 }

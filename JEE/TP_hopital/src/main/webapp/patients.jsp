@@ -18,11 +18,10 @@
             <h5 class="card-title">Nom : ${patient.getLastName()}</h5>
             <h6 class="card-title">Prénom : ${patient.getFirstName()}</h6>
             <h6 class="card-title">Date de naissance : ${patient.getDateOfBirth()}</h6>
+            <a type="button" href="delete?id=${patient.getIdPatient()}" class="btn btn-danger">Delete</a>
+            <a type="button" href="details?id=${patient.getIdPatient()}" class="btn btn-primary">Detail</a>
         </div>
     </div>
-
-
-
 </c:forEach>
 </body>
 </html>

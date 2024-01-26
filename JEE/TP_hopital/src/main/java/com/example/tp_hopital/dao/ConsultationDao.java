@@ -55,6 +55,8 @@ public class ConsultationDao implements Repository<Consultation> {
             Consultation consultation = findById(element.getIdConsultation());
             if (consultation != null) {
                 consultation.setDoctorName(element.getDoctorName());
+                consultation.setPrescription(element.getPrescription());
+                consultation.setCareFile(element.getCareFile());
                 session.update(consultation);
                 session.getTransaction().commit();
             }

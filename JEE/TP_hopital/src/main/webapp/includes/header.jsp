@@ -21,10 +21,10 @@
                 <a class="nav-link" href="list">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="new">Add</a>
+                <a class="nav-link" href="form">Add</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="https://www.amazon.fr/" >Amazon</a>
+                <a class="nav-link" href="listPatients" >List</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled">About</a>
