@@ -15,6 +15,8 @@ public class GradingCalculatorTest {
         Assertions.assertEquals('A', result);
     }
 
+    //- Score : 85%, Présence : 90 => Note: B
+    // Score : 95%, Présence : 65 => Note: B
     @Test
     void testGradeB() {
         GradingCalculator gradingCalculator = new GradingCalculator();
@@ -32,6 +34,10 @@ public class GradingCalculatorTest {
         char result = gradingCalculator.getGrade();
         Assertions.assertEquals('C', result);
     }
+
+    // - Score : 95%, Présence : 55 => Note: F
+    // - Score : 65%, Présence : 55 => Note: F
+    // - Score : 50%, Présence : 90 => Note: F
     @Test
     void testGradeF() {
         GradingCalculator gradingCalculator = new GradingCalculator();
