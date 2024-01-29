@@ -6,11 +6,16 @@ import org.junit.jupiter.api.Test;
 
 public class GradingCalculatorTest {
 
+    private GradingCalculator gradingCalculator;
+
+    private void initGradingCalculator(int score, int attendance) {
+        gradingCalculator = new GradingCalculator();
+        gradingCalculator.setScore(score);
+        gradingCalculator.setAttendancePercentage(attendance);
+    }
     @Test
     void testGradeA() {
-        GradingCalculator gradingCalculator = new GradingCalculator();
-        gradingCalculator.setScore(95);
-        gradingCalculator.setAttendancePercentage(90);
+        initGradingCalculator(95,90);
         char result = gradingCalculator.getGrade();
         Assertions.assertEquals('A', result);
     }
@@ -19,18 +24,14 @@ public class GradingCalculatorTest {
     // Score : 95%, Présence : 65 => Note: B
     @Test
     void testGradeB() {
-        GradingCalculator gradingCalculator = new GradingCalculator();
-        gradingCalculator.setScore(95);
-        gradingCalculator.setAttendancePercentage(65);
+        initGradingCalculator(95,65);
         char result = gradingCalculator.getGrade();
         Assertions.assertEquals('B', result);
     }
 
     @Test
     void testGradeC() {
-        GradingCalculator gradingCalculator = new GradingCalculator();
-        gradingCalculator.setScore(65);
-        gradingCalculator.setAttendancePercentage(90);
+        initGradingCalculator(65,90);
         char result = gradingCalculator.getGrade();
         Assertions.assertEquals('C', result);
     }
@@ -40,9 +41,7 @@ public class GradingCalculatorTest {
     // - Score : 50%, Présence : 90 => Note: F
     @Test
     void testGradeF() {
-        GradingCalculator gradingCalculator = new GradingCalculator();
-        gradingCalculator.setScore(50);
-        gradingCalculator.setAttendancePercentage(90);
+        initGradingCalculator(50,90);
         char result = gradingCalculator.getGrade();
         Assertions.assertEquals('F', result);
     }
