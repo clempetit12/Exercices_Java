@@ -69,4 +69,11 @@ public class HopitalService {
     public boolean updateConsultation(Consultation consultation) {
         return consultationDao.update(consultation);
     }
+
+    public CareFile getFileCare(Long id) {
+        return careFileDao.findById(id);
+    }
+    public Prescription getPrescription(Long id) {
+        return prescriptionDao.findById(id);
+    }
 }

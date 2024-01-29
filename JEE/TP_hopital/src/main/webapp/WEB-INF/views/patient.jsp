@@ -38,8 +38,6 @@
         <th>Détail Consultation</th>
 
     </tr>
-    <c:choose>
-        <c:when test="${not empty patient.getConsultationList() || patient.getConsultationList() != null }">
             <c:forEach items="${patient.getConsultationList()}" var="consultation">
                 <tr>
                     <td>${consultation.getIdConsultation()}</td>
@@ -49,15 +47,10 @@
 
                 </tr>
             </c:forEach>
-        </c:when>
-        <c:otherwise>
 
-            <tr><td colspan="6">Aucune consultation disponible.</td></tr>
-        </c:otherwise>
-    </c:choose>
 
 </table>
-</center>
+
 </div>
 
 

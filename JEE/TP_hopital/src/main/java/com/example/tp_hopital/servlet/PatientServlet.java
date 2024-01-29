@@ -15,6 +15,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import org.hibernate.Hibernate;
 
 import java.awt.*;
 import java.io.IOException;
@@ -277,7 +278,8 @@ try
             }
 
             hopitalService.updateConsultation(consultation);
-            response.sendRedirect(Definition.VIEW_PATH+"patients.jsp");
+            response.sendRedirect("patients.jsp");
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
 

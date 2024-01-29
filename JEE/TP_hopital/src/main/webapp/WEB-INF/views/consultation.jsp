@@ -11,7 +11,7 @@
 <h1 class="text-center">Détails Consultations</h1>
 <h2 class="text-center">Prescriptions</h2>
 
-<c:forEach items="${consultations.getPrescription()}" var="prescription">
+<c:forEach items="${consultation.getPrescription()}" var="prescription">
     <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">Traitement : ${prescription.getMedication()}</h5>
@@ -24,7 +24,7 @@
 
 <h2 class="text-center">Fiches de soins</h2>
 
-<c:forEach items="${consultations.getCareFile()}" var="careFile">
+<c:forEach items="${consultation.getCareFile()}" var="careFile">
     <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">Soin : ${careFile.getCare()}</h5>

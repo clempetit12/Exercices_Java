@@ -1,6 +1,7 @@
 package com.example.tp_hopital.dao;
 
 import com.example.tp_hopital.entities.CareFile;
+import com.example.tp_hopital.entities.Patient;
 import com.example.tp_hopital.interfaces.Repository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -54,6 +55,19 @@ public class CareFileDao implements Repository<CareFile> {
 
     @Override
     public CareFile findById(Long id) {
+        Session session = null;
+
+        try {
+            session = sessionFactory.openSession();
+            CareFile careFile = (CareFile) session.get(CareFile.class, id);
+            return careFile;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+
+        }
         return null;
     }
 

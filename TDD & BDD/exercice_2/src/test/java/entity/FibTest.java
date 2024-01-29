@@ -18,16 +18,18 @@ public class FibTest {
     }
 
     @Test
-    void testGetFibSeriesRage1IsEmpty() {
+    void testGetFibSeriesRage1IsNotEmpty() {
         List<Integer> result = fibInit(1);
-        Assertions.assertNotNull(result);
+       boolean res = result.isEmpty();
+       Assertions.assertFalse(res);
 
     }
 
     @Test
     void testGetFibSeriesRange1IsEqualTo0() {
         List<Integer> result = fibInit(1);
-        Assertions.assertEquals(Collections.singletonList(0), result);
+        List<Integer> resultExpected = Arrays.asList(0);
+        Assertions.assertEquals(resultExpected, result);
 
     }
 
@@ -59,7 +61,7 @@ public class FibTest {
     void testGetFibSeriesRange6EqualsList() {
         List<Integer> result = fibInit(6);
         List<Integer> expectedList = Arrays.asList(0, 1, 1, 2, 3, 5);
-        Assertions.assertIterableEquals(expectedList, result);
+        Assertions.assertEquals(expectedList, result);
 
 
     }
@@ -67,20 +69,11 @@ public class FibTest {
     @Test
     void testGetFibSeriesRange6ResultSortedAsc() {
         List<Integer> result = fibInit(6);
-        Assertions.assertTrue(sortList(result));
+        Assertions.assertEquals(Arrays.asList(0, 1, 1, 2, 3, 5),result);
 
 
     }
 
-    boolean sortList(List<Integer> integerList) {
-        for (int i = 0; i < integerList.size(); i++) {
-            if (integerList.get(i) > integerList.get(i++)) {
-                return false;
-            }
-
-        }
-        return true;
-    }
 
 
 }

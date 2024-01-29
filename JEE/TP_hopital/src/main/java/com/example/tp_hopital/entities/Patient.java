@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -43,5 +44,17 @@ public class Patient {
 
     public void setIdPatient(Long idPatient) {
         this.idPatient = idPatient;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "idPatient=" + idPatient +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", image=" + Arrays.toString(image) +
+                ", consultationList=" + consultationList +
+                '}';
     }
 }
