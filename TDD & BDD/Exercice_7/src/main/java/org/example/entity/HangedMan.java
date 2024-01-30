@@ -33,17 +33,21 @@ public class HangedMan {
 
     public boolean charInWord(char lettre) {
         if (play().contains(String.valueOf(lettre))) {
+            System.out.println("Bravo vous avez trouvé une lettre");
             return true;
         }
+        System.out.println("Essayez encore, ce n'est pas la bonne lettre");
         return false;
     }
 
     public boolean hasWon() {
         for (char c : currentWord.toCharArray()) {
             if (!charInWord(c)) {
+                System.out.println("Vous n'avez pas encore gagné");
                 return false;
             }
         }
+        System.out.println("Bravo vous avez gagnée ! ");
         return true;
     }
 }
