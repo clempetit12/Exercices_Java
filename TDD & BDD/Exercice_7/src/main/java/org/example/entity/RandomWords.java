@@ -7,8 +7,9 @@ public class RandomWords implements RWord {
     private Random random;
     private String[] randomWords ;
 
-    public RandomWords(Random random) {
-        this.random = random;
+    public RandomWords() {
+        this.random = new Random();
+
     }
 
     public Random getRandom() {

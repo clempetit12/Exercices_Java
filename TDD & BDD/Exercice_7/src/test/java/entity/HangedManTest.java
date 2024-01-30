@@ -29,7 +29,7 @@ public class HangedManTest {
 
     @Test
     void testGetCharInWord() {
-        Assertions.assertTrue(hangedMan.charInWord('i'));
+        Assertions.assertTrue(hangedMan.charInWord('u',"bougie"));
     }
 
     @Test
