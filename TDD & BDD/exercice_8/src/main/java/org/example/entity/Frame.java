@@ -30,6 +30,10 @@ public class Frame {
     public void throwBall() {
         int pinsDown = pinGenerator.getNumberOfPins();
         if (currentIndexFrame < 9) {
+            if(isRoundComplete()) {
+                currentIndexFrame++;
+                numberOfThrow = 1;
+            }
             if (pinsDown > MAX_PINS) {
                 throw new NumberOfPinsException();
             } else if (isStrike) {
@@ -38,9 +42,10 @@ public class Frame {
                 isStrike = true;
                 score +=10;
                 currentIndexFrame++;
-                setNumberOfThrow(1);
+
             } else {
                 score += pinsDown;
+                numberOfThrow++;
             }
         } else if (currentIndexFrame == 9) {
             if (numberOfThrow >4) {
@@ -75,6 +80,6 @@ public class Frame {
     }
 
     public boolean isRoundComplete() {
-        return isStrike || numberOfThrow == 2;
+        return isStrike || numberOfThrow >2;
     }
 }

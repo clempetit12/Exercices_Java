@@ -28,9 +28,12 @@ public class BowlingGame {
 
         if (currentFrame.isRoundComplete()) {
             if (currentFrameIndex < 9) {
-                currentFrameIndex++;
-            }
+                if (currentFrameIndex == 8 && currentFrame.isStrike()) {
 
+                } else {
+                    currentFrameIndex++;
+                }
+            }
         }
     }
 

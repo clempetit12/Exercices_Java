@@ -171,6 +171,43 @@ public class FrameTest {
         int result = bowlingGame.getScore();
         Assertions.assertEquals(300, result);
     }
+    @Test
+    void testGetScoreWith() {
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(8);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(1);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(9);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(1);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(10);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(10);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(8);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(1);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(7);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(2);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(10);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(10);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(10);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(8);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(2);
+        bowlingGame.roll();
+        Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(9);
+        bowlingGame.roll();
 
+        int result = bowlingGame.getScore();
+        Assertions.assertEquals(191, result);
+    }
 
 }
