@@ -27,17 +27,29 @@ public class BowlingGame {
 
 
         if (currentFrame.isRoundComplete()) {
-            currentFrameIndex++;
+            if (currentFrameIndex < 9) {
+                currentFrameIndex++;
+            }
+
         }
     }
 
     public int getScore() {
         int totalScore = 0;
-        for (Frame frame : frames) {
+        for (int i = 0; i < frames.size(); i++) {
+            Frame frame = frames.get(i);
             totalScore += frame.getScore();
+            if (frame.isStrike() && i < frames.size() - 1) {
+                Frame nextFrame = frames.get(i + 1);
+                totalScore += nextFrame.getScore();
+                if (nextFrame.isStrike() && i < frames.size() - 2) {
+                    totalScore += frames.get(i + 2).getScore();
+                }
+            }
         }
         return totalScore;
     }
+
 
     public List<Frame> getFrames() {
         return frames;

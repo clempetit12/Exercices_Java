@@ -29,7 +29,6 @@ public class Frame {
 
     public void throwBall() {
         int pinsDown = pinGenerator.getNumberOfPins();
-
         if (currentIndexFrame < 9) {
             if (pinsDown > MAX_PINS) {
                 throw new NumberOfPinsException();
@@ -37,31 +36,13 @@ public class Frame {
                 throw new StrikeException();
             } else if (pinsDown == MAX_PINS) {
                 isStrike = true;
-                score += 10;
+                score +=10;
                 currentIndexFrame++;
                 setNumberOfThrow(1);
             } else {
                 score += pinsDown;
             }
-
-
         } else if (currentIndexFrame == 9) {
-
-            if (isStrike) {
-
-            } else {
-
-                score += pinsDown;
-
-
-                if (numberOfThrow == 2 && pinsDown == MAX_PINS) {
-                    score += 10;
-                } else {
-                    int pinsDownSecondThrow = pinGenerator.getNumberOfPins();
-                    score += pinsDownSecondThrow;
-                }
-            }
-        } else if (currentIndexFrame == 10) {
             if (numberOfThrow >4) {
                 throw  new LaunchException();
             }
@@ -69,15 +50,16 @@ public class Frame {
                 setStrike(true);
             }
             if (isStrike) {
-                score += 2 * pinsDown;
-                isStrike = false;
+                score += 10;
                 numberOfThrow++;
+                if (numberOfThrow > 2) {
+                    isStrike = false;
+                }
             } else if (score == 5 && pinsDown == 5) {
-
                 score += pinsDown;
                 int pinsDownSecondThrow = pinGenerator.getNumberOfPins();
                 if (pinsDown + pinsDownSecondThrow == MAX_PINS) {
-                    score = pinsDown + pinsDownSecondThrow + 10;
+                    score = pinsDown + pinsDownSecondThrow ;
                     numberOfThrow++;
                 } else {
                     score += pinsDownSecondThrow;
@@ -91,7 +73,6 @@ public class Frame {
 
 
     }
-
 
     public boolean isRoundComplete() {
         return isStrike || numberOfThrow == 2;
