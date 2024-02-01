@@ -40,11 +40,13 @@ public class Frame {
                 throw new StrikeException();
             } else if (pinsDown == MAX_PINS) {
                 isStrike = true;
+                pinsDownFirstThrow = 10;
                 score +=10;
                 currentIndexFrame++;
 
-            } else {
+            }else {
                 score += pinsDown;
+                pinsDownFirstThrow = pinsDown;
                 numberOfThrow++;
             }
         } else if (currentIndexFrame == 9) {
@@ -61,6 +63,7 @@ public class Frame {
                     isStrike = false;
                 }
             } else if (score == 5 && pinsDown == 5) {
+                pinsDownFirstThrow = pinsDown;
                 score += pinsDown;
                 int pinsDownSecondThrow = pinGenerator.getNumberOfPins();
                 if (pinsDown + pinsDownSecondThrow == MAX_PINS) {
@@ -71,6 +74,7 @@ public class Frame {
                     numberOfThrow++;
                 }
             } else {
+                pinsDownFirstThrow = pinsDown;
                 score += pinsDown;
                 numberOfThrow++;
             }
@@ -81,5 +85,9 @@ public class Frame {
 
     public boolean isRoundComplete() {
         return isStrike || numberOfThrow >2;
+    }
+
+    public int getFirstThrow() {
+        return pinsDownFirstThrow;
     }
 }

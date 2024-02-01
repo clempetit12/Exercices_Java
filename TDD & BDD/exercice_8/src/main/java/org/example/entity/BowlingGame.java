@@ -42,16 +42,23 @@ public class BowlingGame {
         for (int i = 0; i < frames.size(); i++) {
             Frame frame = frames.get(i);
             totalScore += frame.getScore();
-            if (frame.isStrike() && i < frames.size() - 1) {
+
+            if (frame.isSpare() && i < frames.size() - 1) {
+                Frame nextFrame = frames.get(i + 1);
+                totalScore += nextFrame.getFirstThrow();
+            } else if (frame.isStrike() && i < frames.size() - 1) {
                 Frame nextFrame = frames.get(i + 1);
                 totalScore += nextFrame.getScore();
+
                 if (nextFrame.isStrike() && i < frames.size() - 2) {
-                    totalScore += frames.get(i + 2).getScore();
+                    Frame secondNextFrame = frames.get(i + 2);
+                    totalScore += secondNextFrame.getFirstThrow();
                 }
             }
         }
         return totalScore;
     }
+
 
 
     public List<Frame> getFrames() {

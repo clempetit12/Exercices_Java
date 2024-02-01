@@ -2,7 +2,9 @@ package com.example.tp_hopital.dao;
 
 import com.example.tp_hopital.entities.Consultation;
 import com.example.tp_hopital.entities.Patient;
+import com.example.tp_hopital.entities.Prescription;
 import com.example.tp_hopital.interfaces.Repository;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -105,6 +107,8 @@ public class ConsultationDao implements Repository<Consultation> {
         try {
             session = sessionFactory.openSession();
             Consultation consultation = (Consultation) session.get(Consultation.class, id);
+            Hibernate.initialize(consultation.getCareFile());
+            Hibernate.initialize(consultation.getPrescription());
             return consultation;
 
         } catch (Exception e) {
@@ -124,6 +128,12 @@ public class ConsultationDao implements Repository<Consultation> {
             List<Consultation> consultations = new ArrayList<>();
             Query<Consultation> consultationQuery = session.createQuery(" SELECT DISTINCT c FROM Consultation c ");
             consultations = consultationQuery.list();
+            for (Consultation c : consultations
+                 ) {
+                Hibernate.initialize(c.getCareFile());
+                Hibernate.initialize(c.getPrescription());
+
+            }
             return consultations;
 
         } catch (Exception e) {

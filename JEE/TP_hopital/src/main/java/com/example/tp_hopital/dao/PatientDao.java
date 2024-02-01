@@ -146,7 +146,8 @@ public class PatientDao implements Repository<Patient> {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             List<Patient> patientList = new ArrayList<>();
-            Query<Patient> patientQuery = session.createQuery(" SELECT  p FROM Patient p where lastName like :name%");
+            Query<Patient> patientQuery = session.createQuery(" SELECT  p FROM Patient p where p.lastName like CONCAT(:name, '%')");
+            patientQuery.setParameter("name", name);
             patientList = patientQuery.list();
         } catch (Exception e) {
             if (transaction != null) {

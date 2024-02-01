@@ -1,6 +1,6 @@
-package com.example.tp_hopital.entities;
+package com.example.tp_hopital.entity;
 
-
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,6 +11,7 @@ import java.util.List;
 @Entity
 @Data
 public class Consultation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_consultation", nullable = false)
@@ -19,11 +20,13 @@ public class Consultation {
     private Date consultationDate;
     private String doctorName;
 
+
     @OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Prescription> prescription;
 
     @OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CareFile> careFile;
+
 
     @ManyToOne
     @JoinColumn(name = "patient_id")

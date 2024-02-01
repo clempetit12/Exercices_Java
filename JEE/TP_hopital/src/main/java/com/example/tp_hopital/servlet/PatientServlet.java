@@ -108,10 +108,13 @@ private List<Patient> patientList;
 
     private void searchPatient(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
+        System.out.println("search patient");
         String name =request.getParameter("lastName");
+        System.out.println(name);
         List<Patient> patients = hopitalService.getByName(name);
-        request.setAttribute("patientsName", patientList);
-        request.getRequestDispatcher("patients.jsp").forward(request,response);
+        System.out.println(patients);
+        request.setAttribute("patientsName", patients);
+        request.getRequestDispatcher(Definition.VIEW_PATH + "patientList-filtered.jsp").forward(request,response);
     }
 
 

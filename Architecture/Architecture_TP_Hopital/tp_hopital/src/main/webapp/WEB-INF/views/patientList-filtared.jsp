@@ -5,16 +5,16 @@
 
 
     <title>Patients</title>
-    <jsp:include page="includes/head.jsp"/>
+    <jsp:include page="../../includes/head.jsp"/>
 </head>
 <body>
-<jsp:include page="includes/header.jsp"/>
+<jsp:include page="../../includes/header.jsp"/>
 <div class="container p-3">
     <h1 class="text-center fs-1 mt-3 ">Liste Patients</h1>
     <hr>
 
     <div class="row">
-        <c:forEach items="${patients}" var="patient">
+        <c:forEach items="${patientsName}" var="patient">
             <div class="col-md-4 mb-4">
                 <div class="card  " style="width: 18rem;">
                     <div class="text-center ">

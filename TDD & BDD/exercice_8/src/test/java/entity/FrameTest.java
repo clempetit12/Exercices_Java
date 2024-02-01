@@ -205,6 +205,7 @@ public class FrameTest {
         bowlingGame.roll();
         Mockito.when(pinGenerator.getNumberOfPins()).thenReturn(9);
         bowlingGame.roll();
+        bowlingGame.getScore();
 
         int result = bowlingGame.getScore();
         Assertions.assertEquals(191, result);
