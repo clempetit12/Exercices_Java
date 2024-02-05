@@ -13,6 +13,7 @@ import com.example.tp_hopital.util.Definition;
 import com.example.tp_hopital.util.HibernateSession;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,7 +30,8 @@ import java.util.Date;
 import java.util.List;
 
 
-@WebServlet(name = "patient", value = "/patient")
+@WebServlet("/")
+@MultipartConfig(maxFileSize = 1024*1024*10)
 public class PatientServlet extends HttpServlet {
 
     private PatientService patientService;
@@ -154,11 +156,12 @@ public class PatientServlet extends HttpServlet {
                 Long id = request.getParameter("id") !=null ? Long.valueOf(request.getParameter("id")) : null;
 
                 if(id != null){
-                    patient.setId(id);
+                    patient.setIdPatient(id);
                 }
 
                 if(patientService.createPatient(patient)) {
                     response.sendRedirect("listPatients");
+                    System.out.println("un patient a été créé avec id " + patient.getIdPatient());
                 }else{
                     response.sendRedirect(Definition.VIEW_PATH+"form-patient.jsp");
                 }
@@ -171,10 +174,10 @@ public class PatientServlet extends HttpServlet {
 
     }
 
-    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
+    private void  showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("form");
-        RequestDispatcher dispatcher = request.getRequestDispatcher(Definition.VIEW_PATH + "form-patient.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(Definition.VIEW_PATH + "form_patient.jsp");
         dispatcher.forward(request, response);
 
     }
@@ -185,7 +188,7 @@ public class PatientServlet extends HttpServlet {
             Patient patient = patientService.getOnePatient(id);
             if(patient != null){
                 if( patientService.deletePatient(patient)) {
-                    System.out.println("Le patient à bien été supprimé avec id " + patient.getId());
+                    System.out.println("Le patient à bien été supprimé avec id " + patient.getIdPatient());
                 }
                 response.sendRedirect("listPatients");
             }
@@ -255,7 +258,10 @@ public class PatientServlet extends HttpServlet {
             consultationService.createConsultation(consultation);
 
             String[] careArray = request.getParameterValues("care[]");
-            System.out.println(careArray);
+            for (String c: careArray
+                 ) {
+                System.out.println(c);
+            }
             String[] durationArray = request.getParameterValues("duration[]");
             String[] medicationArray = request.getParameterValues("medication[]");
             String[] durationMArray = request.getParameterValues("durationM[]");

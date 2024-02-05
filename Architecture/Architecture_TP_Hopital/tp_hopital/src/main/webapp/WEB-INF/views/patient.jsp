@@ -43,18 +43,24 @@
             <th class="center text-center">Détail Consultation</th>
 
         </tr>
-        <c:forEach items="${patient.getConsultationList()}" var="consultation">
-            <tr>
-                <td class="center text-center">${consultation.getIdConsultation()}</td>
-                <td class="center text-center">${consultation.getDoctorName()}</td>
-                <td class="center text-center">${consultation.getConsultationDate()}</td>
-                <td class="center text-center">
-                    <a type="button" href="detailsConsultation?id=${consultation.getIdConsultation()}"
-                       class="btn btn-warning">Detail</a></td>
 
-            </tr>
+        <c:if test="${not empty patient.getConsultationList()}">
+            <c:forEach  items="${patient.getConsultationList()}" var="consultation">
 
-        </c:forEach>
+
+                <tr>
+                    <td class="center text-center">${consultation.getIdConsultation()}</td>
+                    <td class="center text-center">${consultation.getDoctorName()}</td>
+                    <td class="center text-center">${consultation.getConsultationDate()}</td>
+                    <td class="center text-center">
+                        <a type="button" href="detailsConsultation?id=${consultation.getIdConsultation()}"
+                           class="btn btn-warning">Detail</a></td>
+
+                </tr>
+
+            </c:forEach>
+        </c:if>
+
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
 

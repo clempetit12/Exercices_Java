@@ -18,7 +18,7 @@
             <div class="col-md-4 mb-4">
                 <div class="card  " style="width: 18rem;">
                     <div class="text-center ">
-                        <img src="${pageContext.request.contextPath}/imageServlet?id=${patient.getIdPatient()}"
+                        <img src="imageServlet?id=${patient.idPatient}"
                              class="img-thumbnail" style="width: 100px;height: 100px;" alt="Image du Patient"></td>
                     </div>
 
