@@ -16,7 +16,4 @@ public class BookDto {
     String title;
     String author;
 
-    public BookEntity toEntity() {
-        return BookEntity.builder().title(title).author(author).build();
-    }
 }

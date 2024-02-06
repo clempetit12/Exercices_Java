@@ -16,8 +16,8 @@ public class BookService {
     }
 
     public Book create(String title, String author) {
-
-        Book book = new Book(title, author);
+// Logique de contrôle ici
+        Book book = new Book.Builder().title(title).author(author).build();
         if (bookRepository.create(book)
         ) {
             return book;
@@ -27,7 +27,7 @@ public class BookService {
 
     public Book getBookById(Long id) {
         Book book = bookRepository.findById(id);
-        if(book != null) {
+        if (book != null) {
             return book;
         }
         throw new BookSearchException();
@@ -35,7 +35,7 @@ public class BookService {
 
     public boolean delete(Long id) {
         Book book = bookRepository.findById(id);
-        if(bookRepository.delete(id)) {
+        if (bookRepository.delete(id)) {
             return true;
         }
         throw new BookSearchException();
@@ -43,7 +43,7 @@ public class BookService {
 
     public List<Book> getAllBooks() {
         List<Book> bookList = bookRepository.findAll();
-        if(bookList != null) {
+        if (bookList != null) {
             return bookList;
         }
         throw new BookSearchException();

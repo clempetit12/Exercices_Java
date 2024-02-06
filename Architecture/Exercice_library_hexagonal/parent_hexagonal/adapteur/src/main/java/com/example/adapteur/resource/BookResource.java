@@ -1,7 +1,6 @@
 package com.example.adapteur.resource;
 
 import com.example.adapteur.dto.BookDto;
-import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.example.entity.Book;
@@ -16,10 +15,8 @@ import java.util.stream.Collectors;
 @Produces(MediaType.APPLICATION_JSON)
 public class BookResource {
 
-    private final BookService bookService;
-
-
-    @Inject
+    private BookService bookService;
+    
     public BookResource() {
         bookService = new BookService(new BookEntityRepositoryImpl());
     }
@@ -28,13 +25,11 @@ public class BookResource {
     public List<BookDto> getAll() {
         List<Book> bookList = bookService.getAllBooks();
         return bookList.stream()
-                .map(book -> {
-                    return BookDto.builder()
-                            .id(book.getIdBook())
-                            .title(book.getTitle())
-                            .author(book.getAuthor())
-                            .build();
-                })
+                .map(book -> BookDto.builder()
+                        .id(book.getIdBook())
+                        .title(book.getTitle())
+                        .author(book.getAuthor())
+                        .build())
                 .collect(Collectors.toList());
     }
 

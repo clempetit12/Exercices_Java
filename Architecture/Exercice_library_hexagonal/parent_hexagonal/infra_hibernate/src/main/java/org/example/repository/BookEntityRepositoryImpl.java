@@ -65,7 +65,10 @@ public class BookEntityRepositoryImpl implements BookRepository {
         bookEntityRepository.setSession(session);
         session.beginTransaction();
         try {
-            bookEntityRepository.create(mapBookToEntityBook(book));
+            BookEntity bookEntity = BookEntity.builder().
+                    title(book.getTitle()).
+                    author(book.getAuthor()).build();
+            bookEntityRepository.create(bookEntity);
             session.getTransaction().commit();
             return true;
 
@@ -83,11 +86,7 @@ public class BookEntityRepositoryImpl implements BookRepository {
         try {
             BookEntity bookEntity = bookEntityRepository.findById(id);
             if (bookEntity != null) {
-                Book book = new Book();
-                book.setIdBook(bookEntity.getId());
-                book.setAuthor(bookEntity.getAuthor());
-                book.setTitle(bookEntity.getTitle());
-                session.getTransaction().commit();
+                Book book = bookEntity.toBook();
                 return book;
             }
         } catch (Exception e) {
@@ -104,7 +103,7 @@ public class BookEntityRepositoryImpl implements BookRepository {
         session.beginTransaction();
         try {
             List<BookEntity> bookEntityList = bookEntityRepository.fildAll();
-            List<Book> bookList = bookEntityList.stream().map(bookEntity -> mapBookEntityToBook(bookEntity))
+            List<Book> bookList = bookEntityList.stream().map(bookEntity -> bookEntity.toBook())
                     .collect(Collectors.toList());
 
             return bookList;
@@ -115,19 +114,23 @@ public class BookEntityRepositoryImpl implements BookRepository {
         }
     }
 
-    private Book mapBookEntityToBook(BookEntity bookEntity) {
-        Book book = new Book();
-        book.setIdBook(bookEntity.getId());
-        book.setTitle(bookEntity.getTitle());
-        book.setAuthor(bookEntity.getAuthor());
-        return book;
+    public List<Book> findAllByKey(String key) {
+        Session session = HibernateSession.getSessionFactory().openSession();
+        bookEntityRepository.setSession(session);
+        session.beginTransaction();
+        try {
+            List<BookEntity> bookEntityList = bookEntityRepository.findAllByKey(key);
+            List<Book> bookList = bookEntityList.stream().map(bookEntity -> bookEntity.toBook())
+                    .collect(Collectors.toList());
+            return bookList;
+        } catch (
+                Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
     }
 
-    private BookEntity mapBookToEntityBook(Book book) {
-        BookEntity bookEntity = new BookEntity();
-        bookEntity.setId(book.getIdBook());
-        bookEntity.setTitle(book.getTitle());
-        bookEntity.setAuthor(book.getAuthor());
-        return bookEntity;
-    }
+
+
+
 }

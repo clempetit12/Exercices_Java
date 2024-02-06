@@ -29,4 +29,10 @@ public class BookEntity {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Book toBook() {
+        return new Book.Builder().author(author).idBook(id).title(title).build();
+    }
+
+
 }

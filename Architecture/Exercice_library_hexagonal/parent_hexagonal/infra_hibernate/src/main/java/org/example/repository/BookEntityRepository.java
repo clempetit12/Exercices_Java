@@ -14,4 +14,10 @@ public class BookEntityRepository extends BaseEntityRepository<BookEntity> {
     List<BookEntity> fildAll() {
         return session.createQuery("from BookEntity", BookEntity.class).list();
     }
+
+    List<BookEntity> findAllByKey(String key) {
+        return (session.createQuery("from BookEntity where title like :q")
+                .setParameter("q",key)
+                .list());
+    }
 }
