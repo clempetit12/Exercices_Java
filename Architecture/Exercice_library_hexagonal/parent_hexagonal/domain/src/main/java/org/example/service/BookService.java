@@ -49,4 +49,11 @@ public class BookService {
         throw new BookSearchException();
     }
 
+    public List<Book> searchBook(String search) {
+        if(search.length() < 3) {
+            throw new RuntimeException("search word length must be gt 3 char");
+        }
+        return bookRepository.searchBook(search);
+    }
+
 }

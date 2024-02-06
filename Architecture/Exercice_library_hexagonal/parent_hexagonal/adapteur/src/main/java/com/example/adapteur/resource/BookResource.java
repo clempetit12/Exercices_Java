@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 @Produces(MediaType.APPLICATION_JSON)
 public class BookResource {
 
-    private BookService bookService;
-    
+    private final BookService bookService;
+
     public BookResource() {
         bookService = new BookService(new BookEntityRepositoryImpl());
     }
@@ -42,6 +42,7 @@ public class BookResource {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
     public Book get(@PathParam("id") Long id) {
         return bookService.getBookById(id);
@@ -51,6 +52,21 @@ public class BookResource {
     public boolean delete(@PathParam("id") Long id) {
         return bookService.delete(id);
     }
+
+//    @GET
+//    @Path("{search}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public List<BookDto> getBook(@PathParam("search") String search) {
+//        List<Book> list = bookService.searchBook(search);
+//        return list
+//                .stream()
+//                .map(book -> BookDto.
+//                        builder().
+//                        author(book.getAuthor())
+//                        .title(book.getTitle())
+//                        .id(book.getIdBook())
+//                        .build()).collect(Collectors.toList());
+//    }
 
 
 }

@@ -114,12 +114,13 @@ public class BookEntityRepositoryImpl implements BookRepository {
         }
     }
 
-    public List<Book> findAllByKey(String key) {
+    @Override
+    public List<Book> searchBook(String search) {
         Session session = HibernateSession.getSessionFactory().openSession();
         bookEntityRepository.setSession(session);
         session.beginTransaction();
         try {
-            List<BookEntity> bookEntityList = bookEntityRepository.findAllByKey(key);
+            List<BookEntity> bookEntityList = bookEntityRepository.findAllByKey(search);
             List<Book> bookList = bookEntityList.stream().map(bookEntity -> bookEntity.toBook())
                     .collect(Collectors.toList());
             return bookList;
@@ -129,6 +130,8 @@ public class BookEntityRepositoryImpl implements BookRepository {
             throw e;
         }
     }
+
+
 
 
 
