@@ -1,9 +1,9 @@
-package com.example.exercice_todo.resource;
+package com.example.exercicetodobis.resource;
 
-import com.example.exercice_todo.dto.TaskDto;
-import com.example.exercice_todo.entity.Task;
-import com.example.exercice_todo.service.TaskService;
-import com.example.exercice_todo.utils.Definition;
+import com.example.exercicetodobis.dto.TaskDto;
+import com.example.exercicetodobis.entity.Task;
+import com.example.exercicetodobis.service.TaskService;
+import com.example.exercicetodobis.utils.Definition;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 

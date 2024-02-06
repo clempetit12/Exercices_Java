@@ -1,8 +1,7 @@
-package com.example.exercice_todo.repository;
+package com.example.exercicetodobis.repository;
 
-import com.example.exercice_todo.entity.Task;
+import com.example.exercicetodobis.entity.Task;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.RequestScoped;
 
 import java.util.List;
 
