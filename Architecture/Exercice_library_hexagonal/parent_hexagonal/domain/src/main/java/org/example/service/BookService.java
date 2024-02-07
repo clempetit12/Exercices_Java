@@ -16,14 +16,15 @@ public class BookService {
     }
 
     public Book create(String title, String author) {
-// Logique de contrôle ici
-        Book book = new Book.Builder().title(title).author(author).build();
-        if (bookRepository.create(book)
-        ) {
-            return book;
+        if(title.length() < 3) {
+            throw new RuntimeException("Title length must be gt 3 char");
         }
-        throw new BookCreationException();
+        //...
+        Book book = new Book.Builder().title(title).author(author).build();
+        bookRepository.create(book);
+        return book;
     }
+
 
     public Book getBookById(Long id) {
         Book book = bookRepository.findById(id);

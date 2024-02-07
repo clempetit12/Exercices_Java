@@ -53,20 +53,20 @@ public class BookResource {
         return bookService.delete(id);
     }
 
-//    @GET
-//    @Path("{search}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<BookDto> getBook(@PathParam("search") String search) {
-//        List<Book> list = bookService.searchBook(search);
-//        return list
-//                .stream()
-//                .map(book -> BookDto.
-//                        builder().
-//                        author(book.getAuthor())
-//                        .title(book.getTitle())
-//                        .id(book.getIdBook())
-//                        .build()).collect(Collectors.toList());
-//    }
+    @GET
+    @Path("{search}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<BookDto> getBook(@PathParam("search") String search) {
+        List<Book> list = bookService.searchBook(search);
+        return list
+                .stream()
+                .map(book -> BookDto.
+                        builder().
+                        author(book.getAuthor())
+                        .title(book.getTitle())
+                        .id(book.getIdBook())
+                        .build()).collect(Collectors.toList());
+    }
 
 
 }
