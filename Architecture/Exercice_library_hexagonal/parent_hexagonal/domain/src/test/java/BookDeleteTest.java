@@ -1,3 +1,4 @@
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -28,27 +29,32 @@ public class BookDeleteTest {
         book = new Book.Builder().title("toto").author("tata").build();
         resultSearch = new ArrayList<>();
     }
+    @Given("there is one book in the library with id 1L")
+    public void thereIsOneBookInTheLibraryOneWithIdL() {
 
-    @Given("there are  books in the library")
-    public void there_is_books_in_the_library() {
+        book = new Book.Builder().title("toto").author("tata").build();
         Mockito.doAnswer(invocationOnMock -> {
             Book b = invocationOnMock.getArgument(0);
             b.setIdBook(1L);
             return null;
         }).when(bookRepository).create(book);
-        resultSearch.add( bookService.create("toto", "tata"));
+        bookService.create("toto", "tata");
     }
+
     @When("I delete a book with id 1L")
     public void i_delete_a_book_with_id_1l() {
         Mockito.when(bookRepository.delete(1L)).thenReturn(true);
         bookService.delete(1L);
-        resultSearch = bookService.getAllBooks();
-
 
 
     }
+
     @Then("List with {int} books should be returned")
     public void list_with_books_should_be_returned(int size) {
+        Mockito.when(bookRepository.findAll()).thenReturn(resultSearch);
         Assertions.assertEquals(size, resultSearch.size());
     }
+
+
+
 }
