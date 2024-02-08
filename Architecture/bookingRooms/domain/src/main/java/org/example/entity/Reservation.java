@@ -1,5 +1,6 @@
 package org.example.entity;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -10,7 +11,7 @@ public class Reservation {
 
     private Long userId;
 
-    private Date date;
+    private LocalDate date;
 
     private LocalTime beginningHour;
 
@@ -50,11 +51,11 @@ public class Reservation {
         this.userId = userId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -82,7 +83,7 @@ public class Reservation {
 
         private Long userId;
 
-        private Date date;
+        private LocalDate date;
 
         private LocalTime beginningHour;
 
@@ -103,7 +104,7 @@ public class Reservation {
             return this;
 
         }
-        public Builder date(Date date) {
+        public Builder date(LocalDate date) {
             this.date = date;
             return this;
 

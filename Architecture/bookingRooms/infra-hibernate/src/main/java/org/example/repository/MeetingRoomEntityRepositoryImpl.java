@@ -6,6 +6,7 @@ import org.example.port.MeetingRoomRepository;
 import org.example.utils.HibernateSession;
 import org.hibernate.Session;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
@@ -98,7 +99,7 @@ public class MeetingRoomEntityRepositoryImpl implements MeetingRoomRepository {
     }
 
     @Override
-    public List<MeetingRoom> searchAvailableMeetingRoom(Date date, LocalTime beginningHour, LocalTime finishingHour, int capacity, boolean availibility) {
+    public List<MeetingRoom> searchAvailableMeetingRoom(LocalDate date, LocalTime beginningHour, LocalTime finishingHour, int capacity, boolean availibility) {
         Session session = HibernateSession.getSessionFactory().openSession();
         meetingRoomEntityRepository.setSession(session);
         session.beginTransaction();

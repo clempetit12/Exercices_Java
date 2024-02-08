@@ -3,6 +3,7 @@ package org.example.repository;
 import org.example.entity.MeetingRoom;
 import org.example.entity.MeetingRoomEntity;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,7 @@ public class MeetingRoomEntityRepository extends BaseEntityRepository<MeetingRoo
         return session.createQuery("from MeetingRoomEntity ", MeetingRoomEntity.class).list();
     }
 
-    List<MeetingRoomEntity> searchAvailableRoom(Date date, LocalTime beginningHour, LocalTime finishingHour, int capacity, boolean availibility){
+    List<MeetingRoomEntity> searchAvailableRoom(LocalDate date, LocalTime beginningHour, LocalTime finishingHour, int capacity, boolean availibility){
         return session.createQuery("select m from MeetingRoomEntity m " +
                         "where m.availibility = :availibility " +
                         "and m.capacity >= :capacity " +

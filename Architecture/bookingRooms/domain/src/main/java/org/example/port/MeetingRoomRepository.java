@@ -2,6 +2,7 @@ package org.example.port;
 
 import org.example.entity.MeetingRoom;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ public interface MeetingRoomRepository {
     MeetingRoom findById(Long id);
 
     List<MeetingRoom> findAll();
-    List<MeetingRoom> searchAvailableMeetingRoom(Date date, LocalTime beginningHour, LocalTime finishingHour, int capacity, boolean availibility);
+    List<MeetingRoom> searchAvailableMeetingRoom(LocalDate date, LocalTime beginningHour, LocalTime finishingHour, int capacity, boolean availibility);
 
 
 }

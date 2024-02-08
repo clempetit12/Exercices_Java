@@ -1,9 +1,6 @@
 package org.example.repository;
 
-import org.example.entity.MeetingRoomEntity;
-import org.example.entity.ReservationEntity;
-import org.example.entity.User;
-import org.example.entity.UserEntity;
+import org.example.entity.*;
 import org.example.port.UserRepository;
 import org.example.utils.HibernateSession;
 import org.hibernate.Session;
@@ -33,5 +30,23 @@ public class UserEntityRepositoryImpl implements UserRepository {
             session.getTransaction().rollback();
             throw e;
         }
+    }
+
+    @Override
+    public User findById(Long id) {
+        Session session = HibernateSession.getSessionFactory().openSession();
+        userEntityRepository.setSession(session);
+        session.beginTransaction();
+        try {
+            UserEntity userEntity = userEntityRepository.findById(id);
+            if (userEntity != null) {
+                User user = userEntity.toUser();
+                return user;
+            }
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return null;
     }
 }

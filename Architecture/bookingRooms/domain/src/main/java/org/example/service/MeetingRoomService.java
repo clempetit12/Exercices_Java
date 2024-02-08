@@ -5,6 +5,7 @@ import org.example.exception.MeetingRoomException;
 import org.example.port.MeetingRoomRepository;
 import org.example.port.UserRepository;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
@@ -35,12 +36,12 @@ public class MeetingRoomService {
 
     }
 
-    public MeetingRoom update(Long id, MeetingRoom meetingRoom) {
+    public MeetingRoom update(Long id, int capacity, boolean availibility) {
         MeetingRoom meetingRoomToBeUpdated = meetingRoomRepository.findById(id);
-        meetingRoomToBeUpdated.setCapacity(meetingRoom.getCapacity());
-        meetingRoomToBeUpdated.setAvailibility(meetingRoom.isAvailibility());
-        meetingRoomToBeUpdated.setId(meetingRoomToBeUpdated.getId());
-        meetingRoomRepository.update(meetingRoom);
+        meetingRoomToBeUpdated.setCapacity(capacity);
+        meetingRoomToBeUpdated.setAvailibility(availibility);
+        meetingRoomToBeUpdated.setId(id);
+        meetingRoomRepository.update(meetingRoomToBeUpdated);
         return meetingRoomToBeUpdated;
 
     }
@@ -54,9 +55,12 @@ public class MeetingRoomService {
 
     }
 
-    public List<MeetingRoom> searchAvailableRooms(Date date, LocalTime beginningHour, LocalTime finishingHour, int capacity) {
-        List<MeetingRoom> meetingRoomList = meetingRoomRepository.searchAvailableMeetingRoom(date,beginningHour,finishingHour,capacity);
-        throw new MeetingRoomException();
+    public List<MeetingRoom> searchAvailableRooms(LocalDate date, LocalTime beginningHour, LocalTime finishingHour, int capacity, boolean availibility) {
+        List<MeetingRoom> meetingRoomList = meetingRoomRepository.searchAvailableMeetingRoom(date, beginningHour, finishingHour, capacity, availibility);
+        if (meetingRoomList == null) {
+            throw new MeetingRoomException();
+        }
+        return meetingRoomList;
 
     }
 
