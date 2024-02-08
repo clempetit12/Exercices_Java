@@ -30,4 +30,9 @@ public class UserEntity {
     @OneToMany(mappedBy = "user")
     private List<ReservationEntity> reservationEntityList;
 
+
+    public User toUser() {
+        return new User.Builder().firstName(firstName).lastName(lastName)
+                .userEnum(usersEnum).build();
+    }
 }

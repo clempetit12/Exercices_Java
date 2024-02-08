@@ -1,21 +1,38 @@
 package org.example.repository;
 
+import org.example.entity.MeetingRoom;
+import org.example.entity.MeetingRoomEntity;
+
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
-public class MeetingRoomEntityRepository extends BaseEntityRepository<MeetingRoomEntityRepository> {
+public class MeetingRoomEntityRepository extends BaseEntityRepository<MeetingRoomEntity> {
     @Override
-    MeetingRoomEntityRepository findById(Long id) {
-        return session.get(MeetingRoomEntityRepository.class,id);
+    MeetingRoomEntity findById(Long id) {
+        return session.get(MeetingRoomEntity.class,id);
     }
 
     @Override
-    List<MeetingRoomEntityRepository> findAll() {
-        return session.createQuery("from MeetingRoomEntity ", MeetingRoomEntityRepository.class).list();
+    List<MeetingRoomEntity> findAll() {
+        return session.createQuery("from MeetingRoomEntity ", MeetingRoomEntity.class).list();
     }
 
-    List<MeetingRoomEntityRepository> searchAvailableRoom(Date date, LocalTime beginningHour, LocalTime finishingHour, int capacity, boolean availibility){
-        return session.createQuery("select m from MeetingRoomEntity where m.availi ")
+    List<MeetingRoomEntity> searchAvailableRoom(Date date, LocalTime beginningHour, LocalTime finishingHour, int capacity, boolean availibility){
+        return session.createQuery("select m from MeetingRoomEntity m " +
+                        "where m.availibility = :availibility " +
+                        "and m.capacity >= :capacity " +
+                        "and not exists (select r from ReservationEntity r " +
+                        "where r.meetingRoom = m " +
+                        "and (:date between r.date and r.date) " +
+                        "and (:beginningHour between r.beginningHour and r.finishingHour " +
+                        "or :finishingHour between r.beginningHour and r.finishingHour))", MeetingRoomEntity.class)
+                .setParameter("availability", availibility)
+                .setParameter("capacity", capacity)
+                .setParameter("date", date)
+                .setParameter("beginningHour", beginningHour)
+                .setParameter("finishingHour", finishingHour)
+                .getResultList();
     }
+
 }

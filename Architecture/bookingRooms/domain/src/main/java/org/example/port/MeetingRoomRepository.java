@@ -16,7 +16,7 @@ public interface MeetingRoomRepository {
     MeetingRoom findById(Long id);
 
     List<MeetingRoom> findAll();
-    List<MeetingRoom> searchAvailableMeetingRoom(Date date, LocalTime beginningHour, LocalTime finishingHour, int capacity);
+    List<MeetingRoom> searchAvailableMeetingRoom(Date date, LocalTime beginningHour, LocalTime finishingHour, int capacity, boolean availibility);
 
 
 }
