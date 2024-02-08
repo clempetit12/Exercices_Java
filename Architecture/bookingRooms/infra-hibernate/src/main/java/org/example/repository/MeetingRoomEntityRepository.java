@@ -1,5 +1,7 @@
 package org.example.repository;
 
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 public class MeetingRoomEntityRepository extends BaseEntityRepository<MeetingRoomEntityRepository> {
@@ -11,5 +13,9 @@ public class MeetingRoomEntityRepository extends BaseEntityRepository<MeetingRoo
     @Override
     List<MeetingRoomEntityRepository> findAll() {
         return session.createQuery("from MeetingRoomEntity ", MeetingRoomEntityRepository.class).list();
+    }
+
+    List<MeetingRoomEntityRepository> searchAvailableRoom(Date date, LocalTime beginningHour, LocalTime finishingHour, int capacity, boolean availibility){
+        return session.createQuery("select m from MeetingRoomEntity where m.availi ")
     }
 }

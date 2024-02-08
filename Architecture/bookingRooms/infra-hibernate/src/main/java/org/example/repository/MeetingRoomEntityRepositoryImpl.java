@@ -27,7 +27,7 @@ public class MeetingRoomEntityRepositoryImpl implements MeetingRoomRepository {
             MeetingRoomEntity meetingRoomEntity = MeetingRoomEntity.builder().
                     capacity(meetingRoom.getCapacity()).build();
             session.getTransaction().commit();
-            meetingRoom.setId(meetingRoomEntity.getIdMeetingRoom()s);
+            meetingRoom.setId(meetingRoomEntity.getIdMeetingRoom());
             return true;
 
         } catch (Exception e) {
@@ -58,6 +58,18 @@ public class MeetingRoomEntityRepositoryImpl implements MeetingRoomRepository {
 
     @Override
     public List<MeetingRoom> searchAvailableMeetingRoom(Date date, LocalTime beginningHour, LocalTime finishingHour, int capacity) {
-        return null;
+        Session session = HibernateSession.getSessionFactory().openSession();
+        meetingRoomEntityRepository.setSession(session);
+        session.beginTransaction();
+        try {
+            MeetingRoomEntity meetingRoomEntity = meetingRoomEntityRepository
+            session.getTransaction().commit();
+            meetingRoom.setId(meetingRoomEntity.getIdMeetingRoom());
+            return true;
+
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
     }
 }
