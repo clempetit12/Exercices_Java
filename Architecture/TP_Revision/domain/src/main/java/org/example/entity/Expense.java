@@ -11,6 +11,9 @@ public class Expense {
 
     private double amount;
 
+    public Expense() {
+    }
+
     private Expense(Builder builder) {
         this.id = builder.id;
         this.title = builder.title;

@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
@@ -22,9 +23,8 @@ public class FindAllExpensesTest {
     private ExpenseRepository expenseRepository;
 
     private Expense expense;
-    private Expense expense2;
 
-    private List<Expense> expenseList= new ArrayList<>();
+    private List<Expense> expenseList ;
 
     @InjectMocks
     private ExpenseService expenseService;
@@ -32,43 +32,32 @@ public class FindAllExpensesTest {
     public FindAllExpensesTest() {
         expenseRepository = Mockito.mock(ExpenseRepository.class);
         expenseService = new ExpenseService(expenseRepository);
-
+        expense = new Expense.Builder().title("course").amount(300).build();
 
     }
 
-    @Given("there are two expenses, one with id {int}")
-    public void thereAreTwoExpensesOneWithId(int id) {
-        expense = new Expense.Builder().title("transport").amount(200).build();
+
+    @Given("there are expenses")
+    public void thereAreExpenses() {
+        expense = new Expense.Builder().title("course").amount(300).build();
         Mockito.doAnswer(invocationOnMock -> {
             Expense e = invocationOnMock.getArgument(0);
-            e.setId((long) id);
+            e.setId(1L);
             return null;
         }).when(expenseRepository).create(expense);
-        expenseService.create("transport", 200);
-        expenseList.add(expense);
-
+        expenseService.create("course", 300);
     }
 
-    @And("second with id {int}")
-    public void secondWithId(int id) {
-        expense2 = new Expense.Builder().title("course").amount(200).build();
-        Mockito.doAnswer(invocationOnMock -> {
-            Expense e = invocationOnMock.getArgument(0);
-            e.setId((long) id);
-            return null;
-        }).when(expenseRepository).create(expense);
-        expenseService.create("course", 200);
-        expenseList.add(expense2);
+
+
+    @When("I search for all expenses")
+    public void iSearchForAllExpenses() {
+        Mockito.when(expenseRepository.findAll()).thenReturn(List.of(expense));
+        expenseList = expenseService.findAll();
     }
 
-    @When("the user requests to view the list of expenses")
-    public void the_user_requests_to_view_the_list_of_expenses() {
-        Mockito.when(expenseService.findAll()).thenReturn(expenseList);
+    @Then("List with {int} expense should be returned")
+    public void listWithExpenseShouldBeReturned(int size) {
+        Assertions.assertEquals(size,expenseList.size());
     }
-    @Then("the user should see a summary of all expenses")
-    public void the_user_should_see_a_summary_of_all_expenses() {
-        Assertions.assertEquals(2, expenseList.size());
-
-    }
-
 }

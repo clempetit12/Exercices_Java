@@ -1,6 +1,7 @@
 package org.example.adapter.resource;
 
 
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.example.entity.Expense;
@@ -16,11 +17,13 @@ public class ExpenseResource {
 
     private final ExpenseService expenseService;
 
+
     public ExpenseResource() {
         expenseService = new ExpenseService(new ExpenseRepositoryEntityImpl());
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Expense> getAll() {
         List<Expense> expenseList = expenseService.findAll();
         return expenseList;
