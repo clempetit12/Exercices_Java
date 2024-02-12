@@ -23,15 +23,11 @@ public class TaskController {
     }
 
     @RequestMapping(value = "tasks")
-    @ResponseBody
     public String getTasks(Model model) {
         Task task1 = Task.builder().id(1).title("course").description("faire les courses de la semaine").done(false).build();
         Task task2 = Task.builder().id(2).title("courir").description("courir le marathon").done(false).build();
         Task task3 = Task.builder().id(3).title("voyager").description("voyager en laponie").done(false).build();
-        List<Task> taskList = new ArrayList<>();
-        taskList.add(task1);
-        taskList.add(task2);
-        taskList.add(task3);
+        List<Task> taskList = List.of(task1,task2,task3);
         model.addAttribute("tasks", taskList);
         return "task-list";
 
