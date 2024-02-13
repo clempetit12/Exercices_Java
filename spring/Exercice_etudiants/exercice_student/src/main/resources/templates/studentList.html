@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student List</title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+</head>
+<body>
+<header>
+    <span th:replace="~{home :: navBar}"></span>
+</header>
+
+<h2 class="text-center">Les étudiants</h2>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">FirstName</th>
+            <th scope="col">LastName</th>
+            <th scope="col">Détail</th>
+        </tr>
+        </thead>
+        <tbody th:each="s :  ${students} ">
+        <tr>
+            <th scope="row">1</th>
+            <td th:text="${s.getFirstName()}"></td>
+            <td th:text="${s.getLastName()}"></td>
+            <td > <a class="text-light text-decoration-none " th:href="@{/detail/{studentId}(id = ${s.getId()})}"></i><i class="bi bi-eye"></i></a></td>
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student detail</title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+</head>
+<body>
+<header>
+    <span th:replace="~{home :: navBar}"></span>
+</header>
+<body>
+<main class="container">
+    <div class="container p-10">
+        <div class="row justify-content-center">
+            <div class="card bg-warning mt-4" style="width: 18rem;">
+                <img th:src="@{student.image}" alt="imageStudent">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Détail du lapin</h5>
+                    <hr>
+                    <p>Nom : <span th:text="${student.firstName}"></span></p>
+                    <p>Prénom : <span th:text="${student.lastName}"></span></p>
+                    <p>Age : <span th:text="${student.age}"></span></p>
+                    <p>Email : <span th:text="${student.email}"></span></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+</body>
+</html>
