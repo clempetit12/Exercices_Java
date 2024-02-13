@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Student List</title>
     <span th:replace="~{home :: bootstrapImports}"></span>
+
 </head>
 <body>
 <header>
@@ -26,7 +27,7 @@
             <th scope="row">1</th>
             <td th:text="${s.getFirstName()}"></td>
             <td th:text="${s.getLastName()}"></td>
-            <td > <a class="text-light text-decoration-none " th:href="@{/detail/{studentId}(id = ${s.getId()})}"></i><i class="bi bi-eye"></i></a></td>
+            <td > <a class="text-decoration-none " th:href="@{/detail/{studentId}(studentId = ${s.getId()})}"></i><i class="bi bi-eye"></i></a></td>
 
         </tr>
         </tbody>

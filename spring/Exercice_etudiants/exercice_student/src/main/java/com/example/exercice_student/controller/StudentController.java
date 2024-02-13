@@ -34,7 +34,7 @@ public class StudentController {
     public String showStudent(@PathVariable("studentId") UUID id, Model model) {
         Student student = studentService.getById(id);
         model.addAttribute("student", student);
-        return "student";
+        return "student/student";
 
     }
 

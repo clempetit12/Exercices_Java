@@ -20,7 +20,7 @@ public class Student {
     private String lastName;
     private int age;
     private String email;
-    private Image image;
+    private String imagePath;
 
 
 }
