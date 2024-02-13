@@ -9,7 +9,9 @@
 <hr>
 <ul th:if="${!tasks.isEmpty()}">
     <li th:each="t : ${tasks}" >
-<span th:text="${t}"></span>
+        <p>Titre : <span th:text="${t.getTitle()}"></span></p>
+        <p>Description :  <span th:text="${t.getDescription()}"></span></p>
+        <p>Status : <span th:text="${t.isDone() ? 'fait' : 'à faire'}"></span></p>
     </li>
 </ul>
 </body>

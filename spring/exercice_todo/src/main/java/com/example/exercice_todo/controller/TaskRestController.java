@@ -13,7 +13,7 @@ import java.util.List;
 public class TaskRestController {
 
     @GetMapping(value = "task")
-    public Task getTask(Task task) {
+    public Task getTask() {
         Task task4 = Task.builder().id(1).title("course").description("faire les courses de la semaine").done(false).build();
         return task4;
     }
