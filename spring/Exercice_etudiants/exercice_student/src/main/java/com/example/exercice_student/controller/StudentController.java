@@ -5,8 +5,7 @@ import com.example.exercice_student.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -30,6 +29,7 @@ public class StudentController {
         return "studentList";
 
     }
+
     @GetMapping(value = "/detail/{studentId}")
     public String showStudent(@PathVariable("studentId") UUID id, Model model) {
         Student student = studentService.getById(id);
@@ -37,6 +37,41 @@ public class StudentController {
         return "student/student";
 
     }
+
+    @GetMapping("/add")
+    public String addStudent(Model model) {
+        model.addAttribute("student", new Student());
+        return "student/addForm";
+    }
+
+    @PostMapping(value = "/add")
+    public String submitStudent(@ModelAttribute("student") Student student) {
+        String firstName = student.getFirstName();
+        String lastName = student.getLastName();
+        String email = student.getEmail();
+        int age = student.getAge();
+        if (studentService.add(firstName, lastName, age, email)) {
+            System.out.println("Un étudiant a bien été ajouté");
+        }
+        return "redirect:/list";
+    }
+
+    @GetMapping(value = "/search")
+    public String searchStudentByName(@RequestParam(name = "lastName", required = false) String lastName, Model model) {
+        List<Student> studentList = studentService.getByName(lastName);
+        for (Student s: studentList
+             ) {
+            System.out.println(s);
+        }
+        if (!studentList.isEmpty()) {
+            model.addAttribute("students", studentList);
+            return "studentList";
+        } else {
+            return "error";
+        }
+
+    }
+
 
 }
 

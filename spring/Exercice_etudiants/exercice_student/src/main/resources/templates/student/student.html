@@ -13,10 +13,10 @@
 <main class="container">
     <div class="container p-10">
         <div class="row justify-content-center">
-            <div class="card bg-warning mt-4" style="width: 18rem;">
-                <img th:src="@{${student.imagePath}}" alt="imageStudent">
+            <div class="card  	bg-success mt-4" style="width: 18rem;">
+<!--                <img th:src="@{${student.imagePath}}" alt="imageStudent" style="max-width: 100%; max-height: 100%;">-->
                 <div class="card-body text-center">
-                    <h5 class="card-title">Détail du lapin</h5>
+                    <h5 class="card-title">Détail de l'étudiant</h5>
                     <hr>
                     <p>Nom : <span th:text="${student.firstName}"></span></p>
                     <p>Prénom : <span th:text="${student.lastName}"></span></p>

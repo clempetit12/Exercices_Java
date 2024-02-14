@@ -8,7 +8,7 @@ public interface Service<T> {
     public List<T> getAll();
     public T getById(UUID id);
 
-    public boolean add(T element);
+    public boolean add(String firstName,String lastName, int age, String email);
 
     public List<T> getByName(String name);
 

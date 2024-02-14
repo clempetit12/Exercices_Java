@@ -18,7 +18,7 @@ public class StudentService implements Service<Student> {
 
     public StudentService() {
         students = new HashMap<>();
-        Student student = Student.builder().id(UUID.randomUUID()).firstName("Hélène").lastName("Patard").age(30).email("helenepatard@gmail.com").imagePath("resources/static/images/femme.avif").build();
+        Student student = Student.builder().id(UUID.randomUUID()).firstName("Hélène").lastName("Patard").age(30).email("helenepatard@gmail.com").imagePath("images/femme.avif").build();
         Student student2 = Student.builder().id(UUID.randomUUID()).firstName("Olivia").lastName("Pigani").age(28).email("oliviapigani@gmail.com").build();
         Student student3 = Student.builder().id(UUID.randomUUID()).firstName("Pauline").lastName("Laout").age(30).email("paulinelaout@gmail.com").build();
 
@@ -41,14 +41,17 @@ public class StudentService implements Service<Student> {
     }
 
     @Override
-    public boolean add(Student element) {
-        students.put(element.getId(),element);
+    public boolean add(String firstName,String lastName, int age, String email) {
+       Student student = Student.builder().firstName(firstName)
+               .lastName(lastName)
+               .email(email)
+               .age(age).id(UUID.randomUUID()).build();
+        students.put(student.getId(),student);
             return true;
     }
 
     @Override
-    public List<Student> getByName(String name) {
-
-        return null;
+    public List<Student> getByName(String lastName) {
+        return  students.values().stream().filter(student -> student.getLastName().equalsIgnoreCase(lastName)).toList();
     }
 }

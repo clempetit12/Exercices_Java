@@ -11,28 +11,46 @@
     <span th:replace="~{home :: navBar}"></span>
 </header>
 
-<h2 class="text-center">Les étudiants</h2>
 <div class="container">
+    <h2 class="text-center">Les étudiants</h2>
+    <hr>
+    <div class="d-flex justify-content-center align-items-center mb-4">
+        <form th:action="@{/search}" method="get" class="d-flex">
+            <input class="form-control me-2 " type="text" name="lastName" placeholder="Enter last name">
+            <button class=" btn btn-info" type="submit">Search</button>
+        </form>
+    </div>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">FirstName</th>
-            <th scope="col">LastName</th>
-            <th scope="col">Détail</th>
+            <th class="text-center" scope="col">#</th>
+            <th class="text-center" scope="col">FirstName</th>
+            <th class="text-center" scope="col">LastName</th>
+            <th class="text-center" scope="col">Détail</th>
         </tr>
         </thead>
-        <tbody th:each="s :  ${students} ">
-        <tr>
-            <th scope="row">1</th>
-            <td th:text="${s.getFirstName()}"></td>
-            <td th:text="${s.getLastName()}"></td>
-            <td > <a class="text-decoration-none " th:href="@{/detail/{studentId}(studentId = ${s.getId()})}"></i><i class="bi bi-eye"></i></a></td>
+        <tbody>
+        <tr th:each="student, studentStat : ${students}">
+            <td class="text-center" th:text="${studentStat.index + 1}"></td>
+            <td class="text-center" th:text="${student.firstName}"></td>
+            <td class="text-center" th:text="${student.lastName}"></td>
 
+            <td class="text-center">
+                <a class="text-decoration-none text-center" th:href="@{/detail/{studentId}(studentId=${student.id})}">
+                    <i class="bi bi-eye "></i>
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
-
+    <form th:action="@{/list}" method="get">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-danger mb-3 " type="submit">Cancel</button>
+        </div>
+    </form>
+    <div th:if="${students.isEmpty()}">
+        <p>Aucun étudiant trouvé.</p>
+    </div>
 </div>
 
 </body>
