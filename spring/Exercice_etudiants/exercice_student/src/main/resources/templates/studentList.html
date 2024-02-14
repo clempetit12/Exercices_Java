@@ -11,8 +11,8 @@
     <span th:replace="~{home :: navBar}"></span>
 </header>
 
-<div class="container">
-    <h2 class="text-center">Les étudiants</h2>
+<div class="container col-8 justify-content-center ">
+    <h2 class="text-center mt-4  mb-4">Les étudiants</h2>
     <hr>
 
     <table class="table">
@@ -30,19 +30,16 @@
             <td class="text-center" th:text="${student.firstName}"></td>
             <td class="text-center" th:text="${student.lastName}"></td>
 
-            <td class="text-center">
-                <a class="text-decoration-none text-center" th:href="@{/detail/{studentId}(studentId=${student.id})}">
-                    <i class="bi bi-eye "></i>
+            <td class="text-center align-middle">
+                <a class="text-decoration-none d-inline-block align-middle btn btn-outline-info" type="button" th:href="@{/detail/{studentId}(studentId=${student.id})}">
+                    <span class="align-middle">Détail</span> <i class="bi bi-eye align-middle text-info"></i>
                 </a>
             </td>
+
         </tr>
         </tbody>
     </table>
-    <form th:action="@{/list}" method="get">
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-danger mb-3 " type="submit">Cancel</button>
-        </div>
-    </form>
+
     <div th:if="${students.isEmpty()}">
         <p>Aucun étudiant trouvé.</p>
     </div>

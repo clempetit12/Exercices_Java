@@ -17,6 +17,7 @@ public class StudentController {
 
     private final StudentService studentService;
 
+
     @GetMapping
     public String showHome() {
         return "home";
