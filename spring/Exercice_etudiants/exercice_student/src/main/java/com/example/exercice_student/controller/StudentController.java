@@ -59,10 +59,10 @@ public class StudentController {
 
     @GetMapping(value = "/search")
     public String searchStudentByName(@RequestParam(name = "name", required = false) String name,
-     Model model) {
+                                      Model model) {
         List<Student> studentList = studentService.getByLastNameOrFirstName(name);
-        for (Student s: studentList
-             ) {
+        for (Student s : studentList
+        ) {
             System.out.println(s);
         }
         if (!studentList.isEmpty()) {
@@ -74,6 +74,30 @@ public class StudentController {
 
     }
 
+    @DeleteMapping("/delete/{studentId}")
+    public String deleteStudent(@PathVariable("studentId") UUID id) {
+        System.out.println("delete");
+        Student student = studentService.getById(id);
+        System.out.println(student);
+        if (student != null) {
+            studentService.deleteStudent(student);
+            return "redirect:/list";
+        }
+        return "error";
+    }
+
+    @PatchMapping(value = "/update/{studentId}")
+    public String updateStudent(@PathVariable("studentId") UUID id,@ModelAttribute("student") Student student) {
+        Student student1 = studentService.getById(id);
+        student1.setFirstName(student.getFirstName());
+        student1.setLastName(student.getLastName());
+        student1.setAge(student.getAge());
+        student1.setEmail(student.getEmail());
+        if (studentService.update(student1)) {
+            System.out.println("Un étudiant a bien été updater");
+        }
+        return "redirect:/list";
+    }
 
 }
 

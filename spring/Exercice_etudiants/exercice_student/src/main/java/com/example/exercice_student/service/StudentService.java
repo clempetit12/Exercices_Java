@@ -27,7 +27,6 @@ public class StudentService implements Service<Student> {
         students.put(student3.getId(), student3);
 
 
-
     }
 
     @Override
@@ -41,18 +40,35 @@ public class StudentService implements Service<Student> {
     }
 
     @Override
-    public boolean add(String firstName,String lastName, int age, String email) {
-       Student student = Student.builder().firstName(firstName)
-               .lastName(lastName)
-               .email(email)
-               .age(age).id(UUID.randomUUID()).build();
-        students.put(student.getId(),student);
-            return true;
+    public boolean add(String firstName, String lastName, int age, String email) {
+        Student student = Student.builder().firstName(firstName)
+                .lastName(lastName)
+                .email(email)
+                .age(age).id(UUID.randomUUID()).build();
+        students.put(student.getId(), student);
+        return true;
     }
 
     @Override
     public List<Student> getByLastNameOrFirstName(String name) {
-        return  students.values().stream().filter(student -> student.getLastName().toLowerCase().contains(name.toLowerCase()) ||
-                        student.getFirstName().toLowerCase().contains(name.toLowerCase())).toList();
+        return students.values().stream().filter(student -> student.getLastName().toLowerCase().contains(name.toLowerCase()) ||
+                student.getFirstName().toLowerCase().contains(name.toLowerCase())).toList();
     }
+
+    @Override
+    public boolean deleteStudent(Student student) {
+        if (students.remove(student.getId(), student)) {
+            return true;
+        }
+        ;
+        return false;
+    }
+
+    @Override
+    public boolean update(Student student) {
+        students.replace(student.getId(),student);
+        return true;
+    }
+
+
 }
