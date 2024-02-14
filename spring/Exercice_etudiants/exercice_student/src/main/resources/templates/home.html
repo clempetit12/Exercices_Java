@@ -30,6 +30,10 @@
                         <li class="nav-item">
                             <a class="nav-link active  " aria-current="page" th:href="@{/add}">Formulaire</i></a>
                         </li>
+                        <form th:action="@{/search}" method="get" class="d-flex">
+                            <input class="form-control me-2 " type="text" name="lastName" placeholder="Enter last name">
+                            <button class=" btn btn-info" type="submit">Search</button>
+                        </form>
                     </ul>
                 </div>
             </div>

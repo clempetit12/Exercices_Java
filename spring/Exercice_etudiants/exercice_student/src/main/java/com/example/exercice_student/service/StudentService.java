@@ -51,7 +51,8 @@ public class StudentService implements Service<Student> {
     }
 
     @Override
-    public List<Student> getByName(String lastName) {
-        return  students.values().stream().filter(student -> student.getLastName().equalsIgnoreCase(lastName)).toList();
+    public List<Student> getByLastNameOrFirstName(String name) {
+        return  students.values().stream().filter(student -> student.getLastName().toLowerCase().contains(name.toLowerCase()) ||
+                        student.getFirstName().toLowerCase().contains(name.toLowerCase())).toList();
     }
 }

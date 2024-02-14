@@ -10,7 +10,7 @@ public interface Service<T> {
 
     public boolean add(String firstName,String lastName, int age, String email);
 
-    public List<T> getByName(String name);
+    public List<T> getByLastNameOrFirstName(String name);
 
 
 }

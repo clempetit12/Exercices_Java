@@ -57,8 +57,9 @@ public class StudentController {
     }
 
     @GetMapping(value = "/search")
-    public String searchStudentByName(@RequestParam(name = "lastName", required = false) String lastName, Model model) {
-        List<Student> studentList = studentService.getByName(lastName);
+    public String searchStudentByName(@RequestParam(name = "name", required = false) String name,
+     Model model) {
+        List<Student> studentList = studentService.getByLastNameOrFirstName(name);
         for (Student s: studentList
              ) {
             System.out.println(s);
