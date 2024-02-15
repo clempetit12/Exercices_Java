@@ -18,7 +18,7 @@ public class StudentService implements Service<Student> {
 
     public StudentService() {
         students = new HashMap<>();
-        Student student = Student.builder().id(UUID.randomUUID()).firstName("Hélène").lastName("Patard").age(30).email("helenepatard@gmail.com").imagePath("images/femme.avif").build();
+        Student student = Student.builder().id(UUID.randomUUID()).firstName("Hélène").lastName("Patard").age(30).email("helenepatard@gmail.com").build();
         Student student2 = Student.builder().id(UUID.randomUUID()).firstName("Olivia").lastName("Pigani").age(28).email("oliviapigani@gmail.com").build();
         Student student3 = Student.builder().id(UUID.randomUUID()).firstName("Pauline").lastName("Laout").age(30).email("paulinelaout@gmail.com").build();
 
@@ -65,8 +65,8 @@ public class StudentService implements Service<Student> {
     }
 
     @Override
-    public Student update(Student student) {
-        Student student1 = getById(student.getId());
+    public Student update(UUID id, Student student) {
+        Student student1 = getById(id);
         student1.setFirstName(student.getFirstName());
         student1.setLastName(student.getLastName());
         student1.setAge(student.getAge());

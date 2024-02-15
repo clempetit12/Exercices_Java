@@ -15,7 +15,7 @@ public interface Service<T> {
     public List<T> getByLastNameOrFirstName(String name);
     public boolean deleteStudent(Student student);
 
-    public Student update(T element);
+    public Student update(UUID id,T element);
 
 
 }

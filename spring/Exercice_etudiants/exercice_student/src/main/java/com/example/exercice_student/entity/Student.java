@@ -1,5 +1,6 @@
 package com.example.exercice_student.entity;
 
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,13 +15,23 @@ import java.util.UUID;
 @Data
 public class Student {
 
-    private UUID id;
 
+    private UUID id;
+    @NotNull(message = "prénom non nul")
+    @Size(min=3, message = "3 minimum svp")
     private String firstName;
+    @NotNull(message = "prénom non nul")
+    @Size(min=3, message = "3 minimum svp")
     private String lastName;
-    private int age;
+
+    @NotNull
+   @Min(18)
+    @Max(60)
+    private Integer age;
+
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     private String email;
-    private String imagePath;
+
 
 
 }
