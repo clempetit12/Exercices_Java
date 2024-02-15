@@ -22,15 +22,8 @@
                     <p>Prénom : <span th:text="${student.lastName}"></span></p>
                     <p>Age : <span th:text="${student.age}"></span></p>
                     <p>Email : <span th:text="${student.email}"></span></p>
-                    <form th:action="@{/delete/{studentId}(studentId=${student.id})}" method="delete">
-                        <button class="text-decoration-none d-inline-block align-middle btn btn-outline-info" type="submit">
-                            <span class="align-middle">Delete</span> <i class="bi bi-eye align-middle text-info"></i>
-                        </button>
-                    </form>
-
-<!--                    <a class="text-decoration-none d-inline-block align-middle btn btn-outline-info" type="button" th:href="@{/edit/{studentId}(studentId=${student.id})}">-->
-<!--                        <span class="align-middle">Edit</span> <i class="bi bi-eye align-middle text-info"></i>-->
-<!--                    </a>-->
+                    <a th:href="@{/delete(studentId=${student.id})}" class="btn btn-danger btn-sm">Delete</a>
+                    <a th:href="@{/update(studentId=${student.id})}" class="btn btn-info btn-sm">Edit</a>
                 </div>
             </div>
         </div>

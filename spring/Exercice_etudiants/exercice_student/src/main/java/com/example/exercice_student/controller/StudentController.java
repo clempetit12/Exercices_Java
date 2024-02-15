@@ -74,8 +74,8 @@ public class StudentController {
 
     }
 
-    @DeleteMapping("/delete/{studentId}")
-    public String deleteStudent(@PathVariable("studentId") UUID id) {
+    @GetMapping("/delete")
+    public String deleteStudent(@RequestParam("studentId") UUID id) {
         System.out.println("delete");
         Student student = studentService.getById(id);
         System.out.println(student);
@@ -86,17 +86,11 @@ public class StudentController {
         return "error";
     }
 
-    @PatchMapping(value = "/update/{studentId}")
-    public String updateStudent(@PathVariable("studentId") UUID id,@ModelAttribute("student") Student student) {
-        Student student1 = studentService.getById(id);
-        student1.setFirstName(student.getFirstName());
-        student1.setLastName(student.getLastName());
-        student1.setAge(student.getAge());
-        student1.setEmail(student.getEmail());
-        if (studentService.update(student1)) {
-            System.out.println("Un étudiant a bien été updater");
-        }
-        return "redirect:/list";
+    @GetMapping(value = "/update")
+    public String updateStudent(@RequestParam("studentId") UUID id,Model model) {
+      Student student = studentService.getById(id);
+        model.addAttribute("student");
+        return "addForm";
     }
 
 }

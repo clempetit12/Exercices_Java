@@ -65,9 +65,13 @@ public class StudentService implements Service<Student> {
     }
 
     @Override
-    public boolean update(Student student) {
-        students.replace(student.getId(),student);
-        return true;
+    public Student update(Student student) {
+        Student student1 = getById(student.getId());
+        student1.setFirstName(student.getFirstName());
+        student1.setLastName(student.getLastName());
+        student1.setAge(student.getAge());
+        student1.setEmail(student.getEmail());
+        return student1;
     }
 
 
