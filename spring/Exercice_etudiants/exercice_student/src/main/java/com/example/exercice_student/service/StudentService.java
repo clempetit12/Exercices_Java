@@ -40,11 +40,8 @@ public class StudentService implements Service<Student> {
     }
 
     @Override
-    public boolean add(String firstName, String lastName, int age, String email) {
-        Student student = Student.builder().firstName(firstName)
-                .lastName(lastName)
-                .email(email)
-                .age(age).id(UUID.randomUUID()).build();
+    public boolean add(Student student) {
+        student.setId(UUID.randomUUID());
         students.put(student.getId(), student);
         return true;
     }
@@ -60,18 +57,21 @@ public class StudentService implements Service<Student> {
         if (students.remove(student.getId(), student)) {
             return true;
         }
-        ;
         return false;
     }
 
     @Override
     public Student update(UUID id, Student student) {
-        Student student1 = getById(id);
-        student1.setFirstName(student.getFirstName());
-        student1.setLastName(student.getLastName());
-        student1.setAge(student.getAge());
-        student1.setEmail(student.getEmail());
-        return student1;
+        Student studentExist = getById(id);
+        if (student != null) {
+            studentExist.setLastName(student.getLastName());
+            studentExist.setFirstName(student.getFirstName());
+            studentExist.setEmail(student.getEmail());
+            studentExist.setAge(student.getAge());
+
+        }
+
+        return studentExist;
     }
 
 

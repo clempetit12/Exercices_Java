@@ -49,15 +49,17 @@ public class StudentController {
 
     @PostMapping(value = "/add")
     public String submitStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult) {
-        String firstName = student.getFirstName();
-        String lastName = student.getLastName();
-        String email = student.getEmail();
-        int age = student.getAge();
         if(bindingResult.hasErrors()){
             return "student/addForm";
+        } else{
+            if(student.getId() != null) {
+                studentService.update(student.getId(),student);
+            } else {
+                studentService.add(student);
+            }
+            return "redirect:/list";
         }
-        studentService.add(firstName,lastName,age,email);
-        return "form-confirm";
+
 
     }
 
@@ -90,12 +92,14 @@ public class StudentController {
         return "error";
     }
 
-    @GetMapping(value = "/update")
-    public String updateStudent(@RequestParam("studentId") UUID id,Model model) {
-      Student student = studentService.getById(id);
+    @GetMapping("/update/{studentId}")
+    public String formUpdateStudent(@PathVariable("studentId") UUID id,Model model){
+        Student student = studentService.getById(id);
         model.addAttribute("student",student);
         return "student/addForm";
     }
+
+
 
 }
 

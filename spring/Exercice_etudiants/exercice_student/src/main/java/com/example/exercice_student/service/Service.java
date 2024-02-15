@@ -10,7 +10,7 @@ public interface Service<T> {
     public List<T> getAll();
     public T getById(UUID id);
 
-    public boolean add(String firstName,String lastName, int age, String email);
+    public boolean add(T element);
 
     public List<T> getByLastNameOrFirstName(String name);
     public boolean deleteStudent(Student student);

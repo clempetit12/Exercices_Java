@@ -17,9 +17,13 @@ public class Student {
 
 
     private UUID id;
+
+    @NotBlank
     @NotNull(message = "prénom non nul")
     @Size(min=3, message = "3 minimum svp")
     private String firstName;
+
+    @NotBlank
     @NotNull(message = "nom non nul")
     @Size(min=3, message = "3 minimum svp")
     private String lastName;
