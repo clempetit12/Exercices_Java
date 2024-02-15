@@ -20,7 +20,7 @@ public class Student {
     @NotNull(message = "prénom non nul")
     @Size(min=3, message = "3 minimum svp")
     private String firstName;
-    @NotNull(message = "prénom non nul")
+    @NotNull(message = "nom non nul")
     @Size(min=3, message = "3 minimum svp")
     private String lastName;
 
