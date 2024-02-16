@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire </title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+
+</head>
+<body>
+<header>
+    <span th:replace="~{home :: navBar}"></span>
+</header>
+<div class="container" th:object="${post}">
+    <h1> Title : <span th:text="*{title}"></span></h1>
+    <h2>Description : <span th:text="*{description}"></span></h2>
+    <p><span th:text="*{content}"></span></p>
+    <input type="hidden" th:field="*{id}">
+    <h1>Commentaires</h1>
+    <hr>
+
+    <table class="table" th:unless="${post.commentList.isEmpty()}">
+        <thead>
+        <tr>
+            <th class="text-center" scope="col">#</th>
+            <th class="text-center" scope="col">User</th>
+            <th class="text-center" scope="col">email</th>
+            <th class="text-center" scope="col">Content</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="comment, commentInd : ${post.commentList}">
+            <td class="text-center" th:text="${commentInd.index + 1}"></td>
+            <td class="text-center" th:text="${comment.lastName}"></td>
+            <td class="text-center" th:text="${comment.email}"></td>
+            <td class="text-center" th:text="${comment.content}"></td>
+
+
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/addComment/{postId}(postId=${post.id})}">
+        <button>Ajouter un commentaire</button>
+    </a>
+
+</div>
+
+
+</body>
+</html>
