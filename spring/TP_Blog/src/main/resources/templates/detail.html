@@ -15,8 +15,10 @@
     <hr>
     <h2 class="text-center"> <span th:text="*{description}"></span></h2>
     <p><span th:text="*{content}"></span></p>
-    <a th:href="@{/update/{postId}(postId=${post.id})}"><button>Update</button></a>
-    <a th:href="@{/delete/{postId}(postId=${post.id})}"><button>Delete</button></a>
+    <div class="btn-group" role="group">
+        <a th:href="@{/update/{postId}(postId=${post.id})}" class="btn btn-info">Update</a>
+        <a th:href="@{/delete/{postId}(postId=${post.id})}" class="btn btn-danger">Delete</a>
+    </div>
 
     <input type="hidden" th:field="*{id}">
     <h1 class="mt-8 text-center">Commentaires</h1>
