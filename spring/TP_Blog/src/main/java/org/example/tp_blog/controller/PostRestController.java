@@ -16,7 +16,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/blog")
 @AllArgsConstructor
-
 public class PostRestController {
 
 
@@ -38,7 +37,7 @@ public class PostRestController {
         return postService.add(post);
     }
 
-    @PostMapping("/addPost") // http://localhost:8080/api/blog/addPost
+    @PostMapping("/addPost/verif") // http://localhost:8080/api/blog/addPost
     public ResponseEntity<String> createPostValid(@Valid @RequestBody Post post, BindingResult result){
         if(result.hasErrors()){
             StringBuilder errors = new StringBuilder();
@@ -55,7 +54,7 @@ public class PostRestController {
         Post post = postService.getById(id);
         return postService.addCommentToPost(post,comment);
     }
-    @PostMapping("/addComment/{postId}") // http://localhost:8080/api/blog/addComment/x
+    @PostMapping("/addComment/verif/{postId}") // http://localhost:8080/api/blog/addComment/x
     public ResponseEntity<String> createCommentValid(@Valid @RequestBody Comment comment, BindingResult result,@PathVariable("postId") UUID id){
         if(result.hasErrors()){
             StringBuilder errors = new StringBuilder();
@@ -78,7 +77,7 @@ public class PostRestController {
         return postService.update(id,updatePost);
     }
 
-    @PutMapping("/update/post/{id}") // http://localhost:8080/api/v1/blog/update/post/x
+    @PutMapping("/update/post/verif/{id}") // http://localhost:8080/api/v1/blog/update/post/x
     public ResponseEntity<String> updatePostValid(@PathVariable UUID id,@Valid @RequestBody Post updatePost,BindingResult result){
         if(result.hasErrors()){
             StringBuilder errors = new StringBuilder();

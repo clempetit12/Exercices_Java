@@ -11,14 +11,18 @@
     <span th:replace="~{home :: navBar}"></span>
 </header>
 <div class="container" th:object="${post}">
-    <h1> Title : <span th:text="*{title}"></span></h1>
-    <h2>Description : <span th:text="*{description}"></span></h2>
+    <h1 class="text-center">  <span th:text="*{title}"></span></h1>
+    <hr>
+    <h2 class="text-center"> <span th:text="*{description}"></span></h2>
     <p><span th:text="*{content}"></span></p>
+    <a th:href="@{/update/{postId}(postId=${post.id})}"><button>Update</button></a>
+    <a th:href="@{/delete/{postId}(postId=${post.id})}"><button>Delete</button></a>
+
     <input type="hidden" th:field="*{id}">
-    <h1>Commentaires</h1>
+    <h1 class="mt-8 text-center">Commentaires</h1>
     <hr>
 
-    <table class="table" th:unless="${post.commentList.isEmpty()}">
+    <table class="table" th:unless="${post.commentList == null or post.commentList.isEmpty()}">
         <thead>
         <tr>
             <th class="text-center" scope="col">#</th>
@@ -38,9 +42,11 @@
         </tr>
         </tbody>
     </table>
-    <a th:href="@{/addComment/{postId}(postId=${post.id})}">
-        <button>Ajouter un commentaire</button>
-    </a>
+    <div class="container mt-3">
+        <a th:href="@{/addComment/{postId}(postId=${post.id})}" class="d-flex justify-content-end">
+            <button class="btn btn-primary">Ajouter un commentaire</button>
+        </a>
+    </div>
 
 </div>
 
