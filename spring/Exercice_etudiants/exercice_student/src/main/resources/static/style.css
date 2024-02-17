@@ -1,22 +1,16 @@
+
 .rectangle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    height: 15%;
-    background-color: rgba(25,25,25,255)     ;
     position: absolute;
-    bottom: 43%;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
+    color: black;
+    background-color: white;
+    width: 100%;
     z-index: 1;
-    border-radius: 10px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+
 }
 
-/*body {*/
-/*    font-family: "Nanum Myeongjo", serif;*/
-/*}*/
 
 
 

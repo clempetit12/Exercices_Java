@@ -17,7 +17,7 @@
     <p><span th:text="*{content}"></span></p>
     <div class="btn-group" role="group">
         <a th:href="@{/update/{postId}(postId=${post.id})}" class="btn btn-info">Update</a>
-        <a th:href="@{/delete/{postId}(postId=${post.id})}" class="btn btn-danger">Delete</a>
+        <a th:href="@{/delete(postId=${post.id})}" class="btn btn-danger">Delete</a>
     </div>
 
     <input type="hidden" th:field="*{id}">

@@ -56,15 +56,9 @@ private final PostServiceImpl postService;
         }
     }
     @GetMapping("/delete")
-    public String deleteStudent(@RequestParam("postId") UUID id) {
-        System.out.println("delete");
-        Post post = postService.getById(id);
-        System.out.println(post);
-        if (post != null) {
-            postService.deletePost(post);
-            return "redirect:/home";
-        }
-        return "error";
+    public String delete(@RequestParam("postId") UUID id){
+        postService.deletePost(id);
+        return "redirect:";
     }
 
     @GetMapping("/update/{postId}")

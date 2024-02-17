@@ -10,7 +10,7 @@ public interface PostInterface <T> {
 
     public boolean add(T element);
 
-    public boolean deletePost(T element);
+    public boolean deletePost(UUID id);
 
     public T update(UUID id,T element);
 

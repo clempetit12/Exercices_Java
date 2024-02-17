@@ -130,8 +130,9 @@ public class PostServiceImpl implements PostInterface<Post> {
     }
 
     @Override
-    public boolean deletePost(Post element) {
-        posts.remove(element);
+    public boolean deletePost(UUID id) {
+        Post post = getById(id);
+        posts.remove(id,post);
         return true;
     }
 

@@ -69,7 +69,7 @@ public class PostRestController {
     @DeleteMapping("/post/{id}") // http://localhost:8080/api/blog/post/x
     public void deletePost(@PathVariable UUID id){
         Post post = postService.getById(id);
-        postService.deletePost(post);
+        postService.deletePost(id);
     }
 
     @PutMapping("/update/post/{id}") // http://localhost:8080/api/v1/blog/update/post/x
