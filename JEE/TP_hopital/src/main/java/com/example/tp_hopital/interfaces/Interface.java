@@ -2,7 +2,7 @@ package com.example.tp_hopital.interfaces;
 
 import java.util.List;
 
-public interface Repository<T> {
+public interface Interface<T> {
 
     boolean create(T element);
 

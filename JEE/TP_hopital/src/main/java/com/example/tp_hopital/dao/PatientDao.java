@@ -1,7 +1,7 @@
 package com.example.tp_hopital.dao;
 
 import com.example.tp_hopital.entities.Patient;
-import com.example.tp_hopital.interfaces.Repository;
+import com.example.tp_hopital.interfaces.Interface;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,7 +13,7 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientDao implements Repository<Patient> {
+public class PatientDao implements Interface<Patient> {
 
     private SessionFactory sessionFactory;
 

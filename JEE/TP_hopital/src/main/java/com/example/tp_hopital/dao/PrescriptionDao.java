@@ -1,7 +1,7 @@
 package com.example.tp_hopital.dao;
 
 import com.example.tp_hopital.entities.Prescription;
-import com.example.tp_hopital.interfaces.Repository;
+import com.example.tp_hopital.interfaces.Interface;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -11,7 +11,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.util.List;
 
-public class PrescriptionDao implements Repository<Prescription> {
+public class PrescriptionDao implements Interface<Prescription> {
 
     private SessionFactory sessionFactory;
 
