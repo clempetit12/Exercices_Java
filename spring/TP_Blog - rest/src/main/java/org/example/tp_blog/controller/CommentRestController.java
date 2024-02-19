@@ -16,11 +16,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/comment")
-@AllArgsConstructor
 public class CommentRestController {
 
     private final PostServiceImpl postService;
     private final CommentServiceImpl commentService;
+    public CommentRestController(PostServiceImpl postService, CommentServiceImpl commentService) {
+        this.postService = postService;
+        this.commentService = commentService;
+    }
 
     @GetMapping("/comments") 
     public List<CommentDto> getAllComments(){

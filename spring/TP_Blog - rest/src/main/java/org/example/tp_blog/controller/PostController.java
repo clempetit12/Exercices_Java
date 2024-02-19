@@ -9,6 +9,7 @@ import org.example.tp_blog.entity.Comment;
 import org.example.tp_blog.entity.Post;
 import org.example.tp_blog.service.CommentServiceImpl;
 import org.example.tp_blog.service.PostServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,11 +19,15 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-@RequiredArgsConstructor
+
 public class PostController {
 
     private final PostServiceImpl postService;
 
+    @Autowired
+    public PostController(PostServiceImpl postService) {
+        this.postService = postService;
+    }
 
 
     @GetMapping

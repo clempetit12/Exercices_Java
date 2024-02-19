@@ -8,6 +8,7 @@ import org.example.tp_blog.entity.Comment;
 import org.example.tp_blog.entity.Post;
 import org.example.tp_blog.service.CommentServiceImpl;
 import org.example.tp_blog.service.PostServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -17,13 +18,18 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/post")
-@AllArgsConstructor
+@RequestMapping("/posts")
 public class PostRestController {
 
 
     private final PostServiceImpl postService;
     private final CommentServiceImpl commentService;
+
+    @Autowired
+    public PostRestController(PostServiceImpl postService, CommentServiceImpl commentService) {
+        this.postService = postService;
+        this.commentService = commentService;
+    }
 
     @GetMapping("/posts") // http://localhost:8080/api/blog/posts
     public List<PostDto> getAllPost(){
