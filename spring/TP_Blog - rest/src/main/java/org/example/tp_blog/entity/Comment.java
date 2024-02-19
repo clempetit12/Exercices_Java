@@ -11,7 +11,6 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Entity
 @ToString
@@ -20,18 +19,56 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_comment", nullable = false)
-    private int idComment;
+    private int id;
 
-    @NotBlank
-    @NotNull(message = "nom non nul")
-    @Size(min=3, message = "3 minimum svp")
     private String lastName;
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",message = "email non valide")
     private String email;
-    @NotNull(message = "message non nul")
+
     private String content;
     @ManyToOne
-    @JoinColumn(name = "comment_id")
+    @JoinColumn(name = "post_id")
     private Post post;
 
+    public Comment() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
 }

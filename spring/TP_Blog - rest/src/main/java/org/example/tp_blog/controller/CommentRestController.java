@@ -7,6 +7,7 @@ import org.example.tp_blog.dto.CommentDto;
 import org.example.tp_blog.dto.PostDto;
 import org.example.tp_blog.service.CommentServiceImpl;
 import org.example.tp_blog.service.PostServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -15,11 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/comment")
+@RequestMapping("/api")
 public class CommentRestController {
 
     private final PostServiceImpl postService;
     private final CommentServiceImpl commentService;
+    @Autowired
     public CommentRestController(PostServiceImpl postService, CommentServiceImpl commentService) {
         this.postService = postService;
         this.commentService = commentService;
@@ -31,9 +33,15 @@ public class CommentRestController {
     }
 
     @PostMapping("/addComment/{postId}")
-    public boolean addComment(@RequestBody CommentDto comment, @PathVariable("postId") int id){
+    public ResponseEntity<String> addComment(@RequestBody CommentDto commentDto, @PathVariable("postId") int id){
         PostDto postDto = postService.getById(id);
-        return commentService.addCommentToPost(postDto,comment);
+        System.out.println(commentDto);
+        boolean isCommentAdded = commentService.addCommentToPost(postDto, commentDto);
+        if(isCommentAdded) {
+            return ResponseEntity.ok("Comment added successfully");
+        } else {
+            return ResponseEntity.badRequest().body("Failed to add comment");
+        }
     }
     @PostMapping("/addComment/verif/{postId}") // http://localhost:8080/api/blog/addComment/x
     public ResponseEntity<String> createCommentValid(@Valid @RequestBody CommentDto comment, BindingResult result,@PathVariable("postId") int id){

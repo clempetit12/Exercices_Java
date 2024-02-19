@@ -80,11 +80,6 @@ public class PostController {
 
 
 
-    @GetMapping("/addComment/{postId}")
-    public String formComment(Model model, @PathVariable("postId") int id) {
-        model.addAttribute("comment", new Comment());
-        return "commentForm";
-    }
 
 
 }

@@ -18,13 +18,13 @@
             <form th:action="@{/addComment/{postId}(postId=${postId})}" th:object="${comment}" method="post">
                 <div class="mb-3">
                     <label for="lastName" class="form-label"></label>
-                    <input type="text" class="form-control" id="lastName" placeholder="lastName"
+                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="lastName"
                            aria-describedby="lastName" th:field="*{lastName}">
                     <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label"></label>
-                    <input type="text" class="form-control" id="email" placeholder="email"
+                    <input type="text" name="email" class="form-control" id="email" placeholder="email"
                            aria-describedby="email" th:field="*{email}">
                     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                 </div>

@@ -57,4 +57,12 @@ public class PostDto {
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }
