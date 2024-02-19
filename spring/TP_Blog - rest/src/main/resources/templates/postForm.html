@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire </title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+
+</head>
+<body>
+<header>
+    <span th:replace="~{home :: navBar}"></span>
+</header>
+<div class="container p-5">
+    <div class="row justify-content-center">
+        <div class="col-6 jus">
+            <h1 class="text-center mb-4">Formulaire pour ajouter un post</h1>
+            <hr>
+            <form th:action="@{/add}" th:object="${post}" method="post">
+                <div class="mb-3">
+                    <label for="title" class="form-label"></label>
+                    <input type="text" class="form-control" id="title" placeholder="title"
+                           aria-describedby="title" th:field="*{title}">
+                    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label"></label>
+                    <input type="text" class="form-control" id="description" placeholder="description"
+                           aria-describedby="description" th:field="*{description}">
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                </div>
+                <div class="mb-3">
+                    <textarea class="justify-content-center" name="content" rows="10" cols="45" th:field="*{content}"></textarea>
+                    <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-primary me-md-2" type="submit"><i class="bi bi-patch-plus"> Submit</i>
+                    </button>
+                </div>
+                <input type="hidden" th:field="*{id}">
+
+            </form>
+        </div>
+
+    </div>
+    </div>
+
+
+</body>
+</html>

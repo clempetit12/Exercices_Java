@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire </title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+
+</head>
+<body>
+<header>
+    <span th:replace="~{home :: navBar}"></span>
+</header>
+<div class="container" th:object="${post}">
+    <h1 class="text-center">  <span th:text="*{title}"></span></h1>
+    <hr>
+    <h2 class="text-center"> <span th:text="*{description}"></span></h2>
+    <p><span th:text="*{content}"></span></p>
+    <div class="btn-group" role="group">
+        <a th:href="@{/update/{postId}(postId=${post.id})}" class="btn btn-info">Update</a>
+        <a th:href="@{/delete(postId=${post.id})}" class="btn btn-danger">Delete</a>
+    </div>
+
+    <input type="hidden" th:field="*{id}">
+    <h1 class="mt-8 text-center">Commentaires</h1>
+    <hr>
+
+    <table class="table" th:unless="${post.commentList == null or post.commentList.isEmpty()}">
+        <thead>
+        <tr>
+            <th class="text-center" scope="col">#</th>
+            <th class="text-center" scope="col">User</th>
+            <th class="text-center" scope="col">email</th>
+            <th class="text-center" scope="col">Content</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="comment, commentInd : ${post.commentList}">
+            <td class="text-center" th:text="${commentInd.index + 1}"></td>
+            <td class="text-center" th:text="${comment.lastName}"></td>
+            <td class="text-center" th:text="${comment.email}"></td>
+            <td class="text-center" th:text="${comment.content}"></td>
+
+
+        </tr>
+        </tbody>
+    </table>
+    <div class="container mt-3">
+        <a th:href="@{/addComment/{postId}(postId=${post.id})}" class="d-flex justify-content-end">
+            <button class="btn btn-primary">Ajouter un commentaire</button>
+        </a>
+    </div>
+
+</div>
+
+
+</body>
+</html>

@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
-public class PostController {
+public class    PostController {
 
 private final PostServiceImpl postService;
 
