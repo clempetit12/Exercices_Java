@@ -29,6 +29,10 @@
                             <a class="nav-link active  " aria-current="page" th:href="@{/add}">Ajouter un post</i></a>
                         </li>
                     </ul>
+                    <form th:action="@{/search(name=${name})}" method="get" class="d-flex ">
+                        <input class="form-control me-2 " type="text" name="name" placeholder="Search Name">
+                        <button class=" btn btn-info" type="submit">Search</button>
+                    </form>
 
 
                 </div>
@@ -39,11 +43,11 @@
 
 <main>
     <div class="container">
-        <h1 class="text-center">Les Blogs</h1>
+        <h1 class="text-center">Voyages</h1>
         <hr>
         <div class="container p-10 ">
             <div class="row justify-content-center p-4" th:unless="${posts.isEmpty()}">
-                <div class="card bg-outline-success mx-3  " th:each="p : ${posts}" style="width: 18rem;">
+                <div class="card bg-outline-success mx-3 mt-3 " th:each="p : ${posts}" style="width: 18rem;">
                     <div class="card-body text-center" >
                         <h5 class="card-title"><span th:text="${p.title}"></span></h5>
                         <hr>

@@ -96,6 +96,17 @@ public class PostController {
         return "formerror";
     }
 
+    @GetMapping(value = "/search")
+    public String searchBlog(@RequestParam(name = "name", required = false) String name,
+                                      Model model) {
+        List<PostDto> postDtos = postService.getPostByName(name);
+        if (!postDtos.isEmpty()) {
+            model.addAttribute("posts", postDtos);
+            return "home";
+        } else {
+            return "error";
+        }
 
+    }
 
 }

@@ -51,4 +51,11 @@ private final PostMapper postMapper;
     public PostDto update(PostDto element) {
         return postMapper.postToPostDto(postRepository.save(postMapper.postDtoToPost(element)));
     }
+
+    public List<PostDto> getPostByName(String search) {
+        List<Post> posts = postRepository.findAllByTitleStartingWith(search);
+        return posts.stream()
+                .map(postMapper::postToPostDto)
+                .collect(Collectors.toList());
+    }
 }
