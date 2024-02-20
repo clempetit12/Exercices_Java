@@ -34,17 +34,17 @@ public class PostRestController {
         this.commentService = commentService;
     }
 
-    @GetMapping("/posts") // http://localhost:8080/api/blog/posts
+    @GetMapping("/posts")
     public List<PostDto> getAllPost(){
         return postService.getAll();
     }
 
-    @GetMapping("/post/{id}") // http://localhost:8080/api/blog/post/x
+    @GetMapping("/post/{id}")
     public PostDto getPostById(@PathVariable("id") int id){
         return postService.getById(id);
     }
 
-    @PostMapping("/addPost") // http://localhost:8080/api/blog/addPost
+    @PostMapping("/addPost")
     public boolean createPost(@RequestBody PostDto post){
         PostDto postDto =  postService.add(post);
         if(postDto != null) {
@@ -53,7 +53,7 @@ public class PostRestController {
         return false;
     }
 
-    @PostMapping("/addPost/verif") // http://localhost:8080/api/blog/addPost
+    @PostMapping("/addPost/verif")
     public ResponseEntity<String> createPostValid(@Valid @RequestBody PostDto postDto, BindingResult result){
         if(result.hasErrors()){
             StringBuilder errors = new StringBuilder();
@@ -75,7 +75,7 @@ public class PostRestController {
         postService.update(postDto);
     }
 
-    @PutMapping("/update/post/verif/{id}") // http://localhost:8080/api/v1/blog/update/post/x
+    @PutMapping("/update/post/verif/{id}")
     public ResponseEntity<String> updatePostValid(@PathVariable int id,@Valid @RequestBody PostDto updatePost,BindingResult result){
         if(result.hasErrors()){
             StringBuilder errors = new StringBuilder();
