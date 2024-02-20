@@ -53,7 +53,7 @@ private final PostMapper postMapper;
     }
 
     public List<PostDto> getPostByName(String search) {
-        List<Post> posts = postRepository.findAllByTitleStartingWith(search);
+        List<Post> posts = postRepository.findAllByTitleStartingWith(search.toLowerCase());
         return posts.stream()
                 .map(postMapper::postToPostDto)
                 .collect(Collectors.toList());
