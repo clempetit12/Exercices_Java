@@ -18,7 +18,7 @@
             <form th:action="@{/add}" th:object="${post}" method="post">
                 <div class="mb-3">
                     <label for="title" class="form-label"></label>
-                    <input type="text" class="form-control" id="title" placeholder="title"
+                    <input type="text" name="title" class="form-control" id="title" placeholder="title"
                            aria-describedby="title" th:field="*{title}">
                     <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
                 </div>
@@ -27,6 +27,12 @@
                     <input type="text" class="form-control" id="description" placeholder="description"
                            aria-describedby="description" th:field="*{description}">
                     <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label"></label>
+                    <input type="text" class="form-control" id="image" placeholder="image"
+                           aria-describedby="image" th:field="*{image}">
+                    <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></span>
                 </div>
                 <div class="mb-3">
                     <textarea class="justify-content-center" name="content" rows="10" cols="45" th:field="*{content}"></textarea>

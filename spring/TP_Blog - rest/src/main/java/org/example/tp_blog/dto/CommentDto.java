@@ -1,5 +1,9 @@
 package org.example.tp_blog.dto;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,10 +17,13 @@ public class CommentDto {
 
     private int id;
 
+
+    @NotNull
+  @Size(min = 3)
     private String lastName;
-
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",message = "email non valide")
     private String email;
-
+    @NotNull
     private String content;
     private Post post;
 

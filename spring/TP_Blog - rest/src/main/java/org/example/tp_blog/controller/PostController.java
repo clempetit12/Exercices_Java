@@ -7,9 +7,12 @@ import org.example.tp_blog.dto.CommentDto;
 import org.example.tp_blog.dto.PostDto;
 import org.example.tp_blog.entity.Comment;
 import org.example.tp_blog.entity.Post;
+import org.example.tp_blog.exception.ConstraintViolationException;
+import org.example.tp_blog.exception.FormException;
 import org.example.tp_blog.service.CommentServiceImpl;
 import org.example.tp_blog.service.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,12 +50,13 @@ public class PostController {
 
     @GetMapping("/add")
     public String form(Model model) {
-        model.addAttribute("post", new Post());
+        model.addAttribute("post", new PostDto());
         return "postForm";
     }
 
     @PostMapping(value = "/add")
     public String addPost(@Valid @ModelAttribute("post") PostDto postDto, BindingResult bindingResult) {
+        System.out.println(bindingResult.hasErrors());
         if (bindingResult.hasErrors()) {
             return "postForm";
         } else {
@@ -78,7 +82,19 @@ public class PostController {
         return "postForm";
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String handleConstraintViolationException(ConstraintViolationException ex,Model model){
+        model.addAttribute("errorMessage",ex.getMessage());
+        return "formerror";
+    }
 
+    @ExceptionHandler(FormException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String handleFormException(FormException ex,Model model){
+        model.addAttribute("errorMessage",ex.getMessage());
+        return "formerror";
+    }
 
 
 

@@ -23,18 +23,20 @@ public class Post {
     @Column(name = "id", nullable = false)
     private int id;
 
-
     private String title;
+
     private String content;
     private String description;
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comment> commentList;
+
 
     public Post(String title, String content, String description) {
         this.title = title;
         this.content = content;
         this.description = description;
         this.commentList = new ArrayList<>();
+
     }
 
     public Post() {
@@ -79,5 +81,6 @@ public class Post {
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
     }
+
 
 }

@@ -1,10 +1,7 @@
 package org.example.tp_blog.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -22,6 +19,7 @@ public class Comment {
     private int id;
 
     private String lastName;
+
     private String email;
 
     private String content;

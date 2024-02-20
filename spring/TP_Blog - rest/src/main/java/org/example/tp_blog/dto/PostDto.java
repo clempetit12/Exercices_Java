@@ -1,5 +1,7 @@
 package org.example.tp_blog.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,12 +16,17 @@ import java.util.UUID;
 public class PostDto {
 
     private int id;
-
+    @NotNull
+    @NotBlank
     private String title;
+    @NotNull
+    @NotBlank
     private String content;
-
+    @NotBlank
     private String description;
+    private String image;
     private List<Comment> commentList;
+
 
     public PostDto() {
     }
@@ -64,5 +71,13 @@ public class PostDto {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

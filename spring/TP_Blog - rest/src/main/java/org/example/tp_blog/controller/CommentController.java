@@ -32,7 +32,7 @@ public class CommentController {
 
     @GetMapping("/addComment/{postId}")
     public String showCommentForm(@PathVariable("postId") int postId, Model model) {
-        model.addAttribute("comment", new Comment());
+        model.addAttribute("comment", new CommentDto());
         model.addAttribute("postId", postId);
         return "commentForm";
     }

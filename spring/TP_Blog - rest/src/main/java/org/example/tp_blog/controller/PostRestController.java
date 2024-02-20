@@ -6,11 +6,14 @@ import org.example.tp_blog.dto.CommentDto;
 import org.example.tp_blog.dto.PostDto;
 import org.example.tp_blog.entity.Comment;
 import org.example.tp_blog.entity.Post;
+import org.example.tp_blog.exception.ConstraintViolationException;
+import org.example.tp_blog.exception.FormException;
 import org.example.tp_blog.service.CommentServiceImpl;
 import org.example.tp_blog.service.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -82,6 +85,18 @@ public class PostRestController {
         }
         postService.update(updatePost);
         return new  ResponseEntity<>("modif post ok", HttpStatus.ACCEPTED);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String handleConstraintViolationException(ConstraintViolationException ex){
+        return "Problème formulaire";
+    }
+
+    @ExceptionHandler(FormException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String handleFormException(FormException ex){
+        return "Problème ";
     }
 
 }
