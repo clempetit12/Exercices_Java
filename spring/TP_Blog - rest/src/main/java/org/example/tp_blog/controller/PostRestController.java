@@ -1,5 +1,7 @@
 package org.example.tp_blog.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.example.tp_blog.dto.CommentDto;
@@ -16,7 +18,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,13 +49,18 @@ public class PostRestController {
     }
 
     @PostMapping("/addPost")
-    public boolean createPost(@RequestBody PostDto post){
-        PostDto postDto =  postService.add(post);
-        if(postDto != null) {
+    public boolean createPostWithImage(@RequestParam("image") MultipartFile image, @RequestParam("post") String postJson) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            PostDto postDto = objectMapper.readValue(postJson, PostDto.class);
+
             return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
-        return false;
     }
+
 
     @PostMapping("/addPost/verif")
     public ResponseEntity<String> createPostValid(@Valid @RequestBody PostDto postDto, BindingResult result){

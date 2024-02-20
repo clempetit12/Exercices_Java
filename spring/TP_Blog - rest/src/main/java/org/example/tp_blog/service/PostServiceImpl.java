@@ -37,6 +37,7 @@ private final PostMapper postMapper;
 
     @Override
     public PostDto add(PostDto element) {
+        System.out.println("service"+element.getImage());
         return postMapper.postToPostDto(postRepository.save(postMapper.postDtoToPost(element)));
     }
 
@@ -53,7 +54,7 @@ private final PostMapper postMapper;
     }
 
     public List<PostDto> getPostByName(String search) {
-        List<Post> posts = postRepository.findAllByTitleStartingWith(search.toLowerCase());
+        List<Post> posts = postRepository.findAllByTitleContaining(search.toLowerCase());
         return posts.stream()
                 .map(postMapper::postToPostDto)
                 .collect(Collectors.toList());

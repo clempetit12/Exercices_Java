@@ -17,7 +17,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +34,7 @@ import java.util.UUID;
 public class PostController {
 
     private final PostServiceImpl postService;
+    private String location = "upload-dir";
 
     @Autowired
     public PostController(PostServiceImpl postService) {
@@ -53,21 +62,39 @@ public class PostController {
         model.addAttribute("post", new PostDto());
         return "postForm";
     }
+    @GetMapping("/files")
+    @ResponseBody
+    public List<String> getFiles() throws IOException {
+        List<String> liste = new ArrayList<>();
+        Files.walk(Paths.get(location)).forEach(path -> {
+            liste.add(path.getFileName().toString());
+        });
+        return liste;
+    }
 
     @PostMapping(value = "/add")
-    public String addPost(@Valid @ModelAttribute("post") PostDto postDto, BindingResult bindingResult) {
-        System.out.println(bindingResult.hasErrors());
-        if (bindingResult.hasErrors()) {
-            return "postForm";
-        } else {
-            if (postDto.getId() != 0) {
-                postService.update(postDto);
-            } else {
+    public String addPost(@Valid @ModelAttribute("post") PostDto postDto, BindingResult bindingResult, @RequestParam("image") MultipartFile image) throws IOException {
+//        if (bindingResult.hasErrors()) {
+//            return "postForm";
+//        } else {
+//            if (postDto.getId() != 0) {
+//                Path destinationFile = Paths.get(location).resolve(Paths.get(postDto.getImage())).toAbsolutePath();
+//                InputStream stream = image.getInputStream();
+//                Files.copy(stream,destinationFile, StandardCopyOption.REPLACE_EXISTING);
+//                postDto.setImage(postDto.getImage());
+//                postService.update(postDto);
+//            } else {
+        String imageName = image.getOriginalFilename();
+        Path destinationFile = Paths.get(location).resolve(Paths.get(imageName)).toAbsolutePath();
+                InputStream stream = image.getInputStream();
+                Files.copy(stream,destinationFile, StandardCopyOption.REPLACE_EXISTING);
+                postDto.setImage(imageName);
+                System.out.println("image" + postDto.getImage());
                 postService.add(postDto);
-            }
+//            }
             return "redirect:/";
         }
-    }
+
 
     @GetMapping("/delete")
     public String delete(@RequestParam("postId") int id) {

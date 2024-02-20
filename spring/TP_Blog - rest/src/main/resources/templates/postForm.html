@@ -15,7 +15,7 @@
         <div class="col-6 jus">
             <h1 class="text-center mb-4">Formulaire pour ajouter un post</h1>
             <hr>
-            <form th:action="@{/add}" th:object="${post}" method="post">
+            <form th:action="@{/add}" th:object="${post}" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label"></label>
                     <input type="text" name="title" class="form-control" id="title" placeholder="title"
@@ -29,13 +29,14 @@
                     <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="image" class="form-label"></label>
-                    <input type="text" class="form-control" id="image" placeholder="image"
-                           aria-describedby="image" th:field="*{image}">
-                    <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></span>
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" class="form-control" id="image" name="image"
+                           aria-describedby="image"   >
+<!--                    <span th:if="${#fields.hasErrors('image')}" th:errors="{image}"></span>-->
                 </div>
+
                 <div class="mb-3">
-                    <textarea class="justify-content-center" name="content" rows="10" cols="45" th:field="*{content}"></textarea>
+                    <textarea class="justify-content-center" name="content" rows="10" cols="55" th:field="*{content}"></textarea>
                     <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">

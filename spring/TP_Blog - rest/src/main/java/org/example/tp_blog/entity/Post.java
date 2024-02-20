@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +14,11 @@ import java.util.UUID;
 
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @ToString
 @EqualsAndHashCode
 public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -27,16 +28,16 @@ public class Post {
 
     private String content;
     private String description;
+    private String image;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comment> commentList;
 
-
-    public Post(String title, String content, String description) {
+    public Post(String title, String content, String description, String image) {
         this.title = title;
         this.content = content;
         this.description = description;
+        this.image = image;
         this.commentList = new ArrayList<>();
-
     }
 
     public Post() {
@@ -74,6 +75,14 @@ public class Post {
         this.description = description;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public List<Comment> getCommentList() {
         return commentList;
     }
@@ -81,6 +90,4 @@ public class Post {
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
     }
-
-
 }

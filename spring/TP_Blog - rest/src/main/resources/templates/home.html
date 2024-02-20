@@ -23,7 +23,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class=" nav-link active " aria-current="page" th:href="@{/}"><i class="bi bi-house-check-fill text-dark"></i></a>
+                            <a class=" nav-link active " aria-current="page" th:href="@{/}"><i
+                                    class="bi bi-house-check-fill text-dark"></i></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active  " aria-current="page" th:href="@{/add}">Ajouter un post</i></a>
@@ -48,7 +49,9 @@
         <div class="container p-10 ">
             <div class="row justify-content-center p-4" th:unless="${posts.isEmpty()}">
                 <div class="card bg-outline-success mx-3 mt-3 " th:each="p : ${posts}" style="width: 18rem;">
-                    <div class="card-body text-center" >
+
+                    <img th:src="@{'/upload-dir/' + ${p.image}}" class="card-img-top" alt="image">
+                    <div class="card-body text-center">
                         <h5 class="card-title"><span th:text="${p.title}"></span></h5>
                         <hr>
                         <p class="hidden">Description : <span th:text="${p.description}"></span></p>
@@ -62,15 +65,16 @@
                     </div>
 
 
-
                 </div>
             </div>
-</main>
-<footer class="container text-center">
-    <p><span th:text="${@environment.getProperty('site.name')}"></span></p>
-    <p><span th:text="${@environment.getProperty('site.contact')}"></span></p>
-</footer>
 
+            <footer class="container text-center">
+                <p><span th:text="${@environment.getProperty('site.name')}"></span></p>
+                <p><span th:text="${@environment.getProperty('site.contact')}"></span></p>
+            </footer>
+        </div>
+        </div>
+</main>
 
 </body>
 </html>
