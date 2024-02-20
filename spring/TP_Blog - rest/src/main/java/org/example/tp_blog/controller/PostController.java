@@ -74,27 +74,27 @@ public class PostController {
 
     @PostMapping(value = "/add")
     public String addPost(@Valid @ModelAttribute("post") PostDto postDto, BindingResult bindingResult, @RequestParam("image") MultipartFile image) throws IOException {
-//        if (bindingResult.hasErrors()) {
-//            return "postForm";
-//        } else {
-//            if (postDto.getId() != 0) {
-//                Path destinationFile = Paths.get(location).resolve(Paths.get(postDto.getImage())).toAbsolutePath();
-//                InputStream stream = image.getInputStream();
-//                Files.copy(stream,destinationFile, StandardCopyOption.REPLACE_EXISTING);
-//                postDto.setImage(postDto.getImage());
-//                postService.update(postDto);
-//            } else {
-        String imageName = image.getOriginalFilename();
-        Path destinationFile = Paths.get(location).resolve(Paths.get(imageName)).toAbsolutePath();
+        if (bindingResult.hasErrors()) {
+            return "postForm";
+        } else {
+            if (postDto.getId() != 0) {
+                Path destinationFile = Paths.get(location).resolve(Paths.get(postDto.getImage())).toAbsolutePath();
                 InputStream stream = image.getInputStream();
-                Files.copy(stream,destinationFile, StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(stream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+                postDto.setImage(postDto.getImage());
+                postService.update(postDto);
+            } else {
+                String imageName = image.getOriginalFilename();
+                Path destinationFile = Paths.get(location).resolve(Paths.get(imageName)).toAbsolutePath();
+                InputStream stream = image.getInputStream();
+                Files.copy(stream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
                 postDto.setImage(imageName);
                 System.out.println("image" + postDto.getImage());
                 postService.add(postDto);
-//            }
+            }
             return "redirect:/";
         }
-
+    }
 
     @GetMapping("/delete")
     public String delete(@RequestParam("postId") int id) {
