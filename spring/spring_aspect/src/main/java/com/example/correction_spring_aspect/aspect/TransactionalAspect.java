@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Aspect
 @Component
 public class TransactionalAspect {
@@ -26,6 +28,8 @@ public class TransactionalAspect {
             System.out.println("Transaction begin");
             Object object = joinPoint.proceed();
             System.out.println("Commit transaction");
+            logger.warn("Method name : " + joinPoint.getSignature().getName());
+            logger.warn("Arguments name : " + Arrays.asList(joinPoint.getArgs()));
             return object;
         }catch (Exception ex){
             System.out.println("Transaction roolback");
