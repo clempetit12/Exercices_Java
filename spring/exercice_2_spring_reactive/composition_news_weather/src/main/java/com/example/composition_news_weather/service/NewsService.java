@@ -22,7 +22,7 @@ public class NewsService {
         this.webClient = WebClient.builder().baseUrl("http://localhost:8081").build();
     }
 
-    public Flux<NewsDTO> getNews(List<String> cities) {
+    public Flux<NewsDTO> getNews(String cities) {
         return webClient.get().uri("news/"+cities).retrieve().bodyToFlux(NewsDTO.class);
     }
 

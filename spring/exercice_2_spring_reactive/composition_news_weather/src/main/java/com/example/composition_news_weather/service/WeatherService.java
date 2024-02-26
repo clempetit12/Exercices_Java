@@ -21,7 +21,7 @@ public class WeatherService {
         webClient = WebClient.builder().baseUrl("http://localhost:8080/").build();
     }
 
-    public Flux<WeatherDTO> getCities(List<String> cities) {
+    public Flux<WeatherDTO> getCities(String cities) {
         return webClient.get().uri("weather/"+cities).retrieve().bodyToFlux(WeatherDTO.class);
     }
 

@@ -13,6 +13,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -29,15 +30,19 @@ public class CompositionController {
 
 
     @GetMapping("/{cities}")
-    public Flux<NewsWeatherDTO> get(@PathVariable("cities")List<String> cities) {
-        Flux<WeatherDTO> weatherDtoFlux = weatherService.getCities(cities);
-        Flux<NewsDTO> newsWeatherDTOFlux = newsService.getNews(cities);
+    public Flux<NewsWeatherDTO> get(@PathVariable("cities") List<String> cities) {
+        return Flux.fromIterable(cities)
+                .flatMap(city -> {
+                    Flux<WeatherDTO> weatherMono = weatherService.getCities(city);
+                    Flux<NewsDTO> news = newsService.getNews(city);
 
-        return Flux.zip(weatherDtoFlux, newsWeatherDTOFlux)
-                .map(t -> NewsWeatherDTO.builder()
-                        .temperature(t.getT1().getTemperature())
-                        .cities(Arrays.asList(t.getT1()))
-                        .news(Arrays.asList(t.getT2()))
-                        .build());
+                    return Flux.zip(weatherMono, news)
+                            .map(tuple -> NewsWeatherDTO.builder()
+                                    .temperature(tuple.getT1().getTemperature())
+                                    .cities(Collections.singletonList(tuple.getT1()))
+                                    .news((List<NewsDTO>) tuple.getT2())
+                                    .build());
+                });
     }
+
 }
