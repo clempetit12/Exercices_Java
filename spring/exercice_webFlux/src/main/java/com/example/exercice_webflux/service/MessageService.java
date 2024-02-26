@@ -6,6 +6,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class MessageService {
@@ -17,6 +18,7 @@ public class MessageService {
     }
 
     public void postMessage(Message message) {
+        message.setId(UUID.randomUUID());
         message.setTime(LocalDateTime.now());
         sink.tryEmitNext(message);
     }
