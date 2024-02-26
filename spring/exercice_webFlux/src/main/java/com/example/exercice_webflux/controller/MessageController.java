@@ -30,10 +30,5 @@ public class MessageController {
         return messageService.getFluxMessage();
     }
 
-    @GetMapping("subscribeToChat")
-    public SseEmitter subscribeToChat() {
-        SseEmitter emitter = new SseEmitter();
-        messageService.addSubscriber(emitter);
-        return emitter;
-    }
+
 }

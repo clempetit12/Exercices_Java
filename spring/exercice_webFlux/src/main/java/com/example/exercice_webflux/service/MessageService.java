@@ -16,6 +16,7 @@ public class MessageService {
     private final Sinks.Many<Message> sink;
     private ArrayList<SseEmitter> membersChat = new ArrayList<>();
 
+
     public MessageService() {
         sink = Sinks.many().multicast().onBackpressureBuffer();
     }
@@ -27,10 +28,8 @@ public class MessageService {
     }
 
     public Flux<Message> getFluxMessage() {
-        for (SseEmitter s : membersChat) {
             return sink.asFlux();
-        }
-        return null;
+
     }
 
 

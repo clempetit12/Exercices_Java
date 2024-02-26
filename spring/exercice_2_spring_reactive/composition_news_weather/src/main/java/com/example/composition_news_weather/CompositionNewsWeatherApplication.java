@@ -1,0 +1,13 @@
+package com.example.composition_news_weather;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CompositionNewsWeatherApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(CompositionNewsWeatherApplication.class, args);
+    }
+
+}
