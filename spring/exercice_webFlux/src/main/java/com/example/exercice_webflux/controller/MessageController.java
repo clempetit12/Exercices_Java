@@ -1,14 +1,12 @@
 package com.example.exercice_webflux.controller;
 
-import com.example.exercice_webflux.dto.MessageDto;
 import com.example.exercice_webflux.entity.Message;
 import com.example.exercice_webflux.service.MessageService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
-
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping(value = "messages")
@@ -27,9 +25,15 @@ public class MessageController {
     }
 
 
-
     @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Message> get() {
         return messageService.getFluxMessage();
+    }
+
+    @GetMapping("subscribeToChat")
+    public SseEmitter subscribeToChat() {
+        SseEmitter emitter = new SseEmitter();
+        messageService.addSubscriber(emitter);
+        return emitter;
     }
 }
