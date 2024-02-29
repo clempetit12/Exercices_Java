@@ -1,0 +1,891 @@
+[{
+  "_id": {
+    "$oid": "65e04b321f89905195cec0e3"
+  },
+  "tradingTime": {
+    "$date": "2024-02-29T09:15:23.646Z"
+  },
+  "cryptoValue": 696.1572632806943,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b3b1f89905195cec0e4"
+  },
+  "tradingTime": {
+    "$date": "2024-03-01T09:15:23.646Z"
+  },
+  "cryptoValue": 746.6392264080962,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b3c1f89905195cec0e5"
+  },
+  "tradingTime": {
+    "$date": "2024-03-02T09:15:23.646Z"
+  },
+  "cryptoValue": 104.63445966033913,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b3c1f89905195cec0e6"
+  },
+  "tradingTime": {
+    "$date": "2024-03-03T09:15:23.646Z"
+  },
+  "cryptoValue": 62.618572869607036,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b3d1f89905195cec0e7"
+  },
+  "tradingTime": {
+    "$date": "2024-03-04T09:15:23.646Z"
+  },
+  "cryptoValue": 916.245403040965,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b3d1f89905195cec0e8"
+  },
+  "tradingTime": {
+    "$date": "2024-03-05T09:15:23.646Z"
+  },
+  "cryptoValue": 682.2824669716766,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b3e1f89905195cec0e9"
+  },
+  "tradingTime": {
+    "$date": "2024-03-06T09:15:23.646Z"
+  },
+  "cryptoValue": 709.6186984118393,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b3e1f89905195cec0ea"
+  },
+  "tradingTime": {
+    "$date": "2024-03-07T09:15:23.646Z"
+  },
+  "cryptoValue": 966.0208246828539,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b3f1f89905195cec0eb"
+  },
+  "tradingTime": {
+    "$date": "2024-03-08T09:15:23.646Z"
+  },
+  "cryptoValue": 954.280245278622,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b3f1f89905195cec0ec"
+  },
+  "tradingTime": {
+    "$date": "2024-03-09T09:15:23.646Z"
+  },
+  "cryptoValue": 428.0611113456996,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b401f89905195cec0ed"
+  },
+  "tradingTime": {
+    "$date": "2024-03-10T09:15:23.646Z"
+  },
+  "cryptoValue": 844.3377608076869,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b401f89905195cec0ee"
+  },
+  "tradingTime": {
+    "$date": "2024-03-11T09:15:23.646Z"
+  },
+  "cryptoValue": 511.45402404331065,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b411f89905195cec0ef"
+  },
+  "tradingTime": {
+    "$date": "2024-03-12T09:15:23.646Z"
+  },
+  "cryptoValue": 250.55074999953953,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b411f89905195cec0f0"
+  },
+  "tradingTime": {
+    "$date": "2024-03-13T09:15:23.646Z"
+  },
+  "cryptoValue": 454.3486489013251,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b421f89905195cec0f1"
+  },
+  "tradingTime": {
+    "$date": "2024-03-14T09:15:23.646Z"
+  },
+  "cryptoValue": 302.4442021687922,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b431f89905195cec0f2"
+  },
+  "tradingTime": {
+    "$date": "2024-03-15T09:15:23.646Z"
+  },
+  "cryptoValue": 316.00235438365434,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b431f89905195cec0f3"
+  },
+  "tradingTime": {
+    "$date": "2024-03-16T09:15:23.646Z"
+  },
+  "cryptoValue": 507.5740838878475,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b441f89905195cec0f4"
+  },
+  "tradingTime": {
+    "$date": "2024-03-17T09:15:23.646Z"
+  },
+  "cryptoValue": 106.79892104331113,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b441f89905195cec0f5"
+  },
+  "tradingTime": {
+    "$date": "2024-03-18T09:15:23.646Z"
+  },
+  "cryptoValue": 396.1121776686343,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b451f89905195cec0f6"
+  },
+  "tradingTime": {
+    "$date": "2024-03-19T09:15:23.646Z"
+  },
+  "cryptoValue": 987.4561434628691,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b451f89905195cec0f7"
+  },
+  "tradingTime": {
+    "$date": "2024-03-20T09:15:23.646Z"
+  },
+  "cryptoValue": 399.6849170350042,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b461f89905195cec0f8"
+  },
+  "tradingTime": {
+    "$date": "2024-03-21T09:15:23.646Z"
+  },
+  "cryptoValue": 349.2579325735392,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b471f89905195cec0f9"
+  },
+  "tradingTime": {
+    "$date": "2024-03-22T09:15:23.646Z"
+  },
+  "cryptoValue": 3.6054509175268423,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b471f89905195cec0fa"
+  },
+  "tradingTime": {
+    "$date": "2024-03-23T09:15:23.646Z"
+  },
+  "cryptoValue": 580.8317669922119,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b471f89905195cec0fb"
+  },
+  "tradingTime": {
+    "$date": "2024-03-24T09:15:23.646Z"
+  },
+  "cryptoValue": 386.62950348821767,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b481f89905195cec0fc"
+  },
+  "tradingTime": {
+    "$date": "2024-03-25T09:15:23.646Z"
+  },
+  "cryptoValue": 679.6273762251161,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b481f89905195cec0fd"
+  },
+  "tradingTime": {
+    "$date": "2024-03-26T09:15:23.646Z"
+  },
+  "cryptoValue": 533.12145445072,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b491f89905195cec0fe"
+  },
+  "tradingTime": {
+    "$date": "2024-03-27T09:15:23.646Z"
+  },
+  "cryptoValue": 930.3735233824383,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b4a1f89905195cec0ff"
+  },
+  "tradingTime": {
+    "$date": "2024-03-28T09:15:23.646Z"
+  },
+  "cryptoValue": 685.6385620391716,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b4a1f89905195cec100"
+  },
+  "tradingTime": {
+    "$date": "2024-03-29T09:15:23.646Z"
+  },
+  "cryptoValue": 391.56196744772575,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b4b1f89905195cec101"
+  },
+  "tradingTime": {
+    "$date": "2024-03-30T09:15:23.646Z"
+  },
+  "cryptoValue": 533.6549119926933,
+  "cryptoId": "65e036ee306a98717a0a9fb2",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b5f1f89905195cec102"
+  },
+  "tradingTime": {
+    "$date": "2024-03-31T08:15:23.646Z"
+  },
+  "cryptoValue": 288.2197157742207,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b601f89905195cec103"
+  },
+  "tradingTime": {
+    "$date": "2024-04-01T08:15:23.646Z"
+  },
+  "cryptoValue": 504.3044127301101,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b611f89905195cec104"
+  },
+  "tradingTime": {
+    "$date": "2024-04-02T08:15:23.646Z"
+  },
+  "cryptoValue": 879.296684370745,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b611f89905195cec105"
+  },
+  "tradingTime": {
+    "$date": "2024-04-03T08:15:23.646Z"
+  },
+  "cryptoValue": 247.10048271457407,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b621f89905195cec106"
+  },
+  "tradingTime": {
+    "$date": "2024-04-04T08:15:23.646Z"
+  },
+  "cryptoValue": 365.9552680337377,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b621f89905195cec107"
+  },
+  "tradingTime": {
+    "$date": "2024-04-05T08:15:23.646Z"
+  },
+  "cryptoValue": 965.6890498719126,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b631f89905195cec108"
+  },
+  "tradingTime": {
+    "$date": "2024-04-06T08:15:23.646Z"
+  },
+  "cryptoValue": 738.5641533311071,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b631f89905195cec109"
+  },
+  "tradingTime": {
+    "$date": "2024-04-07T08:15:23.646Z"
+  },
+  "cryptoValue": 740.5416434150129,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b641f89905195cec10a"
+  },
+  "tradingTime": {
+    "$date": "2024-04-08T08:15:23.646Z"
+  },
+  "cryptoValue": 571.5617035448205,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b651f89905195cec10b"
+  },
+  "tradingTime": {
+    "$date": "2024-04-09T08:15:23.646Z"
+  },
+  "cryptoValue": 767.4422297558226,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b651f89905195cec10c"
+  },
+  "tradingTime": {
+    "$date": "2024-04-10T08:15:23.646Z"
+  },
+  "cryptoValue": 3.476415404768729,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b661f89905195cec10d"
+  },
+  "tradingTime": {
+    "$date": "2024-04-11T08:15:23.646Z"
+  },
+  "cryptoValue": 383.6483388061094,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b75c411d12eb8925145"
+  },
+  "tradingTime": {
+    "$date": "2024-02-29T09:16:34.514Z"
+  },
+  "cryptoValue": 979.6142163627156,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b76c411d12eb8925146"
+  },
+  "tradingTime": {
+    "$date": "2024-03-01T09:16:34.514Z"
+  },
+  "cryptoValue": 829.8010559842511,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b77c411d12eb8925147"
+  },
+  "tradingTime": {
+    "$date": "2024-03-02T09:16:34.514Z"
+  },
+  "cryptoValue": 609.5100722989577,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b77c411d12eb8925148"
+  },
+  "tradingTime": {
+    "$date": "2024-03-03T09:16:34.514Z"
+  },
+  "cryptoValue": 851.8574598621966,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b78c411d12eb8925149"
+  },
+  "tradingTime": {
+    "$date": "2024-03-04T09:16:34.514Z"
+  },
+  "cryptoValue": 645.006489758216,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b78c411d12eb892514a"
+  },
+  "tradingTime": {
+    "$date": "2024-03-05T09:16:34.514Z"
+  },
+  "cryptoValue": 627.2727801129531,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b79c411d12eb892514b"
+  },
+  "tradingTime": {
+    "$date": "2024-03-06T09:16:34.514Z"
+  },
+  "cryptoValue": 688.3404705254073,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b79c411d12eb892514c"
+  },
+  "tradingTime": {
+    "$date": "2024-03-07T09:16:34.514Z"
+  },
+  "cryptoValue": 586.1411132758342,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b7ac411d12eb892514d"
+  },
+  "tradingTime": {
+    "$date": "2024-03-08T09:16:34.514Z"
+  },
+  "cryptoValue": 244.06739585544258,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b7bc411d12eb892514e"
+  },
+  "tradingTime": {
+    "$date": "2024-03-09T09:16:34.514Z"
+  },
+  "cryptoValue": 981.7602359288057,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b7bc411d12eb892514f"
+  },
+  "tradingTime": {
+    "$date": "2024-03-10T09:16:34.514Z"
+  },
+  "cryptoValue": 806.2674876735317,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b7cc411d12eb8925150"
+  },
+  "tradingTime": {
+    "$date": "2024-03-11T09:16:34.514Z"
+  },
+  "cryptoValue": 520.7983271482491,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b7cc411d12eb8925151"
+  },
+  "tradingTime": {
+    "$date": "2024-03-12T09:16:34.514Z"
+  },
+  "cryptoValue": 836.8729518305101,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b7dc411d12eb8925152"
+  },
+  "tradingTime": {
+    "$date": "2024-03-13T09:16:34.514Z"
+  },
+  "cryptoValue": 923.2065006981405,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b7dc411d12eb8925153"
+  },
+  "tradingTime": {
+    "$date": "2024-03-14T09:16:34.514Z"
+  },
+  "cryptoValue": 360.3239072627552,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b7ec411d12eb8925154"
+  },
+  "tradingTime": {
+    "$date": "2024-03-15T09:16:34.514Z"
+  },
+  "cryptoValue": 592.5853464159541,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b7ec411d12eb8925155"
+  },
+  "tradingTime": {
+    "$date": "2024-03-16T09:16:34.514Z"
+  },
+  "cryptoValue": 261.82629387312494,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b7fc411d12eb8925156"
+  },
+  "tradingTime": {
+    "$date": "2024-03-17T09:16:34.514Z"
+  },
+  "cryptoValue": 479.23719547298106,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b7fc411d12eb8925157"
+  },
+  "tradingTime": {
+    "$date": "2024-03-18T09:16:34.514Z"
+  },
+  "cryptoValue": 936.8520224368762,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b80c411d12eb8925158"
+  },
+  "tradingTime": {
+    "$date": "2024-03-19T09:16:34.514Z"
+  },
+  "cryptoValue": 597.7477772431994,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b80c411d12eb8925159"
+  },
+  "tradingTime": {
+    "$date": "2024-03-20T09:16:34.514Z"
+  },
+  "cryptoValue": 605.4193064820773,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b81c411d12eb892515a"
+  },
+  "tradingTime": {
+    "$date": "2024-03-21T09:16:34.514Z"
+  },
+  "cryptoValue": 277.4306602377776,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b82c411d12eb892515b"
+  },
+  "tradingTime": {
+    "$date": "2024-03-22T09:16:34.514Z"
+  },
+  "cryptoValue": 548.9697594821799,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b82c411d12eb892515c"
+  },
+  "tradingTime": {
+    "$date": "2024-03-23T09:16:34.514Z"
+  },
+  "cryptoValue": 726.7481512156171,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b83c411d12eb892515d"
+  },
+  "tradingTime": {
+    "$date": "2024-03-24T09:16:34.514Z"
+  },
+  "cryptoValue": 438.7952002484897,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b84c411d12eb892515e"
+  },
+  "tradingTime": {
+    "$date": "2024-03-25T09:16:34.514Z"
+  },
+  "cryptoValue": 671.9345017936661,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b84c411d12eb892515f"
+  },
+  "tradingTime": {
+    "$date": "2024-03-26T09:16:34.514Z"
+  },
+  "cryptoValue": 257.06392477039054,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b85c411d12eb8925160"
+  },
+  "tradingTime": {
+    "$date": "2024-03-27T09:16:34.514Z"
+  },
+  "cryptoValue": 866.1530069338675,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b86c411d12eb8925161"
+  },
+  "tradingTime": {
+    "$date": "2024-03-28T09:16:34.514Z"
+  },
+  "cryptoValue": 534.277156029739,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b86c411d12eb8925162"
+  },
+  "tradingTime": {
+    "$date": "2024-03-29T09:16:34.514Z"
+  },
+  "cryptoValue": 979.9081890796537,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e04b87c411d12eb8925163"
+  },
+  "tradingTime": {
+    "$date": "2024-03-30T09:16:34.514Z"
+  },
+  "cryptoValue": 475.8077555150644,
+  "cryptoId": "65e03708306a98717a0a9fb4",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e0600738b05f07818de953"
+  },
+  "tradingTime": {
+    "$date": "2024-02-29T10:43:48.130Z"
+  },
+  "cryptoValue": 28.07706727992343,
+  "cryptoId": "65e05f7fa65f007b8226d013",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e0600838b05f07818de954"
+  },
+  "tradingTime": {
+    "$date": "2024-03-01T10:43:48.130Z"
+  },
+  "cryptoValue": 676.7307755286063,
+  "cryptoId": "65e05f7fa65f007b8226d013",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e0600938b05f07818de955"
+  },
+  "tradingTime": {
+    "$date": "2024-03-02T10:43:48.130Z"
+  },
+  "cryptoValue": 735.0266294724522,
+  "cryptoId": "65e05f7fa65f007b8226d013",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e0600938b05f07818de956"
+  },
+  "tradingTime": {
+    "$date": "2024-03-03T10:43:48.130Z"
+  },
+  "cryptoValue": 594.2802835544096,
+  "cryptoId": "65e05f7fa65f007b8226d013",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e0600a38b05f07818de957"
+  },
+  "tradingTime": {
+    "$date": "2024-03-04T10:43:48.130Z"
+  },
+  "cryptoValue": 990.4120700911388,
+  "cryptoId": "65e05f7fa65f007b8226d013",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e0600a38b05f07818de958"
+  },
+  "tradingTime": {
+    "$date": "2024-03-05T10:43:48.130Z"
+  },
+  "cryptoValue": 873.7327718920247,
+  "cryptoId": "65e05f7fa65f007b8226d013",
+  "_class": "com.example.market_api.entity.MarketData"
+},
+{
+  "_id": {
+    "$oid": "65e0600b38b05f07818de959"
+  },
+  "tradingTime": {
+    "$date": "2024-03-06T10:43:48.130Z"
+  },
+  "cryptoValue": 271.8118422804403,
+  "cryptoId": "65e05f7fa65f007b8226d013",
+  "_class": "com.example.market_api.entity.MarketData"
+}]
