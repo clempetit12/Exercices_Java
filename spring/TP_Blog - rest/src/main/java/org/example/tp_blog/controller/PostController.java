@@ -13,11 +13,13 @@ import org.example.tp_blog.service.CommentServiceImpl;
 import org.example.tp_blog.service.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +32,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-
+@CrossOrigin(origins = "http://example.com", maxAge = 3600)
 public class PostController {
 
     private final PostServiceImpl postService;
@@ -44,8 +46,8 @@ public class PostController {
 
     @GetMapping
     public String home(Model model) {
-        List<PostDto> postDtos = postService.getAll();
-        model.addAttribute("posts", postDtos);
+        List<Post> posts = postService.getAllPosts();
+        model.addAttribute("posts", posts);
         return "home";
     }
 
@@ -72,29 +74,32 @@ public class PostController {
         return liste;
     }
 
-    @PostMapping(value = "/add")
-    public String addPost(@Valid @ModelAttribute("post") PostDto postDto, BindingResult bindingResult, @RequestParam("image") MultipartFile image) throws IOException {
-        if (bindingResult.hasErrors()) {
-            return "postForm";
+
+
+    @PostMapping(value = "/add", headers = "accept=Application/json")
+    public String addPost(@Valid @ModelAttribute("post") PostDto postDto, @RequestParam("image") MultipartFile image) throws IOException {
+        String imageName = image.getOriginalFilename();
+        Path destinationFile = Paths.get(location).resolve(Paths.get(imageName)).toAbsolutePath();
+        InputStream stream = image.getInputStream();
+        Files.copy(stream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+
+        Post post = new Post();
+        post.setId(postDto.getId());
+        post.setTitle(postDto.getTitle());
+        post.setDescription(postDto.getDescription());
+        post.setContent(postDto.getContent());
+        post.setImage(imageName);
+
+        if (post.getId() != 0) {
+            postService.updatePost(post);
         } else {
-            if (postDto.getId() != 0) {
-                Path destinationFile = Paths.get(location).resolve(Paths.get(postDto.getImage())).toAbsolutePath();
-                InputStream stream = image.getInputStream();
-                Files.copy(stream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
-                postDto.setImage(postDto.getImage());
-                postService.update(postDto);
-            } else {
-                String imageName = image.getOriginalFilename();
-                Path destinationFile = Paths.get(location).resolve(Paths.get(imageName)).toAbsolutePath();
-                InputStream stream = image.getInputStream();
-                Files.copy(stream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
-                postDto.setImage(imageName);
-                System.out.println("image" + postDto.getImage());
-                postService.add(postDto);
-            }
-            return "redirect:/";
+            postService.addPost(post);
         }
+
+        return "redirect:/";
     }
+
+
 
     @GetMapping("/delete")
     public String delete(@RequestParam("postId") int id) {

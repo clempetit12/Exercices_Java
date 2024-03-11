@@ -48,7 +48,7 @@ public class PostRestController {
         return postService.getById(id);
     }
 
-    @PostMapping("/addPost")
+/*    @PostMapping("/addPost")
     public boolean createPostWithImage(@RequestParam("image") MultipartFile image, @RequestParam("post") String postJson) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -59,7 +59,7 @@ public class PostRestController {
             e.printStackTrace();
             return false;
         }
-    }
+    }*/
 
 
     @PostMapping("/addPost/verif")

@@ -23,17 +23,16 @@ public class PostDto {
 
     private String content;
     private String description;
-    private String image;
     private List<Comment> commentList;
-
+    private MultipartFile image;
     public PostDto() {
     }
 
-    public PostDto(String title, String content, String description, String image) {
+
+    public PostDto(String title, String content, String description) {
         this.title = title;
         this.content = content;
         this.description = description;
-        this.image = image;
         this.commentList = new ArrayList<>();
     }
 
@@ -69,16 +68,16 @@ public class PostDto {
         this.description = description;
     }
 
-    public String getImage() {
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public MultipartFile getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(MultipartFile image) {
         this.image = image;
-    }
-
-    public List<Comment> getCommentList() {
-        return commentList;
     }
 
     public void setCommentList(List<Comment> commentList) {

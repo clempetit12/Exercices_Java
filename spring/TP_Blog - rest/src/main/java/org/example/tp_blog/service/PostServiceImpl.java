@@ -37,9 +37,9 @@ private final PostMapper postMapper;
 
     @Override
     public PostDto add(PostDto element) {
-        System.out.println("service"+element.getImage());
         return postMapper.postToPostDto(postRepository.save(postMapper.postDtoToPost(element)));
     }
+
 
     @Override
     public boolean delete(int id) {
@@ -58,5 +58,16 @@ private final PostMapper postMapper;
         return posts.stream()
                 .map(postMapper::postToPostDto)
                 .collect(Collectors.toList());
+    }
+
+    public void updatePost(Post post) {
+    }
+
+    public void addPost(Post post) {
+    postRepository.save(post);
+    }
+
+    public List<Post> getAllPosts() {
+   return postRepository.findAll();
     }
 }

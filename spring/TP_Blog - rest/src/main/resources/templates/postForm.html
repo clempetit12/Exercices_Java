@@ -10,45 +10,41 @@
 <header>
     <span th:replace="~{home :: navBar}"></span>
 </header>
-<div class="container p-5">
+<div class="container p-4">
     <div class="row justify-content-center">
         <div class="col-6 jus">
-            <h1 class="text-center mb-4">Formulaire pour ajouter un post</h1>
+            <h1 class="text-center mb-4">Add a post</h1>
             <hr>
             <form th:action="@{/add}" th:object="${post}" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label"></label>
-                    <input type="text" name="title" class="form-control" id="title" placeholder="title"
+                    <input type="text" name="title" class="form-control" id="title" placeholder="Title"
                            aria-describedby="title" th:field="*{title}">
                     <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label"></label>
-                    <input type="text" class="form-control" id="description" placeholder="description"
+                    <input type="text" class="form-control" id="description" placeholder="Description"
                            aria-describedby="description" th:field="*{description}">
                     <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Image</label>
-                    <input type="file" class="form-control" id="image" name="image"
-                           aria-describedby="image"   >
-<!--                    <span th:if="${#fields.hasErrors('image')}" th:errors="{image}"></span>-->
+                    <input type="file" class="form-control" id="image" name="image" aria-describedby="image">
                 </div>
-
-                <div class="mb-3">
-                    <textarea class="justify-content-center" name="content" rows="10" cols="55" th:field="*{content}"></textarea>
+                <div class="mb-3 align-items-center">
+                    <textarea class="form-control" name="content" rows="10" th:field="*{content}" placeholder="Content"></textarea>
                     <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button class="btn btn-primary me-md-2" type="submit"><i class="bi bi-patch-plus"> Submit</i>
-                    </button>
+                    <button class="btn btn-primary me-md-2" type="submit"><i class="bi bi-patch-plus"> Submit</i></button>
                 </div>
                 <input type="hidden" th:field="*{id}">
-
             </form>
         </div>
-
     </div>
+</div>
+
     </div>
 
 
