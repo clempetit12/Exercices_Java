@@ -3,10 +3,10 @@ package org.example.tp_blog.service;
 import org.example.tp_blog.dto.PostDto;
 import org.example.tp_blog.entity.Comment;
 import org.example.tp_blog.entity.Post;
-import org.example.tp_blog.mapper.PostMapper;
 import org.example.tp_blog.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,49 +16,52 @@ public class PostServiceImpl implements ServiceInterface<PostDto> {
 
 private final PostRepository postRepository;
 
-private final PostMapper postMapper;
+
 
 @Autowired
-    public PostServiceImpl(PostRepository postRepository, PostMapper postMapper) {
+    public PostServiceImpl(PostRepository postRepository) {
         this.postRepository = postRepository;
-        this.postMapper = postMapper;
     }
-
+    public void savePostWithImage(PostDto postDto, MultipartFile imageFile) {
+        String imagePath = imageFile.getOriginalFilename().toString();
+         postDto.setImageUrl(imagePath);
+add(postDto);
+    }
 
     @Override
     public List<PostDto> getAll() {
-        return postRepository.findAll().stream().map(postMapper::postToPostDto).collect(Collectors.toList());
+        return postRepository.findAll().stream().map(post -> post.toPostDto()).toList();
     }
 
     @Override
     public PostDto getById(int id) {
-        return postMapper.postToPostDto(postRepository.findPostById(id));
+        return postRepository.findPostById(id).toPostDto();
     }
 
     @Override
     public PostDto add(PostDto element) {
-        return postMapper.postToPostDto(postRepository.save(postMapper.postDtoToPost(element)));
+        return postRepository.save(element.toPost()).toPostDto();
     }
 
 
     @Override
     public boolean delete(int id) {
         PostDto postDto = getById(id);
-         postRepository.delete(postMapper.postDtoToPost(postDto));
+         postRepository.delete(postDto.toPost());
          return true;
     }
 
     @Override
     public PostDto update(PostDto element) {
-        return postMapper.postToPostDto(postRepository.save(postMapper.postDtoToPost(element)));
+        return postRepository.save(element.toPost()).toPostDto();
     }
 
-    public List<PostDto> getPostByName(String search) {
+/*    public List<PostDto> getPostByName(String search) {
         List<Post> posts = postRepository.findAllByTitleContaining(search.toLowerCase());
         return posts.stream()
                 .map(postMapper::postToPostDto)
                 .collect(Collectors.toList());
-    }
+    }*/
 
     public void updatePost(Post post) {
     }

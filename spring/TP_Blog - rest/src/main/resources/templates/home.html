@@ -41,7 +41,7 @@
         <div class="row row-cols-1 row-cols-md-3 g-4" th:unless="${posts.isEmpty()}">
             <div class="col" th:each="p : ${posts}">
                 <div class="card h-100">
-                    <img th:src="@{'/upload-dir/' + ${p.image}}" class="card-img-top" height="300" width="200" alt="image">
+                    <img th:src="@{'/upload-dir/' + ${p.imageUrl}}" class="card-img-top" height="300" width="200" alt="image">
 
                     <div class="card-body">
                         <h5 class="card-title" th:text="${p.title}"></h5>

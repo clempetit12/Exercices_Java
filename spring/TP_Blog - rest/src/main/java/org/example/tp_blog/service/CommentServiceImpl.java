@@ -1,3 +1,4 @@
+
 package org.example.tp_blog.service;
 
 import org.example.tp_blog.dto.CommentDto;
@@ -5,7 +6,6 @@ import org.example.tp_blog.dto.PostDto;
 import org.example.tp_blog.entity.Comment;
 import org.example.tp_blog.entity.Post;
 import org.example.tp_blog.mapper.CommentMapper;
-import org.example.tp_blog.mapper.PostMapper;
 import org.example.tp_blog.repository.CommentRepository;
 import org.example.tp_blog.repository.PostRepository;
 import org.springframework.stereotype.Service;
@@ -17,16 +17,15 @@ import java.util.stream.Collectors;
 public class CommentServiceImpl implements ServiceInterface<CommentDto> {
 
     private final CommentRepository commentRepository;
-
+private final CommentMapper commentMapper;
     private final PostRepository postRepository;
-    private final CommentMapper commentMapper;
-    private final PostMapper postMapper;
 
-    public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository, CommentMapper commentMapper, PostMapper postMapper) {
+
+    public CommentServiceImpl(CommentRepository commentRepository, CommentMapper commentMapper, PostRepository postRepository) {
         this.commentRepository = commentRepository;
-        this.postRepository = postRepository;
         this.commentMapper = commentMapper;
-        this.postMapper = postMapper;
+        this.postRepository = postRepository;
+
     }
 
     @Override
@@ -55,7 +54,7 @@ public class CommentServiceImpl implements ServiceInterface<CommentDto> {
     public CommentDto update(CommentDto element) {
         return  commentMapper.commentToCommentDto(commentRepository.save(commentMapper.commentDtoToComment(element)));
     }
-    public boolean addCommentToPost(PostDto postDto, CommentDto commentDto) {
+/*    public boolean addCommentToPost(PostDto postDto, CommentDto commentDto) {
         Comment commentToAdd = commentMapper.commentDtoToComment(commentDto);
         commentToAdd.setLastName(commentDto.getLastName());
         commentToAdd.setEmail(commentDto.getEmail());
@@ -65,5 +64,5 @@ public class CommentServiceImpl implements ServiceInterface<CommentDto> {
 
         commentRepository.save(commentToAdd);
         return true;
-    }
+    }*/
 }

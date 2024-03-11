@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import org.example.tp_blog.dto.CommentDto;
 import org.example.tp_blog.dto.CommentDto;
 import org.example.tp_blog.dto.PostDto;
-import org.example.tp_blog.service.CommentServiceImpl;
+
 import org.example.tp_blog.service.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,19 +20,19 @@ import java.util.List;
 public class CommentRestController {
 
     private final PostServiceImpl postService;
-    private final CommentServiceImpl commentService;
+/*    private final CommentServiceImpl commentService;*/
     @Autowired
-    public CommentRestController(PostServiceImpl postService, CommentServiceImpl commentService) {
+    public CommentRestController(PostServiceImpl postService ){
         this.postService = postService;
-        this.commentService = commentService;
+
     }
 
-    @GetMapping("/comments") 
+ /*   @GetMapping("/comments")
     public List<CommentDto> getAllComments(){
         return commentService.getAll();
-    }
+    }*/
 
-    @PostMapping("/addComment/{postId}")
+/*    @PostMapping("/addComment/{postId}")
     public ResponseEntity<String> addComment(@RequestBody CommentDto commentDto, @PathVariable("postId") int id){
         PostDto postDto = postService.getById(id);
         System.out.println(commentDto);
@@ -42,8 +42,8 @@ public class CommentRestController {
         } else {
             return ResponseEntity.badRequest().body("Failed to add comment");
         }
-    }
-    @PostMapping("/addComment/verif/{postId}") // http://localhost:8080/api/blog/addComment/x
+    }*/
+/*    @PostMapping("/addComment/verif/{postId}") // http://localhost:8080/api/blog/addComment/x
     public ResponseEntity<String> createCommentValid(@Valid @RequestBody CommentDto comment, BindingResult result,@PathVariable("postId") int id){
         if(result.hasErrors()){
             StringBuilder errors = new StringBuilder();
@@ -54,15 +54,15 @@ public class CommentRestController {
         PostDto postDto = postService.getById(id);
         commentService.addCommentToPost(postDto,comment);
         return new ResponseEntity<>("Commentaire crée avec l'id : "+comment.getId(), HttpStatus.CREATED);
-    }
+    }*/
 
-    @DeleteMapping("/remove/{id}")
+/*    @DeleteMapping("/remove/{id}")
     public boolean deleteComment(@PathVariable int id){
         return commentService.delete(id);
 
-    }
+    }*/
 
-    @PutMapping("/update")
+/*    @PutMapping("/update")
     public void updateComment(@RequestBody CommentDto commentDto){
         commentService.update(commentDto);
     }
@@ -77,5 +77,5 @@ public class CommentRestController {
         }
         commentService.update(commentDto);
         return new  ResponseEntity<>("modif post ok", HttpStatus.ACCEPTED);
-    }
+    }*/
 }

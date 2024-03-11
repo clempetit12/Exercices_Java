@@ -9,7 +9,6 @@ import org.example.tp_blog.entity.Comment;
 import org.example.tp_blog.entity.Post;
 import org.example.tp_blog.exception.ConstraintViolationException;
 import org.example.tp_blog.exception.FormException;
-import org.example.tp_blog.service.CommentServiceImpl;
 import org.example.tp_blog.service.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 import org.thymeleaf.util.StringUtils;
 
 import java.io.IOException;
@@ -28,6 +28,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,7 +47,7 @@ public class PostController {
 
     @GetMapping
     public String home(Model model) {
-        List<Post> posts = postService.getAllPosts();
+        List<PostDto> posts = postService.getAll();
         model.addAttribute("posts", posts);
         return "home";
     }
@@ -76,28 +77,38 @@ public class PostController {
 
 
 
+
+
     @PostMapping(value = "/add", headers = "accept=Application/json")
-    public String addPost(@Valid @ModelAttribute("post") PostDto postDto, @RequestParam("image") MultipartFile image) throws IOException {
+    public String addPost(@ModelAttribute("post") @Valid PostDto postDto, BindingResult result, @RequestParam("image") MultipartFile image) throws IOException {
+        if (result.hasErrors()) {
+            return "error";
+        }
+        postDto.setImage(image);
         String imageName = image.getOriginalFilename();
         Path destinationFile = Paths.get(location).resolve(Paths.get(imageName)).toAbsolutePath();
         InputStream stream = image.getInputStream();
         Files.copy(stream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
-
-        Post post = new Post();
-        post.setId(postDto.getId());
-        post.setTitle(postDto.getTitle());
-        post.setDescription(postDto.getDescription());
-        post.setContent(postDto.getContent());
-        post.setImage(imageName);
-
-        if (post.getId() != 0) {
-            postService.updatePost(post);
-        } else {
-            postService.addPost(post);
-        }
+     postService.savePostWithImage(postDto,image);
 
         return "redirect:/";
     }
+
+  /*      if (!image.isEmpty()) {
+            String imageName = image.getOriginalFilename();
+            Path destinationFile = Paths.get(location).resolve(Paths.get(imageName)).toAbsolutePath();
+            InputStream stream = image.getInputStream();
+            Files.copy(stream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+            postDto.setImage(imageName);
+            postService.add(postDto);
+        }
+
+        if (postDto.getId() != 0) {
+            postService.update(postDto);
+        } else {
+
+        }*/
+
 
 
 
@@ -128,7 +139,7 @@ public class PostController {
         return "formerror";
     }
 
-    @GetMapping(value = "/search")
+/*    @GetMapping(value = "/search")
     public String searchBlog(@RequestParam(name = "name", required = false) String name,
                                       Model model) {
         List<PostDto> postDtos = postService.getPostByName(name);
@@ -139,6 +150,6 @@ public class PostController {
             return "error";
         }
 
-    }
+    }*/
 
 }

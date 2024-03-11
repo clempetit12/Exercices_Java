@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.example.tp_blog.dto.PostDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class Post {
 
     private String content;
     private String description;
+    @Column(name = "image_url", length = 1000)
     private String image;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comment> commentList;
@@ -89,5 +91,16 @@ public class Post {
 
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
+    }
+
+    public PostDto toPostDto() {
+        PostDto postDto = new PostDto();
+        postDto.setId(this.id);
+        postDto.setTitle(this.title);
+        postDto.setContent(this.content);
+        postDto.setDescription(this.description);
+        postDto.setImageUrl(this.image);
+        postDto.setCommentList(this.commentList);
+        return postDto;
     }
 }

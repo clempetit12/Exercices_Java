@@ -13,6 +13,7 @@
 <div class="container" th:object="${post}">
     <h1 class="text-center">  <span th:text="*{title}"></span></h1>
     <hr>
+    <img th:src="@{'/upload-dir/' + *{image}}" class="card-img-top" height="300" width="200" alt="image">
     <h2 class="text-center"> <span th:text="*{description}"></span></h2>
     <p><span th:text="*{content}"></span></p>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
