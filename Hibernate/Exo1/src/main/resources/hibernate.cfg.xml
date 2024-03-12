@@ -11,11 +11,11 @@
         <mapping class="service.ProductService"></mapping>
         <mapping class="entity.Product"></mapping>
         <mapping class="dao.ProductDao"></mapping>
-        <mapping class="interfaces.Repository"></mapping>
+        <mapping class="interfaces.DaoImpl"></mapping>
         <mapping class="controller.IHM"></mapping>
         <mapping class="entity.Image"></mapping>
-        <mapping class="entity.Comments"></mapping>
-        <mapping class="entity.Orders"></mapping>
+        <mapping class="entity.Comment"></mapping>
+        <mapping class="entity.Order"></mapping>
         <mapping class="entity.Adress"></mapping>
 
 

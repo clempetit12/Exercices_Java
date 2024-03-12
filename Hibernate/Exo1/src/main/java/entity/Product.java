@@ -1,9 +1,6 @@
 package entity;
 
-import lombok.Builder;
 import lombok.Data;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -31,13 +28,13 @@ public class Product {
     private int stock;
 
     @ManyToMany(mappedBy = "productList", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Orders> ordersList;
+    private List<Order> orderList;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Image> imageList ;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<Comments> commentsList ;
+  private List<Comment> commentList;
     public Product(String brand, String reference, Date purchaseDate, Double price, int stock) {
         this.brand = brand;
         this.reference = reference;
@@ -45,17 +42,17 @@ public class Product {
         this.price = price;
         this.stock = stock;
         this.imageList = new ArrayList<>();
-   this.commentsList = new ArrayList<>();
+   this.commentList = new ArrayList<>();
     }
 
-    public Product(String brand, String reference, Date purchaseDate, Double price, int stock, List<Image> imageList, List<Comments> commentsList) {
+    public Product(String brand, String reference, Date purchaseDate, Double price, int stock, List<Image> imageList, List<Comment> commentList) {
         this.brand = brand;
         this.reference = reference;
         this.purchaseDate = purchaseDate;
         this.price = price;
         this.stock = stock;
         this.imageList = imageList;
-        this.commentsList = commentsList;
+        this.commentList = commentList;
     }
 
     public Product() {
@@ -74,9 +71,9 @@ public class Product {
         image.setProduct(this);
     }
 
-    public void addToCommentList( Comments comments) {
-        commentsList.add(comments);
-        comments.setProduct(this);
+    public void addToCommentList( Comment comment) {
+        commentList.add(comment);
+        comment.setProduct(this);
     }
 
     @Override
@@ -89,7 +86,7 @@ public class Product {
                 ", price=" + price +
                 ", stock=" + stock +
                 ", imageList=" + imageList +
-                ", commentsList=" + commentsList +
+                ", commentsList=" + commentList +
                 '}';
     }
 }

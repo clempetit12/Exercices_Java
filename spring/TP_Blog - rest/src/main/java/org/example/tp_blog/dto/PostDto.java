@@ -43,6 +43,13 @@ public class PostDto {
         this.commentList = new ArrayList<>();
     }
 
+    public PostDto(int id, String title, String content, String description) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.description = description;
+    }
+
     public void setImage(MultipartFile image) {
         this.image = image;
     }

@@ -1,11 +1,9 @@
 package interfaces;
 
-import entity.Product;
-
 import java.util.Date;
 import java.util.List;
 
-public interface Repository<T> {
+public interface DaoImpl<T> {
 
 
 

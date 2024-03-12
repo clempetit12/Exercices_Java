@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6216f15f-5595-43d7-9f4b-81490d006e26" name="Changes" comment="" />
+    <list default="true" id="6216f15f-5595-43d7-9f4b-81490d006e26" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../JPA/TP_JPA/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA/TP_JPA/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ManagementBook/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../ManagementBook/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP_Billeterie/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP_Billeterie/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP_Billeterie/.idea/libraries/Maven__com_github_lalyos_jfiglet_0_0_8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP_Billeterie/.idea/libraries/Maven__org_projectlombok_lombok_1_18_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP_Billeterie/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP_Billeterie/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../spring/TP_Blog - rest/src/main/resources/templates/formerror.html" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,9 +37,9 @@
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2Zqc5mr7xwCTX8io8jOkLLxJq6d" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -44,11 +52,13 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/Administrateur/Desktop/Exercices_Java/Exercices_JDBC/tp_revision-Billeterie",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/clemencepetit/Desktop/ExerciceJavaVF/Exercices_Java/Exercices_JDBC/tp_revision-Billeterie",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -75,6 +85,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.9-corretto-17.0.9-f644763e9732-203781b8" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -84,6 +101,7 @@
       <option name="presentableId" value="Default" />
       <updated>1703152869469</updated>
       <workItem from="1704382907515" duration="849000" />
+      <workItem from="1710237543179" duration="46000" />
     </task>
     <servers />
   </component>

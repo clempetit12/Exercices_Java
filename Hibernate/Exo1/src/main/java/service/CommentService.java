@@ -1,10 +1,7 @@
 package service;
 
 import dao.CommentDao;
-import dao.ImageDao;
-import entity.Comments;
-import entity.Image;
-import entity.Product;
+import entity.Comment;
 
 public class CommentService {
 
@@ -16,11 +13,11 @@ public class CommentService {
         this.commentDao = commentDao;
     }
 
-    public boolean createComment(Comments comment) {
+    public boolean createComment(Comment comment) {
         return commentDao.create(comment);
     }
 
-    public Comments getCommentById(Long id) {
+    public Comment getCommentById(Long id) {
         return commentDao.getById(id);
     }
 

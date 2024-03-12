@@ -1,8 +1,7 @@
 package dao;
 
-import entity.Orders;
-import entity.Product;
-import interfaces.Repository;
+import entity.Order;
+import interfaces.DaoImpl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -11,15 +10,11 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class OrdersDao implements Repository<Orders> {
+public class OrdersDao implements DaoImpl<Order> {
 
     private SessionFactory sessionFactory;
 
@@ -29,7 +24,7 @@ public class OrdersDao implements Repository<Orders> {
     }
 
     @Override
-    public boolean create(Orders element) {
+    public boolean create(Order element) {
         Session session = null;
         Transaction transaction = null;
         try {
@@ -52,16 +47,16 @@ public class OrdersDao implements Repository<Orders> {
     }
 
     @Override
-    public boolean update(Long id, Orders element) {
+    public boolean update(Long id, Order element) {
         Session session = null;
         Transaction transaction = null;
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            Orders orders = getById(id);
-            if (orders != null) {
-               orders.setAdress(element.getAdress());
-                session.update(orders);
+            Order order = getById(id);
+            if (order != null) {
+               order.setAdress(element.getAdress());
+                session.update(order);
                 session.getTransaction().commit();
             }
             return true;
@@ -84,13 +79,13 @@ public class OrdersDao implements Repository<Orders> {
     }
 
     @Override
-    public Orders getById(Long id) {
+    public Order getById(Long id) {
         Session session = null;
 
         try {
             session = sessionFactory.openSession();
-            Orders orders = (Orders) session.get(Orders.class, id);
-            return orders;
+            Order order = (Order) session.get(Order.class, id);
+            return order;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,14 +97,14 @@ public class OrdersDao implements Repository<Orders> {
     }
 
     @Override
-    public List<Orders> getAll() {
+    public List<Order> getAll() {
         Session session = null;
         try {
             session = sessionFactory.openSession();
-            List<Orders> orderList = session.createQuery(
-                    "SELECT DISTINCT o FROM Orders o \n" +
+            List<Order> orderList = session.createQuery(
+                    "SELECT DISTINCT o FROM Order o \n" +
                             "LEFT JOIN FETCH o.productList p\n",
-                    Orders.class
+                    Order.class
             ).getResultList();
 
             return orderList;
@@ -126,17 +121,17 @@ public class OrdersDao implements Repository<Orders> {
 
 
     @Override
-    public List<Orders> getByPrice(Double price) {
+    public List<Order> getByPrice(Double price) {
         return null;
     }
 
     @Override
-    public List<Orders> getByDate(Date date1, Date date2) {
+    public List<Order> getByDate(Date date1, Date date2) {
         return null;
     }
 
     @Override
-    public List<Orders> getByStock(int stock) {
+    public List<Order> getByStock(int stock) {
         return null;
     }
 
@@ -150,12 +145,12 @@ public class OrdersDao implements Repository<Orders> {
 
     }
 
-    public List<Orders> getorderByDate(Date date){
+    public List<Order> getorderByDate(Date date){
         Session session = null;
         try {
             session = sessionFactory.openSession();
-            List<Orders> orderList = new ArrayList<>();
-            Query<Orders> orderQuery = session.createQuery(" from Orders where orderPurchase = :date");
+            List<Order> orderList = new ArrayList<>();
+            Query<Order> orderQuery = session.createQuery(" from Order where orderPurchase = :date");
             orderQuery.setParameter("date", date);
             orderList = orderQuery.list();
             return orderList;

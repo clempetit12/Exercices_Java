@@ -1,6 +1,6 @@
 package dao;
 
-import interfaces.Repository;
+import interfaces.DaoImpl;
 import entity.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ProductDao implements Repository<Product> {
+public class ProductDao implements DaoImpl<Product> {
 
     private SessionFactory sessionFactory;
 
@@ -62,7 +62,7 @@ public class ProductDao implements Repository<Product> {
                 product.setPrice(element.getPrice());
                 product.setStock(element.getStock());
                 product.setImageList(element.getImageList());
-                product.setCommentsList(element.getCommentsList());
+                product.setCommentList(element.getCommentList());
                 session.update(product);
                 session.getTransaction().commit();
             }

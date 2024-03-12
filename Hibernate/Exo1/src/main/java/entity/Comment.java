@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 @Data
 
-public class Comments {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_comments", nullable = false)
@@ -23,14 +23,14 @@ public class Comments {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public Comments(String content, Date date, int grade) {
+    public Comment(String content, Date date, int grade) {
         this.content = content;
         this.date = date;
         this.grade = grade;
 
     }
 
-    public Comments() {
+    public Comment() {
     }
 
     @Override

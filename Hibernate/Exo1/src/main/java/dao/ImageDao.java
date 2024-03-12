@@ -2,7 +2,7 @@ package dao;
 
 import entity.Image;
 import entity.Product;
-import interfaces.Repository;
+import interfaces.DaoImpl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,7 +13,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import java.util.Date;
 import java.util.List;
 
-public class ImageDao implements Repository<Image> {
+public class ImageDao implements DaoImpl<Image> {
 
     private SessionFactory sessionFactory;
 

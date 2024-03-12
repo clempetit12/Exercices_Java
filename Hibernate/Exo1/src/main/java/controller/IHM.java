@@ -2,8 +2,7 @@ package controller;
 
 import dao.*;
 import entity.*;
-import entity.Orders;
-import org.hibernate.Hibernate;
+import entity.Order;
 import service.*;
 
 import java.text.DecimalFormat;
@@ -102,8 +101,8 @@ public class IHM {
     }
 
     private void displayAllOrders() {
-        List<Orders> ordersList = ordersService.displayAllOrderss();
-        for (Orders order : ordersList) {
+        List<Order> orderList = ordersService.displayAllOrderss();
+        for (Order order : orderList) {
             System.out.println("Order ID: " + order.getIdOrder());
             System.out.println("Order Purchase Date: " + order.getOrderPurchase());
             System.out.println("Total: " + order.getTotal());
@@ -129,7 +128,7 @@ public class IHM {
             int nombreProduit = scanner.nextInt();
             scanner.nextLine();
             List<Product> productList = new ArrayList<>();
-            List<Orders> ordersList = new ArrayList<>();
+            List<Order> orderList = new ArrayList<>();
             Double total = 1.0;
             for (int i = 0; i < nombreProduit; i++) {
                 System.out.println("Veuillez indiquer l'id des produits que vous souhaitez ajouter à la commande : ");
@@ -154,13 +153,13 @@ public class IHM {
             scanner.nextLine();
             Adress adress1 = new Adress(street,city,codePostal);
             adressService.createAdress(adress1);
-            Orders order = new Orders(date,adress1,productList,total);
+            Order order = new Order(date,adress1,productList,total);
             order.setAdress(adress1);
-            ordersList.add(order);
+            orderList.add(order);
             ordersService.createOrders(order);
             ordersService.updateOrder(order.getIdOrder(),order);
             for (Product p: order.getProductList()
-                 ) { p.setOrdersList(ordersList);
+                 ) { p.setOrderList(orderList);
                 productService.updateProduct(p.getIdProduct(),p);
             }
             System.out.println(order);
@@ -188,7 +187,7 @@ public class IHM {
         return image;
     }
 
-    private Comments createComment() {
+    private Comment createComment() {
         try {
             System.out.println("Veuillez saisir un commentaire : ");
             String content = scanner.nextLine();
@@ -200,8 +199,8 @@ public class IHM {
             System.out.println("Veuillez donner une note au commentaire");
             int grade = scanner.nextInt();
             scanner.nextLine();
-            Comments comments = new Comments(content, date, grade);
-            return comments;
+            Comment comment = new Comment(content, date, grade);
+            return comment;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -258,13 +257,13 @@ public class IHM {
             List<Image> imageList = new ArrayList<>();
             Image image = createImage();
             imageList.add(image);
-            Comments comments = createComment();
-            List<Comments> commentsList = new ArrayList<>();
-            commentsList.add(comments);
-            Product product = new Product(brand, reference, date, price, stock, imageList, commentsList);
+            Comment comment = createComment();
+            List<Comment> commentList = new ArrayList<>();
+            commentList.add(comment);
+            Product product = new Product(brand, reference, date, price, stock, imageList, commentList);
             product.addToImageList(image);
-            product.addToCommentList(comments);
-            product.setCommentsList(commentsList);
+            product.addToCommentList(comment);
+            product.setCommentList(commentList);
             return product;
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -17,7 +17,7 @@ public class Adress {
     private int postalCode;
 
     @OneToOne(mappedBy = "adress")
-    private Orders orders;
+    private Order order;
 
     public Long getIdAdress() {
         return idAdress;

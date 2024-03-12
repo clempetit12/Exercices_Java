@@ -1,9 +1,7 @@
 package service;
 
 import dao.AdressDao;
-import dao.CommentDao;
 import entity.Adress;
-import entity.Comments;
 
 public class AdressService {
 

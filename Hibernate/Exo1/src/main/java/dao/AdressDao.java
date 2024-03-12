@@ -1,7 +1,7 @@
 package dao;
 
 import entity.Adress;
-import interfaces.Repository;
+import interfaces.DaoImpl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class AdressDao implements Repository<Adress> {
+public class AdressDao implements DaoImpl<Adress> {
 
     private SessionFactory sessionFactory;
 

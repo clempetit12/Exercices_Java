@@ -1,8 +1,7 @@
 package dao;
 
-import entity.Comments;
-import entity.Image;
-import interfaces.Repository;
+import entity.Comment;
+import interfaces.DaoImpl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,7 +12,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import java.util.Date;
 import java.util.List;
 
-public class CommentDao implements Repository<Comments> {
+public class CommentDao implements DaoImpl<Comment> {
 
     private SessionFactory sessionFactory;
 
@@ -22,7 +21,7 @@ public class CommentDao implements Repository<Comments> {
         this.sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
     @Override
-    public boolean create(Comments element) {
+    public boolean create(Comment element) {
         Session session = null;
         Transaction transaction = null;
         try {
@@ -45,7 +44,7 @@ public class CommentDao implements Repository<Comments> {
     }
 
     @Override
-    public boolean update(Long id, Comments element) {
+    public boolean update(Long id, Comment element) {
         return false;
     }
 
@@ -55,13 +54,13 @@ public class CommentDao implements Repository<Comments> {
     }
 
     @Override
-    public Comments getById(Long id) {
+    public Comment getById(Long id) {
         Session session = null;
 
         try {
             session = sessionFactory.openSession();
-            Comments comments = (Comments) session.load(Comments.class, id);
-            return comments;
+            Comment comment = (Comment) session.load(Comment.class, id);
+            return comment;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,22 +72,22 @@ public class CommentDao implements Repository<Comments> {
     }
 
     @Override
-    public List<Comments> getAll() {
+    public List<Comment> getAll() {
         return null;
     }
 
     @Override
-    public List<Comments> getByPrice(Double price) {
+    public List<Comment> getByPrice(Double price) {
         return null;
     }
 
     @Override
-    public List<Comments> getByDate(Date date1, Date date2) {
+    public List<Comment> getByDate(Date date1, Date date2) {
         return null;
     }
 
     @Override
-    public List<Comments> getByStock(int stock) {
+    public List<Comment> getByStock(int stock) {
         return null;
     }
 

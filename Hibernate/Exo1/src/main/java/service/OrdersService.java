@@ -1,9 +1,7 @@
 package service;
 
-import dao.ImageDao;
 import dao.OrdersDao;
-import entity.Orders;
-import entity.Product;
+import entity.Order;
 
 import java.util.Date;
 import java.util.List;
@@ -16,19 +14,19 @@ public class OrdersService {
         this.orderDao = new OrdersDao();
     }
 
-    public boolean createOrders(Orders order) {
+    public boolean createOrders(Order order) {
         return orderDao.create(order);
     }
 
-    public  List<Orders> getOrdersOdTheDay(Date date) {
+    public  List<Order> getOrdersOdTheDay(Date date) {
         return orderDao.getorderByDate(date);
     }
-    public List<Orders> displayAllOrderss(){
+    public List<Order> displayAllOrderss(){
         return orderDao.getAll();
     }
 
-    public boolean updateOrder(Long id, Orders orders){
-        return orderDao.update(id,orders);
+    public boolean updateOrder(Long id, Order order){
+        return orderDao.update(id, order);
     }
 
 }

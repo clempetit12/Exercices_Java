@@ -2,16 +2,14 @@ package entity;
 
 import lombok.Data;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Data
-public class Orders {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_order", nullable = false)
@@ -32,7 +30,7 @@ public class Orders {
     List<Product> productList;
     private Double total;
 
-    public Orders() {
+    public Order() {
 
     }
 
@@ -46,7 +44,7 @@ public class Orders {
     }
 
 
-    public Orders(Date orderPurchase, Adress adress, List<Product> productList, Double total) {
+    public Order(Date orderPurchase, Adress adress, List<Product> productList, Double total) {
         this.orderPurchase = orderPurchase;
         this.adress = adress;
         this.productList = productList;
