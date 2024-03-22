@@ -23,7 +23,7 @@ public class Task {
     private int priority;
 
     private Date endingDate;
-    private Date creationDate;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

@@ -2,6 +2,7 @@ package org.example.todospring.service;
 
 import org.example.todospring.config.jwt.JwtTokenProvider;
 import org.example.todospring.model.User;
+import org.example.todospring.repository.RoleRepository;
 import org.example.todospring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -23,6 +24,7 @@ public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
 
     @Lazy
     @Autowired
@@ -49,7 +51,6 @@ public class UserServiceImpl implements UserDetailsService {
         return userRepository.findByEmail(email).isPresent();
     }
 
-    // Méthode pour générer un token JWT après avoir authentifié un utilisateur.
     public String generateToken(String email, String password){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -63,6 +64,6 @@ public class UserServiceImpl implements UserDetailsService {
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        return userRepository.findByEmail(username).orElseThrow(()-> new UsernameNotFoundException("User not found with email : " + username));
     }
 }

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 public class Role {
@@ -11,9 +13,9 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "role_id")
-    private User user;
+
+    @OneToMany(mappedBy = "role")
+    private List<User> users;
 
     @Enumerated(EnumType.STRING)
     private RoleEnum role;
@@ -30,13 +32,7 @@ public class Role {
         return id;
     }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public RoleEnum getRole() {
         return role;

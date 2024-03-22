@@ -25,10 +25,9 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false)
     private String email;
     private String password;
-    @OneToOne
+    @ManyToOne( cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
     private Role role;
-    @Transient
-    private Long roleId;
     private boolean isEnabled = true;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore

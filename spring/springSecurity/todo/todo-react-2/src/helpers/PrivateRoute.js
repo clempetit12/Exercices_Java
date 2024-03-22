@@ -1,0 +1,13 @@
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+
+// Création d'un composant fonctionnel PrivateRoute
+const PrivateRoute = ({ children }) => {
+    // Vous pouvez remplacer cette logique par votre propre logique de vérification d'authentification
+    const user = localStorage.getItem('user');
+    const isLoggedIn = !!user;
+
+    
+    return isLoggedIn ? children : <Navigate to="/login" />;
+};
+export default PrivateRoute
