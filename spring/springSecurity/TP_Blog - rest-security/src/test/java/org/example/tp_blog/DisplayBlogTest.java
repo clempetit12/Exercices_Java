@@ -40,7 +40,7 @@ public class DisplayBlogTest {
         posts.add(new PostDto("Title 2", "Description 2", "description"));
         when(postService.getAll()).thenReturn(posts);
 
-        String viewName = postController.home(model);
+        String viewName = postController.getallposts(model);
 
         assertEquals("home", viewName);
         Mockito.verify(model).addAttribute("posts", posts);

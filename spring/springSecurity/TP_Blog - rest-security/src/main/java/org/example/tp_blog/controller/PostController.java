@@ -44,9 +44,13 @@ public class PostController {
         this.postService = postService;
     }
 
+    @GetMapping(value = "/")
+    public String home() {
+        return "login";
+    }
 
-   @GetMapping(value = "/")
-    public String home(Model model) {
+   @GetMapping(value = "/posts")
+    public String getallposts(Model model) {
         List<PostDto> posts = postService.getAll();
         model.addAttribute("posts", posts);
         return "home";
