@@ -17,16 +17,14 @@ import java.util.stream.Collectors;
 @Data
 @ToString
 @EqualsAndHashCode
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
     @Column(unique = true,nullable = false)
-    private String email;
+    private String username;
     private String password;
     private String roles;
-    private boolean isEnabled=true;
 
 
     public Long getId() {
@@ -37,23 +35,17 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public User() {
+
+    public String getUsername() {
+        return username;
     }
 
-    public String getName() {
-        return name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
@@ -67,45 +59,4 @@ public class User implements UserDetails {
     public void setRoles(String roles) {
         this.roles = roles;
     }
-
-    public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return isEnabled;
-    }
-
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(roles.split(",")).map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
 }
