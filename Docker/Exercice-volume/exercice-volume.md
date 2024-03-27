@@ -11,11 +11,7 @@ local     monsiteweb
 local     monweb
 local     mydata
 
-PS C:\Users\Administrateur> docker run -v monsiteweb:/root -it httpd
-AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
-AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
-[Tue Mar 26 16:02:16.274490 2024] [mpm_event:notice] [pid 1:tid 139646519584640] AH00489: Apache/2.4.58 (Unix) configured -- resuming normal operations
-[Tue Mar 26 16:02:16.274588 2024] [core:notice] [pid 1:tid 139646519584640] AH00094: Command line: 'httpd -D FOREGROUND'
+PS C:\Users\Administrateur>  docker run --nameserverweb -d -p 8080:80  -v siteweb:/usr/local/apache2/htdocs/  httpd  => il faut aller voir dans la doc de httpd pour savoir où soller sans docker files
 
 
 PS C:\Users\Administrateur> docker start cool_beaver
@@ -23,8 +19,8 @@ cool_beaver
 PS C:\Users\Administrateur> docker exec -it cool_beaver sh
 
 
-PS C:\Users\Administrateur> docker cp C:\Users\Administrateur\Desktop\CDA_LILLE_17_JUILLET\docker\exercice\files_tp_conteneur\html5up-editorial-m2i.zip cool_beaver:\root
-Successfully copied 1.72MB to cool_beaver:\root
+PS C:\Users\Administrateur>  docker cp C:\Users\Administrateur\Desktop\Exercices_Java\Docker\Exercice-volume\website\. serverweb:/usr/local/apache2/htdocs/
+Successfully copied 3.34MB to serverweb:/usr/local/apache2/htdocs/ (il faut mettre l'antislash pour avoir le contenu du dossier copié)
 
 PS C:\Users\Administrateur> docker ps
 CONTAINER ID   IMAGE     COMMAND              CREATED          STATUS         PORTS     NAMES

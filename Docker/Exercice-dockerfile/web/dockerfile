@@ -1,0 +1,21 @@
+FROM nginx
+
+WORKDIR /usr/share/nginx/html
+
+#Rajoute un label
+LABEL "Author"="clémence"
+
+
+COPY . .
+
+EXPOSE 80
+
+CMD [  "nginx","-g","daemon off;" ]
+
+#Pour construire l'image 
+# docker build --no-cache -t exo1 .
+
+
+
+
+
