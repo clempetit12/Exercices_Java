@@ -1,10 +1,10 @@
-package org.example.tp_blog.config.jwt;
+package org.example.todospring.config.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.tp_blog.service.UserService;
+import org.example.todospring.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -18,26 +18,21 @@ import java.io.IOException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
-
-    // Injection de JwtTokenProvider pour la manipulation des tokens JWT
     @Autowired
     private JwtTokenProvider tokenGenerator;
 
-    // UserService est utilisé pour charger les détails de l'utilisateur à partir du nom d'utilisateur
-    private final UserService userService;
 
-    // JwtAuthenticationEntryPoint est utilisé pour gérer les exceptions d'authentification
     @Autowired
-    JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final UserServiceImpl userService;
 
-    // Constructeur pour injecter UserService
-    public JwtRequestFilter(UserService userService) {
+    @Autowired
+     JwtAuthentificationEntrypoint jwtAuthenticationEntryPoint;
+    public JwtRequestFilter(UserServiceImpl userService) {
         this.userService = userService;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             // Extraire le JWT de la requête HTTP
             String token = getJWTFromRequest(request);

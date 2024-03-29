@@ -18,7 +18,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_comment", nullable = false)
-    private int id;
+    private Long id;
 
     private String lastName;
 
@@ -32,11 +32,11 @@ public class Comment {
     public Comment() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

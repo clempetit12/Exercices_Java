@@ -1,4 +1,4 @@
-package org.example.tp_blog.config.jwt;
+package org.example.todospring.config.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -14,16 +15,16 @@ import javax.crypto.SecretKey;
 import java.util.Base64;
 import java.util.Date;
 import java.util.stream.Collectors;
+
 @Component
 public class JwtTokenProvider {
 
-    @Autowired
-    JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+    JwtAuthentificationEntrypoint jwtAuthenticationEntryPoint;
 
     @Value("${jwt.secret}")
     private String secret;
 
-    // Convertit la clé secrète en format utilisable par l'algorithme de signature
     private SecretKey getSigningKey() {
         byte[] keyBytes = Base64.getDecoder().decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);
@@ -34,14 +35,14 @@ public class JwtTokenProvider {
         Date currentDate = new Date();
         Date expireDate = new Date(currentDate.getTime() + 86400000); // 24 heures
 
-        String roles = auth.getAuthorities().stream()
-                .map(grantedAuthority -> grantedAuthority.getAuthority())
-                .collect(Collectors.joining(","));
 
+        String roles = auth.getAuthorities().stream()
+                .map(generatedAuthority -> generatedAuthority.getAuthority())
+                .collect(Collectors.joining(","));
 
         String token = Jwts.builder()
                 .setSubject(username)
-                .claim("roles",roles)
+                .claim("roles", roles)
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)
                 .signWith(getSigningKey(), SignatureAlgorithm.HS512)
@@ -72,6 +73,8 @@ public class JwtTokenProvider {
 
         return claims.getSubject();
     }
-
 }
+
+
+
 

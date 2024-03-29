@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CommentDto {
 
-    private int id;
+    private Long id;
 
 
     @NotNull
@@ -39,11 +39,11 @@ public class CommentDto {
         this.post = post;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -20,15 +20,10 @@ public class UserController {
     UserService userService;
 
 
-    @GetMapping("/")
-    public String form(Model model) {
-        model.addAttribute("user", new User());
-        return "register";
-    }
 
     @PostMapping("/v1/auth/register")
     public String registerUser(@RequestBody User user, Model model){
-        if(userService.createUser(user)){
+        if(userService.save(user)){
             model.addAttribute("message", "success");
         } else {
             model.addAttribute("message", "failed");
@@ -37,10 +32,10 @@ public class UserController {
     }
 
     @PostMapping("/v1/auth/login")
-    public String loginUser(@RequestBody UserLoginDto userLoginDto, Model model) {
-        boolean userExists = userService.checkUserNameExists(userLoginDto.getEmail());
+    public String loginUser(@RequestBody User user, Model model) {
+        boolean userExists = userService.checkUserNameExists(user.getUsername());
         if(userExists) {
-            if (userService.verifyUser(userLoginDto.getEmail(), userLoginDto.getPassword())) {
+            if (userService.verifyUser(user.getUsername(), user.getPassword())) {
                 model.addAttribute("message", "success");
             } else {
                 model.addAttribute("message", "wrong password");

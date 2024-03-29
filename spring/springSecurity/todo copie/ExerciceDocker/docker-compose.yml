@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  backend:
+    image: backend-image
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" 
+    networks:
+      - front-back-network
+  
+
+  frontend:
+    image: frontend-image
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - front-back-network
+    depends_on:
+      - backend
+
+  bdd:
+    container_name: bdd
+    image: mysql
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./data.sql:/docker-entrypoint-initdb.d/data.sql  
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: yourdb
+      MYSQL_PASSWORD: password
+    networks:
+      - front-back-network
+    depends_on:
+      - backend
+  
+
+networks:
+  front-back-network:
+    driver: bridge
+
+volumes:
+ db_data:
+
+

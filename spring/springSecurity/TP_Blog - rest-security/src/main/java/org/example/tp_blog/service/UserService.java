@@ -1,8 +1,7 @@
 package org.example.tp_blog.service;
 
 
-import org.example.tp_blog.config.jwt.JwtTokenProvider;
-import org.example.tp_blog.entity.User;
+
 import org.example.tp_blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -17,8 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
-package com.openclassrooms.configuration;
-
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +29,13 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository dbUserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = dbUserRepository.findByUsername(username);
+        org.example.tp_blog.entity.User user = dbUserRepository.findByUsername(username);
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(), user.getPassword(), getGrantedAuthorities(user.getRoles()));
@@ -48,5 +45,25 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
         return authorities;
+    }
+
+    public boolean save(org.example.tp_blog.entity.User user) {
+     dbUserRepository.save(user);
+     return true;
+
+    }
+
+    public boolean checkUserNameExists(String username) {
+        if(dbUserRepository.findByUsername(username) != null){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean verifyUser(String username, String password) {
+        if(dbUserRepository.findByUsernameAndPassword(username,password) != null){
+            return true;
+        }
+        return false;
     }
 }
