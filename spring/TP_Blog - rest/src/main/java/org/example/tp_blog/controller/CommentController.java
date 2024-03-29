@@ -5,22 +5,23 @@ import org.example.tp_blog.dto.CommentDto;
 import org.example.tp_blog.dto.PostDto;
 import org.example.tp_blog.entity.Comment;
 import org.example.tp_blog.entity.Post;
+import org.example.tp_blog.repository.PostRepository;
 import org.example.tp_blog.service.CommentServiceImpl;
 import org.example.tp_blog.service.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 
 public class CommentController {
 
     private final PostServiceImpl postService;
+
+    @Autowired
+    private PostRepository postRepository;
     private final CommentServiceImpl commentService;
 
     @Autowired
@@ -38,14 +39,16 @@ public class CommentController {
     }
 
    @PostMapping(value = "/addComment/{postId}")
-    public String addComment(@Valid @ModelAttribute("comment") CommentDto commentDto, BindingResult bindingResult, @PathVariable("postId") int id) {
+   public String addComment(@Valid @ModelAttribute("comment") CommentDto commentDto, BindingResult bindingResult,
+                            @PathVariable("postId") int id
+   ) {
         if (bindingResult.hasErrors()) {
             return "commentForm";
         } else {
-            PostDto postDto = postService.getById(id);
-            if (postDto != null) {
+            Post post = postRepository.findPostById(id);
+            if (post != null) {
                 System.out.println(commentDto.getLastName());
-                commentService.addCommentToPost(postDto, commentDto);
+                commentService.addCommentToPost(post, commentDto);
                 return "redirect:/";
             }
             return "commentForm";

@@ -31,13 +31,15 @@
                 <div class="mb-3">
                     <label for="image" class="form-label">Image</label>
                     <input type="file" class="form-control" id="image" name="image" aria-describedby="image">
+                    <input type="hidden" name="imageUrl" th:value="${post.imageUrl}">
+                    <img th:if="${post.imageUrl}" th:src="@{'/upload-dir/' + ${post.imageUrl}}" class="img-thumbnail" alt="Current Image">
                 </div>
                 <div class="mb-3 align-items-center">
                     <textarea class="form-control" name="content" rows="10" th:field="*{content}" placeholder="Content"></textarea>
                     <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button class="btn btn-primary me-md-2" type="submit"><i class="bi bi-patch-plus"> Submit</i></button>
+                    <button class="btn btn-outline-primary me-md-2" type="submit"><i class="bi bi-patch-plus"> Submit</i></button>
                 </div>
                 <input type="hidden" th:field="*{id}">
             </form>

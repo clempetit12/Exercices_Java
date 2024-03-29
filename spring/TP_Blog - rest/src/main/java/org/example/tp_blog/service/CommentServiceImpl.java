@@ -54,12 +54,12 @@ private final CommentMapper commentMapper;
     public CommentDto update(CommentDto element) {
         return  commentMapper.commentToCommentDto(commentRepository.save(commentMapper.commentDtoToComment(element)));
     }
-    public boolean addCommentToPost(PostDto postDto, CommentDto commentDto) {
+    public boolean addCommentToPost(Post post, CommentDto commentDto)  {
         Comment commentToAdd = commentMapper.commentDtoToComment(commentDto);
         commentToAdd.setLastName(commentDto.getLastName());
         commentToAdd.setEmail(commentDto.getEmail());
         commentToAdd.setContent(commentDto.getContent());
-        commentToAdd.setPost(postDto.toPost());
+        commentToAdd.setPost(post);
         commentRepository.save(commentToAdd);
         return true;
     }

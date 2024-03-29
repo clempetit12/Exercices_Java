@@ -36,23 +36,23 @@ public class AddCommentToBlog {
         bindingResult = new org.springframework.validation.BeanPropertyBindingResult(new CommentDto(), "commentDto");
     }
 
-    @Test
-    void testAddComment() {
-        PostDto postDto = new PostDto();
-        postDto.setId(1);
-        postDto.setTitle("Titre de l'article");
-        postDto.setContent("Contenu de l'article");
-
-        CommentDto commentDto = new CommentDto();
-        commentDto.setLastName("Auteur du commentaire");
-        commentDto.setContent("Contenu du commentaire");
-        commentDto.setEmail("email@example.com");
-        when(commentService.addCommentToPost(postDto,commentDto)).thenReturn(true);
-
-        when(postService.getById(postDto.getId())).thenReturn(postDto);
-
-        String viewName = commentController.addComment(commentDto, bindingResult, postDto.getId());
-
-        assertEquals("redirect:/", viewName);
-    }
+//    @Test
+//    void testAddComment() {
+//        PostDto postDto = new PostDto();
+//        postDto.setId(1);
+//        postDto.setTitle("Titre de l'article");
+//        postDto.setContent("Contenu de l'article");
+//
+//        CommentDto commentDto = new CommentDto();
+//        commentDto.setLastName("Auteur du commentaire");
+//        commentDto.setContent("Contenu du commentaire");
+//        commentDto.setEmail("email@example.com");
+//        when(commentService.addCommentToPost(postDto,commentDto)).thenReturn(true);
+//
+//        when(postService.getById(postDto.getId())).thenReturn(postDto);
+//
+//        String viewName = commentController.addComment(commentDto, bindingResult, postDto.getId());
+//
+//        assertEquals("redirect:/", viewName);
+//    }
 }

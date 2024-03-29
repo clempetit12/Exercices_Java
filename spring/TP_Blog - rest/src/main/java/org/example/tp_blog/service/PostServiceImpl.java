@@ -1,5 +1,6 @@
 package org.example.tp_blog.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.example.tp_blog.dto.PostDto;
 import org.example.tp_blog.entity.Comment;
 import org.example.tp_blog.entity.Post;
@@ -8,6 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -15,6 +23,8 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements ServiceInterface<PostDto> {
 
 private final PostRepository postRepository;
+
+    private String location = "upload-dir";
 
 
 
@@ -46,8 +56,8 @@ add(postDto);
 
     @Override
     public boolean delete(int id) {
-        PostDto postDto = getById(id);
-         postRepository.delete(postDto.toPost());
+    Post post = postRepository.findPostById(id);
+         postRepository.delete(post);
          return true;
     }
 
@@ -56,12 +66,6 @@ add(postDto);
         return postRepository.save(element.toPost()).toPostDto();
     }
 
-/*    public List<PostDto> getPostByName(String search) {
-        List<Post> posts = postRepository.findAllByTitleContaining(search.toLowerCase());
-        return posts.stream()
-                .map(postMapper::postToPostDto)
-                .collect(Collectors.toList());
-    }*/
 
     public void updatePost(Post post) {
     }
@@ -72,5 +76,24 @@ add(postDto);
 
     public List<Post> getAllPosts() {
    return postRepository.findAll();
+    }
+
+    public void updatePostWithImage(PostDto postDto, String url)  {
+            Post existingPost = postRepository.findById(postDto.getId()).orElse(null);
+
+            if (existingPost != null) {
+                existingPost.setTitle(postDto.getTitle());
+                existingPost.setDescription(postDto.getDescription());
+                existingPost.setContent(postDto.getContent());
+existingPost.setImage(url);
+
+                postRepository.save(existingPost);
+            } else {
+                throw new EntityNotFoundException("La publication avec l'identifiant " + postDto.getId() + " n'existe pas");
+            }
+        }
+
+    public List<PostDto> getPostByName(String name) {
+    return postRepository.findAllByTitleContainingIgnoreCase(name).stream().map(post -> post.toPostDto()).toList();
     }
 }

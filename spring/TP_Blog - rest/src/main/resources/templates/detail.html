@@ -11,47 +11,44 @@
     <span th:replace="~{home :: navBar}"></span>
 </header>
 <div class="container" th:object="${post}">
-    <h1 class="text-center">  <span th:text="*{title}"></span></h1>
+    <h1 class="text-center display-3 mt-8">  <span th:text="*{title}"></span></h1>
     <hr>
-    <img th:src="@{'/upload-dir/' + *{image}}" class="card-img-top" height="300" width="200" alt="image">
-    <h2 class="text-center"> <span th:text="*{description}"></span></h2>
-    <p><span th:text="*{content}"></span></p>
+    <div class="container p-0" style="height: 50%;">
+        <img th:src="@{'/upload-dir/' + ${post.imageUrl}}" class="img-fluid opacity-50 h-10" alt="Responsive image">
+    </div>
+
+    <h2 class="text-center display-5 mt-4"> <span th:text="*{description}"></span></h2>
+    <hr>
+    <p class="text-center"><span  th:text="*{content}"></span></p>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a th:href="@{/update/{postId}(postId=${post.id})}" class="btn btn-info">Update</a>
-        <a th:href="@{/delete(postId=${post.id})}" class="btn btn-danger">Delete</a>
+        <a th:href="@{/update/{postId}(postId=${post.id})}" class="btn btn-outline-info">Update</a>
+        <a th:href="@{/delete(postId=${post.id})}" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this post?')">Delete</a>
     </div>
-
+<hr>
     <input type="hidden" th:field="*{id}">
-    <h1 class="mt-8 text-center">Commentaires</h1>
-    <hr>
-
-    <table class="table" th:unless="${post.commentList == null or post.commentList.isEmpty()}">
-        <thead>
-        <tr>
-            <th class="text-center" scope="col">#</th>
-            <th class="text-center" scope="col">User</th>
-            <th class="text-center" scope="col">email</th>
-            <th class="text-center" scope="col">Content</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="comment, commentInd : ${post.commentList}">
-            <td class="text-center" th:text="${commentInd.index + 1}"></td>
-            <td class="text-center" th:text="${comment.lastName}"></td>
-            <td class="text-center" th:text="${comment.email}"></td>
-            <td class="text-center" th:text="${comment.content}"></td>
 
 
-        </tr>
-        </tbody>
-    </table>
     <div class="container mt-3">
-        <a th:href="@{/addComment/{postId}(postId=${post.id})}" class="d-flex justify-content-end" style="text-decoration: none; color: inherit;">
-            <button class="btn btn-primary">Ajouter un commentaire</button>
-        </a>
+        <div class="row">
+            <div th:unless="${post.commentList == null or post.commentList.isEmpty()}" th:each="comment, commentInd : ${post.commentList}" class="col">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${comment.lastName}"></h5>
+                        <h6 class="card-subtitle mb-2 text-muted" th:text="${comment.email}"></h6>
+                        <p class="card-text" th:text="${comment.content}"></p>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${post.commentList == null or post.commentList.isEmpty()}" class="col">
+                <p>Aucun commentaire pour le moment.</p>
+            </div>
+            <div class="container mb-4">
+                <a th:href="@{/addComment/{postId}(postId=${post.id}, imageUrl=${post.imageUrl})}" class="d-flex justify-content-end" style="text-decoration: none; color: inherit;">
+                    <button class="btn btn-outline-success mn-4"><i class="bi bi-patch-plus"></i> Ajouter un commentaire</button>
+                </a>
+            </div>
+        </div>
     </div>
-
-</div>
 
 
 </body>

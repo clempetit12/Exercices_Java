@@ -84,14 +84,21 @@ public class PostController {
         if (result.hasErrors()) {
             return "error";
         }
-        postDto.setImage(image);
-        String imageName = image.getOriginalFilename();
-        Path destinationFile = Paths.get(location).resolve(Paths.get(imageName)).toAbsolutePath();
-        InputStream stream = image.getInputStream();
-        Files.copy(stream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
-     postService.savePostWithImage(postDto,image);
+        if (postDto.getId() == 0) {
+            postDto.setImage(image);
+            String imageName = image.getOriginalFilename();
+            Path destinationFile = Paths.get(location).resolve(Paths.get(imageName)).toAbsolutePath();
+            InputStream stream = image.getInputStream();
+            Files.copy(stream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+            postService.savePostWithImage(postDto,image);
 
-        return "redirect:/";
+            return "redirect:/";
+        } else {
+            String url = postDto.getImageUrl();
+            postService.updatePostWithImage(postDto,url);
+            return "redirect:/";
+        }
+
     }
 
   /*      if (!image.isEmpty()) {
@@ -110,13 +117,13 @@ public class PostController {
         }*/
 
 
-
-
     @GetMapping("/delete")
-    public String delete(@RequestParam("postId") int id) {
-        postService.delete(id);
-        return "redirect:";
+    public String delete(@RequestParam("postId") int id){
+       postService.delete(id);
+        return "redirect:/";
     }
+
+
 
     @GetMapping("/update/{postId}")
     public String formUpdatePost(@PathVariable("postId") int id, Model model) {
@@ -139,17 +146,14 @@ public class PostController {
         return "formerror";
     }
 
-/*    @GetMapping(value = "/search")
+   @GetMapping(value = "/search/name")
     public String searchBlog(@RequestParam(name = "name", required = false) String name,
                                       Model model) {
-        List<PostDto> postDtos = postService.getPostByName(name);
-        if (!postDtos.isEmpty()) {
-            model.addAttribute("posts", postDtos);
-            return "home";
-        } else {
-            return "error";
-        }
+       model.addAttribute( "posts",postService.getPostByName(name));
+      return "home";
 
-    }*/
+    }
+
+
 
 }
