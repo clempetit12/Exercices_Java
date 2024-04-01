@@ -14,6 +14,7 @@ import org.example.tp_blog.exception.FormException;
 import org.example.tp_blog.service.PostServiceImpl;
 import org.example.tp_blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -84,51 +85,39 @@ public class PostController {
 
     @PostMapping("/register")
     public String registration(@Valid @ModelAttribute("user") UsersDto userDto, BindingResult result,Model model){
-        Users existingUser = userService.loadUserByUsername(userDto.getEmail());
-        System.out.println(existingUser);
-        if(existingUser!=null && existingUser.getEmail()!=null && !existingUser.getEmail().isEmpty()){
-            result.rejectValue("email",null,"there is already an account existed with this email");
-        }
-
         if(result.hasErrors()){
             model.addAttribute("user",userDto);
             return "/register";
         }
 
-        userService.save(userDto);
+        userService.createUser(userDto);
         return "redirect:/register?success";
 
     }
 
 
-    @GetMapping("/users")
-    public String users(Model model){
-        List<UsersDto> users = userService.findAllUsers();
-        model.addAttribute("users",users);
-        return "users";
-    }
 
 
     @PostMapping("/login")
     public String login(@RequestParam("email") String email,
                         @RequestParam("password") String password,
-                        RedirectAttributes redirectAttributes) {
-        Users existingUser = userService.loadUserByUsername(email);
+                        RedirectAttributes redirectAttributes, Model model) {
+        if(userService.checkUserNameExists(email)) {
+            if(userService.verifyUser(email,password)) {
+                Map<String, Object> data = new HashMap<>();
 
-        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            if(encoder.matches(password, existingUser.getPassword())) {
-                Authentication authentication = new UsernamePasswordAuthenticationToken(existingUser, null, existingUser.getAuthorities());
-                System.out.println(authentication);
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                data.put("token", userService.generateToken(email, password));
+                model.addAttribute("data", data);
                 return "redirect:/";
-            } else {
-                redirectAttributes.addAttribute("error", "Invalid email or password");
-                return "redirect:/login";
-            }
-        } else {
-            redirectAttributes.addAttribute("error", "User not found");
+            }else {
+            redirectAttributes.addAttribute("error", "Invalid email or password");
             return "redirect:/login";
+        }
+    } else {
+        redirectAttributes.addAttribute("error", "User not found");
+        return "redirect:/login";
+
+
         }
     }
 
