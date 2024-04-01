@@ -5,19 +5,25 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.tp_blog.dto.CommentDto;
 import org.example.tp_blog.dto.PostDto;
+import org.example.tp_blog.dto.UsersDto;
 import org.example.tp_blog.entity.Comment;
 import org.example.tp_blog.entity.Post;
+import org.example.tp_blog.entity.Users;
 import org.example.tp_blog.exception.ConstraintViolationException;
 import org.example.tp_blog.exception.FormException;
 import org.example.tp_blog.service.PostServiceImpl;
+import org.example.tp_blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.thymeleaf.util.StringUtils;
 
@@ -27,21 +33,23 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @CrossOrigin(origins = "http://example.com", maxAge = 3600)
+@RequestMapping("/")
 public class PostController {
 
     private final PostServiceImpl postService;
+
+    @Autowired
+    private final UserService userService;
     private String location = "upload-dir";
 
     @Autowired
-    public PostController(PostServiceImpl postService) {
+    public PostController(PostServiceImpl postService, UserService userService) {
         this.postService = postService;
+        this.userService = userService;
     }
 
 
@@ -52,13 +60,79 @@ public class PostController {
         return "home";
     }
 
+
     @GetMapping(value = "/detail/{postId}")
     public String showDetail(@PathVariable("postId") int id, Model model) {
+        String userRole = userService.getUserRoles();
+        model.addAttribute("userRole", userRole);
         PostDto postDto = postService.getById(id);
         model.addAttribute("post", postDto);
         return "detail";
 
     }
+
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model){
+        UsersDto userDto = new UsersDto();
+        model.addAttribute("user",userDto);
+        return "register";
+
+    }
+
+    @PostMapping("/register")
+    public String registration(@Valid @ModelAttribute("user") UsersDto userDto, BindingResult result,Model model){
+        Users existingUser = userService.loadUserByUsername(userDto.getEmail());
+        System.out.println(existingUser);
+        if(existingUser!=null && existingUser.getEmail()!=null && !existingUser.getEmail().isEmpty()){
+            result.rejectValue("email",null,"there is already an account existed with this email");
+        }
+
+        if(result.hasErrors()){
+            model.addAttribute("user",userDto);
+            return "/register";
+        }
+
+        userService.save(userDto);
+        return "redirect:/register?success";
+
+    }
+
+
+    @GetMapping("/users")
+    public String users(Model model){
+        List<UsersDto> users = userService.findAllUsers();
+        model.addAttribute("users",users);
+        return "users";
+    }
+
+
+    @PostMapping("/login")
+    public String login(@RequestParam("email") String email,
+                        @RequestParam("password") String password,
+                        RedirectAttributes redirectAttributes) {
+        Users existingUser = userService.loadUserByUsername(email);
+
+        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
+            // Utilisez BCryptPasswordEncoder pour vérifier si les mots de passe correspondent
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            if(encoder.matches(password, existingUser.getPassword())) {
+                return "redirect:/";
+            } else {
+                redirectAttributes.addAttribute("error", "Invalid email or password");
+                return "redirect:/login";
+            }
+        } else {
+            redirectAttributes.addAttribute("error", "User not found");
+            return "redirect:/login";
+        }
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+
 
     @GetMapping("/add")
     public String form(Model model) {

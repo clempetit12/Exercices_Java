@@ -4,6 +4,7 @@ package org.example.tp_blog;
 import org.example.tp_blog.controller.PostController;
 import org.example.tp_blog.dto.PostDto;
 import org.example.tp_blog.service.PostServiceImpl;
+import org.example.tp_blog.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +24,8 @@ public class DisplayDetailBlogTest {
 
     private PostController postController;
 
+    private UserService userService;
+
     @Mock
     private PostServiceImpl postService;
 
@@ -31,7 +34,7 @@ public class DisplayDetailBlogTest {
 
     @BeforeEach
     void setUp() {
-        postController = new PostController(postService);
+        postController = new PostController(postService,userService);
     }
 
     @Test

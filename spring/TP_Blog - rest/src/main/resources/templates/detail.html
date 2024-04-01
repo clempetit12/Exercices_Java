@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+>
+
 <head>
     <meta charset="UTF-8">
     <title>Formulaire </title>
@@ -20,11 +22,12 @@
     <h2 class="text-center display-5 mt-4"> <span th:text="*{description}"></span></h2>
     <hr>
     <p class="text-center"><span  th:text="*{content}"></span></p>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <div th:if="${userRole == 'ROLE_USER'}" class="d-grid gap-2 d-md-flex justify-content-md-end" >
         <a th:href="@{/update/{postId}(postId=${post.id})}" class="btn btn-outline-info">Update</a>
         <a th:href="@{/delete(postId=${post.id})}" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this post?')">Delete</a>
     </div>
-<hr>
+
+    <hr>
     <input type="hidden" th:field="*{id}">
 
 
