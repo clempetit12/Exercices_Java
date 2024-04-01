@@ -16,6 +16,10 @@ import org.example.tp_blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -63,13 +67,12 @@ public class PostController {
 
     @GetMapping(value = "/detail/{postId}")
     public String showDetail(@PathVariable("postId") int id, Model model) {
-        String userRole = userService.getUserRoles();
-        model.addAttribute("userRole", userRole);
         PostDto postDto = postService.getById(id);
         model.addAttribute("post", postDto);
         return "detail";
-
     }
+
+
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model){
@@ -113,9 +116,11 @@ public class PostController {
         Users existingUser = userService.loadUserByUsername(email);
 
         if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
-            // Utilisez BCryptPasswordEncoder pour vérifier si les mots de passe correspondent
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             if(encoder.matches(password, existingUser.getPassword())) {
+                Authentication authentication = new UsernamePasswordAuthenticationToken(existingUser, null, existingUser.getAuthorities());
+                System.out.println(authentication);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
                 return "redirect:/";
             } else {
                 redirectAttributes.addAttribute("error", "Invalid email or password");

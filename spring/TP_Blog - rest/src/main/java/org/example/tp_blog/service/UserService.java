@@ -19,7 +19,7 @@ import java.util.Optional;
 import static org.hibernate.query.sqm.tree.SqmNode.log;
 
 @Service
-public class UserService  {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -46,7 +46,5 @@ public class UserService  {
         return encoder.encode(password);
     }
 
-    public String getUserRoles() {
-        return userRepository.findByRole();
-    }
+
 }

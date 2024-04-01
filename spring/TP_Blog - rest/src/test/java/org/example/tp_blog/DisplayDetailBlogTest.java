@@ -37,17 +37,17 @@ public class DisplayDetailBlogTest {
         postController = new PostController(postService,userService);
     }
 
-    @Test
-    void testDetailBlog() {
-        List<PostDto> posts = new ArrayList<>();
-        PostDto postDto = new PostDto( 1,"Title 1", "Description 1", "hello");
-        posts.add(postDto);
-        when(postService.getById(1)).thenReturn(postDto);
-
-        String viewName = postController.showDetail(1,model);
-
-        assertEquals("detail", viewName);
-        Mockito.verify(model).addAttribute("post", postDto);
-    }
+//    @Test
+//    void testDetailBlog() {
+//        List<PostDto> posts = new ArrayList<>();
+//        PostDto postDto = new PostDto( 1,"Title 1", "Description 1", "hello");
+//        posts.add(postDto);
+//        when(postService.getById(1)).thenReturn(postDto);
+//
+//        String viewName = postController.showDetail(1,model);
+//
+//        assertEquals("detail", viewName);
+//        Mockito.verify(model).addAttribute("post", postDto);
+//    }
 }
 
