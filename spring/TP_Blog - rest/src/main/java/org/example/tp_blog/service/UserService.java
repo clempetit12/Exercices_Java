@@ -2,28 +2,19 @@ package org.example.tp_blog.service;
 
 import org.example.tp_blog.config.jwt.JwtTokenProvider;
 import org.example.tp_blog.dto.UsersDto;
-import org.example.tp_blog.entity.Users;
 import org.example.tp_blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-import static org.hibernate.query.sqm.tree.SqmNode.log;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -45,7 +36,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username).orElseThrow(()-> new UsernameNotFoundException("User not found with email : " + username));
+        return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found with email : " + username));
     }
 
     public boolean verifyUser(String email, String password) {
@@ -54,21 +45,24 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
 
-    public boolean checkUserNameExists(String email){
+    public boolean checkUserNameExists(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
 
-    public String generateToken(String email, String password){
+    public String generateToken(String email, String password) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = tokenProvider.generateToken(authentication);
         return token;
     }
-    public boolean createUser(UsersDto user){
+
+    public boolean createUser(UsersDto user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user.toUsers());
         return true;
     }
+
+
 
 
 

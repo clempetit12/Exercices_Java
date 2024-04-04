@@ -52,12 +52,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/**").permitAll()
-                        .requestMatchers("/upload-dir/**").permitAll()
-                        .requestMatchers("/register").permitAll()
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/detail/**").hasRole("USER")
+                        .requestMatchers("/", "/upload-dir/**", "/register", "/login", "/detail/**").permitAll()
+                        .requestMatchers("/add").hasRole("USER")
                         .anyRequest().authenticated()
 
                 )
@@ -93,12 +91,12 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Collections.singletonList("*")); // Permettre toutes les origines
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")); // Permettre toutes les méthodes
-        configuration.setAllowedHeaders(Arrays.asList("*")); // Permettre tous les headers
-        configuration.setAllowCredentials(true); // Important pour les cookies, l'autorisation, etc.
+        configuration.setAllowedOriginPatterns(Collections.singletonList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // Appliquer cette configuration à tous les chemins
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 

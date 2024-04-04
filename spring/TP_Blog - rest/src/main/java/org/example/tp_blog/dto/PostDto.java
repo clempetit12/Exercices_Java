@@ -11,6 +11,7 @@ import org.example.tp_blog.entity.Post;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -31,23 +32,26 @@ public class PostDto {
     private List<Comment> commentList;
     private MultipartFile image;
     private String imageUrl;
+    private LocalDate date;
 
     public PostDto() {
     }
 
 
-    public PostDto(String title, String content, String description) {
+    public PostDto(String title, String content, String description, LocalDate date) {
         this.title = title;
         this.content = content;
         this.description = description;
         this.commentList = new ArrayList<>();
+        this.date = LocalDate.now();
     }
 
-    public PostDto(int id, String title, String content, String description) {
+    public PostDto(int id, String title, String content, String description, LocalDate date) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.description = description;
+        this.date = LocalDate.now();
     }
 
     public void setImage(MultipartFile image) {
@@ -102,7 +106,13 @@ public class PostDto {
         return image;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
 
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
@@ -117,6 +127,9 @@ public class PostDto {
         post.setDescription(description);
         post.setImage(convertMultipartFileToString(image));
         post.setCommentList(commentList);
+        post.setDate(date);
+
+
         return post;
     }
     public static String convertMultipartFileToString(MultipartFile file) {

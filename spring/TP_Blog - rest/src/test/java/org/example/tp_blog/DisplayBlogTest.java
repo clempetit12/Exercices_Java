@@ -12,6 +12,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,8 +41,8 @@ public class DisplayBlogTest {
     @Test
     void testHomePage() {
         List<PostDto> posts = new ArrayList<>();
-        posts.add(new PostDto( "Title 1", "Description 1", "description"));
-        posts.add(new PostDto("Title 2", "Description 2", "description"));
+        posts.add(new PostDto( "Title 1", "Description 1", "description", LocalDate.of(2024, 4, 4)));
+        posts.add(new PostDto("Title 2", "Description 2", "description",LocalDate.of(2024, 4, 4)));
         when(postService.getAll()).thenReturn(posts);
 
         String viewName = postController.home(model);

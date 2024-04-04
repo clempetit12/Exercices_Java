@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,7 @@ private final PostRepository postRepository;
     public void savePostWithImage(PostDto postDto, MultipartFile imageFile) {
         String imagePath = imageFile.getOriginalFilename().toString();
          postDto.setImageUrl(imagePath);
+         postDto.setDate(LocalDate.now());
 add(postDto);
     }
 

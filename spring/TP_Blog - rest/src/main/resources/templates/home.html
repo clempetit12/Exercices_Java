@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -21,7 +21,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/add}" data-toggle="tooltip" data-placement="bottom" title="Add a post"><i class="bi bi-patch-plus"></i></a>
+                            <div th:if="${token}" >
+                                <a  class="nav-link active" aria-current="page" th:href="@{/add}" data-toggle="tooltip" data-placement="bottom" title="Add a post"><i class="bi bi-patch-plus"></i></a>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>
@@ -29,10 +31,13 @@
 
                         <li class="nav-item">
                             <div class="btn-group me-2" role="group" aria-label="User Actions">
-                                <form th:action="@{/logout}" method="post">
-                                    <button type="submit" class="btn btn-outline-dark">Déconnexion</button>
-                                </form>
-                                <a class="btn btn-dark" th:href="@{/login}">Connexion</a>
+                                <div th:if="${token}" >
+                                    <a href="/logout" class="nav-link">Logout</a>
+                                </div>
+                                <div >
+                                    <a href="/login" class="nav-link">Login</a>
+                                </div>
+
                             </div>
                         </li>
 
@@ -69,22 +74,25 @@
             </div>
         </div>
 
-        <div class="container p-4">
-            <div class="row row-cols-1 row-cols-md-3 g-4" th:unless="${posts.isEmpty()}">
-                <div class="col" th:each="p : ${posts}">
-                    <div class="card h-100">
-                        <img th:src="@{'/upload-dir/' + ${p.imageUrl}}" class="card-img-top" height="300" width="200" alt="image">
-                        <div class="card-body d-flex justify-content-between flex-column">
-                            <div>
-                                <h5 class="card-title" th:text="${p.title}"></h5>
-                                <p class="card-text" th:text="${p.description}"></p>
-                            </div>
-                            <a th:href="@{/detail/{postId}(postId=${p.id})}" class="btn btn-outline-secondary align-self-end">Read more</a>
+    <div class="container p-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4" th:unless="${posts.isEmpty()}">
+            <div class="col" th:each="p : ${posts}">
+                <div class="card h-100">
+                    <img th:src="@{'/upload-dir/' + ${p.imageUrl}}" class="card-img-top" height="300" width="200" alt="image">
+                    <div class="card-body d-flex justify-content-between flex-column">
+                        <!-- Ajout de la date au-dessus du titre -->
+                        <small class="text-muted mb-2" th:text="${p.date}"><i class="bi bi-calendar-check"></i></small>
+                        <div>
+                            <h5 class="card-title" th:text="${p.title}"></h5>
+                            <p class="card-text" th:text="${p.description}"></p>
                         </div>
+                        <a th:href="@{/detail/{postId}(postId=${p.id})}" class="btn btn-outline-secondary align-self-end">Read more</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
 </main>
 
 

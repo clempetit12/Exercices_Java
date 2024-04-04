@@ -1,7 +1,7 @@
 package org.example.tp_blog.service;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.tp_blog.entity.Users;
+import org.example.tp_blog.entity.User;
 import org.example.tp_blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +14,8 @@ public class LoginService {
     @Autowired
     private HttpSession _httpSession;
 
-    public boolean login(Users users) {
-        if (userRepository.equals(users)) {
+    public boolean login(User user) {
+        if (userRepository.equals(user)) {
             _httpSession.setAttribute("login", "OK");
             return true;
         }

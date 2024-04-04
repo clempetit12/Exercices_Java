@@ -1,36 +1,25 @@
 package org.example.tp_blog.controller;
 
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.example.tp_blog.dto.CommentDto;
 import org.example.tp_blog.dto.PostDto;
 import org.example.tp_blog.dto.UsersDto;
-import org.example.tp_blog.entity.Comment;
-import org.example.tp_blog.entity.Post;
-import org.example.tp_blog.entity.Users;
 import org.example.tp_blog.exception.ConstraintViolationException;
 import org.example.tp_blog.exception.FormException;
 import org.example.tp_blog.service.PostServiceImpl;
 import org.example.tp_blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
-import org.thymeleaf.util.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,8 +36,7 @@ public class PostController {
 
     private final PostServiceImpl postService;
 
-    @Autowired
-    private final UserService userService;
+private final UserService userService;
     private String location = "upload-dir";
 
     @Autowired
@@ -61,7 +49,10 @@ public class PostController {
     @GetMapping
     public String home(Model model) {
         List<PostDto> posts = postService.getAll();
+
         model.addAttribute("posts", posts);
+
+
         return "home";
     }
 
@@ -73,58 +64,6 @@ public class PostController {
         return "detail";
     }
 
-
-
-    @GetMapping("/register")
-    public String showRegistrationForm(Model model){
-        UsersDto userDto = new UsersDto();
-        model.addAttribute("user",userDto);
-        return "register";
-
-    }
-
-    @PostMapping("/register")
-    public String registration(@Valid @ModelAttribute("user") UsersDto userDto, BindingResult result,Model model){
-        if(result.hasErrors()){
-            model.addAttribute("user",userDto);
-            return "/register";
-        }
-
-        userService.createUser(userDto);
-        return "redirect:/register?success";
-
-    }
-
-
-
-
-    @PostMapping("/login")
-    public String login(@RequestParam("email") String email,
-                        @RequestParam("password") String password,
-                        RedirectAttributes redirectAttributes, Model model) {
-        if(userService.checkUserNameExists(email)) {
-            if(userService.verifyUser(email,password)) {
-                Map<String, Object> data = new HashMap<>();
-
-                data.put("token", userService.generateToken(email, password));
-                model.addAttribute("data", data);
-                return "redirect:/";
-            }else {
-            redirectAttributes.addAttribute("error", "Invalid email or password");
-            return "redirect:/login";
-        }
-    } else {
-        redirectAttributes.addAttribute("error", "User not found");
-        return "redirect:/login";
-
-
-        }
-    }
-
-    @GetMapping("/login")
-    public String login(){
-        return "login";
-    }
 
 
 

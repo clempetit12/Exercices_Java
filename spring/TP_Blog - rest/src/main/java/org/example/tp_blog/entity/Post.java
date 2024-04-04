@@ -8,6 +8,7 @@ import lombok.*;
 import org.example.tp_blog.dto.PostDto;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -31,18 +32,29 @@ public class Post {
     private String description;
     @Column(name = "image_url", length = 1000)
     private String image;
+    @Temporal(TemporalType.DATE)
+    private LocalDate date;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comment> commentList;
 
-    public Post(String title, String content, String description, String image) {
+    public Post(String title, String content, String description, String image, LocalDate date) {
         this.title = title;
         this.content = content;
         this.description = description;
         this.image = image;
+        this.date= date;
         this.commentList = new ArrayList<>();
     }
 
     public Post() {
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public int getId() {
@@ -101,6 +113,7 @@ public class Post {
         postDto.setDescription(this.description);
         postDto.setImageUrl(this.image);
         postDto.setCommentList(this.commentList);
+        postDto.setDate(this.date);
         return postDto;
     }
 }

@@ -4,8 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.tp_blog.entity.Post;
-import org.example.tp_blog.entity.Users;
+import org.example.tp_blog.entity.User;
 
 @Data
 @AllArgsConstructor
@@ -54,12 +53,12 @@ public class UsersDto {
         this.role = role;
     }
 
-    public Users toUsers() {
-        Users users = new Users();
-        users.setId(id);
-      users.setEmail(email);
-      users.setPassword(password);
-      users.setRole(role);
-        return users;
+    public User toUsers() {
+        User user = new User();
+        user.setId(id);
+      user.setEmail(email);
+      user.setPassword(password);
+      user.setRole(role);
+        return user;
     }
 }
