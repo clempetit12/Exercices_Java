@@ -1,0 +1,110 @@
+version: "3"
+
+services:
+  # Database
+  bdd:
+    container_name: bdd
+    image: mysql
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    ports:
+      - ${AUTHENTICATION_SERVICE_PORT}:${AUTHENTICATION_SERVICE_PORT}
+    environment:
+      MYSQL_ROOT_PASSWORD: 2554
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    networks:
+      - backend-network
+
+  # Backend Microservices
+  authentication-service:
+    container_name: authentication-service
+    build:
+      context: ./server/authentication-service
+      dockerfile: Dockerfile
+    ports:
+      - 7001:${AUTHENTICATION_SERVICE_PORT}
+    environment:
+      PORT: ${AUTHENTICATION_SERVICE_PORT}
+      ACTIVE_PROFILE: ${ACTIVE_PROFILE}
+      DB_HOST: bdd
+      DB_PORT: ${DB_PORT}
+      DB_SCHEMA: ${DB_SCHEMA}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+    networks:
+      - backend-network
+
+  payment-service:
+    container_name: payment-service
+    build:
+      context: ./server/payment-service
+      dockerfile: Dockerfile
+    ports:
+      - ${PAYMENT_SERVICE_PORT}:${PAYMENT_SERVICE_PORT}
+    environment:
+      PORT: ${PAYMENT_SERVICE_PORT}
+      DB_PORT: ${DB_PORT}
+      DB_SCHEMA: ${DB_SCHEMA}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+    networks:
+      - backend-network
+
+  common-data-service:
+    container_name: common-data-service
+    build:
+      context: ./server/common-data-service
+      dockerfile: Dockerfile
+    ports:
+      - ${COMMON_DATA_SERVICE_PORT}:${COMMON_DATA_SERVICE_PORT}
+    environment:
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      PORT: ${COMMON_DATA_SERVICE_PORT}
+      ACTIVE_PROFILE: ${ACTIVE_PROFILE}
+      DB_HOST: bdd
+      DB_PORT: ${DB_PORT}
+      DB_SCHEMA: ${DB_SCHEMA}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+    networks:
+      - backend-network
+
+  search-suggestion-service:
+    container_name: search-suggestion-service
+    build:
+      context: ./server/search-suggestion-service
+      dockerfile: Dockerfile
+    ports:
+      - ${SEARCH_SUGGESTION_SERVICE_PORT}:${SEARCH_SUGGESTION_SERVICE_PORT}
+    environment:
+      PORT: ${SEARCH_SUGGESTION_SERVICE_PORT}
+      DB_PORT: ${DB_PORT}
+      DB_SCHEMA: ${DB_SCHEMA}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+    networks:
+      - backend-network
+    
+
+  # Frontend
+  react-nginx:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: react-nginx
+    ports:
+      - 80:80
+    networks:
+      -  backend-network
+
+
+networks:
+  backend-network:
+    driver: bridge
+
+
+volumes:
+  db_data:
