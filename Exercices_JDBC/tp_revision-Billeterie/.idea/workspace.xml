@@ -5,13 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6216f15f-5595-43d7-9f4b-81490d006e26" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../JPA/TP_JPA/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../JPA/TP_JPA/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ManagementBook/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../ManagementBook/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../TP_Billeterie/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP_Billeterie/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../TP_Billeterie/.idea/libraries/Maven__com_github_lalyos_jfiglet_0_0_8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../TP_Billeterie/.idea/libraries/Maven__org_projectlombok_lombok_1_18_30.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../TP_Billeterie/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP_Billeterie/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../spring/TP_Blog - rest/src/main/resources/templates/formerror.html" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Classes/Ihm/Ihm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Classes/Ihm/Ihm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/EventDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/EventDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/EventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/EventService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/DatabaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/Classes/Ihm/Ihm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/Classes/Ihm/Ihm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/dao/CustomerDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/dao/CustomerDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/dao/EventDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/dao/EventDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/dao/LocationDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/dao/LocationDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/models/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/models/Customer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/models/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/models/Event.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/models/Location.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/models/Location.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/models/Tickets.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/models/Tickets.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/service/CustomerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/service/CustomerService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/service/EventService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/service/EventService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/service/LocationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/service/LocationService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/utils/DatabaseManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/utils/DatabaseManager.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,12 +64,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/clemencepetit/Desktop/ExerciceJavaVF/Exercices_Java/Exercices_JDBC/tp_revision-Billeterie",
+    "last_opened_file_path": "C:/Users/Administrateur/Desktop/Exercices_Java/Exercices_JDBC/tp_revision-Billeterie",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -63,12 +81,17 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql_aurora_aws"
+    ]
   }
 }]]></component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
-      <module name="tp_revision-Billeterie" />
+      <module name="Tp_Revision" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.example.*" />
@@ -88,7 +111,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.9-corretto-17.0.9-f644763e9732-203781b8" />
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
       </set>
     </attachedChunks>
   </component>
@@ -102,6 +125,7 @@
       <updated>1703152869469</updated>
       <workItem from="1704382907515" duration="849000" />
       <workItem from="1710237543179" duration="46000" />
+      <workItem from="1712560964761" duration="3645000" />
     </task>
     <servers />
   </component>
@@ -118,5 +142,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/dao/EventDao.java</url>
+          <line>101</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -1,23 +1,31 @@
 package org.example.models;
 
+import lombok.*;
 import org.example.dao.LocationDao;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Event {
     
     private int id;
     private String name;
-    private Date date;
-    private Time hour;
+    private LocalDate date;
+    private LocalTime hour;
     private int idLocation;
     private  float price;
     private int numberticketsSold=0;
 
 
-    public Event(int id, String name, Date date, Time hour, int idLocation, float price, int numberticketsSold) {
-        this.id = id;
+
+    public Event(String name, LocalDate date, LocalTime hour, int idLocation, float price, int numberticketsSold) {
         this.name = name;
         this.date = date;
         this.hour = hour;
@@ -26,23 +34,7 @@ public class Event {
         this.numberticketsSold = numberticketsSold;
     }
 
-    public Event(String name, Date date, Time hour, int idLocation, float price, int numberticketsSold) {
-        this.name = name;
-        this.date = date;
-        this.hour = hour;
-        this.idLocation = idLocation;
-        this.price = price;
-        this.numberticketsSold = numberticketsSold;
-    }
 
-    public Event(String name, Date date, Time hour, int idLocation, float price) {
-        this.name = name;
-        this.date = date;
-        this.hour = hour;
-        this.idLocation = idLocation;
-        this.price = price;
-        this.numberticketsSold = 0;
-    }
 
     public Event(int id, String name, int numberticketsSold) {
         this.id = id;
@@ -74,45 +66,6 @@ public class Event {
     }
 
 
-    public String getname() {
-        return name;
-    }
-
-    public void setname(String name) {
-        this.name = name;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Time gethour() {
-        return hour;
-    }
-
-    public void sethour(Time hour) {
-        this.hour = hour;
-    }
-
-    public int getIdLocation() {
-        return idLocation;
-    }
-
-    public void setIdLocation(int idLocation) {
-        this.idLocation = idLocation;
-    }
-
-    public float getprice() {
-        return price;
-    }
-
-    public void setprice(float price) {
-        this.price = price;
-    }
 
     public int getnumberticketsSold() {
         return numberticketsSold;
@@ -124,10 +77,12 @@ public class Event {
 
     @Override
     public String toString() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         return "Evenement{" +
                 "name='" + name + '\'' +
-                ", date=" + date +
-                ", hour='" + hour + '\'' +
+                ", date=" + date.format(dateFormatter) +
+                ", hour='" + hour.format(timeFormatter) + '\'' +
                 ", lieu=" + idLocation +
                 ", price=" + price +
                 ", numberticketsSold=" + numberticketsSold +

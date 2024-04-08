@@ -5,9 +5,9 @@ import org.example.models.Customer;
 import org.example.models.Event;
 import org.example.models.Location;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +20,11 @@ public class EventDao extends BaseDao<Event> {
     public boolean save(Event element) throws SQLException{
         request = "INSERT INTO events (event_name,date_event,hour_event,id_location,price,number_tickets_sold ) VALUES (?, ?, ?, ?, ?, ?) ";
         preparedStatement = _connection.prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
-        preparedStatement.setString(1, element.getname());
-        preparedStatement.setDate(2, new java.sql.Date(element.getDate().getTime()));
-        preparedStatement.setTime(3, new java.sql.Time(element.getDate().getTime()));
+        preparedStatement.setString(1, element.getName());
+        preparedStatement.setDate(2, Date.valueOf(element.getDate()));
+        preparedStatement.setTime(3, Time.valueOf(element.getHour()));
         preparedStatement.setInt(4, element.getIdLocation());
-        preparedStatement.setFloat(5, element.getprice());
+        preparedStatement.setFloat(5, element.getPrice());
         preparedStatement.setInt(6, element.getnumberticketsSold());
         int nbRows = preparedStatement.executeUpdate();
         resultSet = preparedStatement.getGeneratedKeys();
@@ -38,11 +38,11 @@ public class EventDao extends BaseDao<Event> {
     public boolean update(Event element) throws SQLException {
         request = "UPDATE  events SET event_name  = ? , date_event = ?, hour_event = ?, id_location = ?, price = ?, number_tickets_sold = ?  WHERE id_event = ? ";
         preparedStatement = _connection.prepareStatement(request);
-        preparedStatement.setString(1, element.getname());
-        preparedStatement.setDate(2, new java.sql.Date(element.getDate().getTime()));
-        preparedStatement.setTime(3, new java.sql.Time(element.getDate().getTime()));
+        preparedStatement.setString(1, element.getName());
+        preparedStatement.setDate(2, Date.valueOf(element.getDate()));
+        preparedStatement.setTime(3, Time.valueOf(element.getHour()));
         preparedStatement.setInt(4, element.getIdLocation());
-        preparedStatement.setFloat(5, element.getprice());
+        preparedStatement.setFloat(5, element.getPrice());
         preparedStatement.setInt(6, element.getnumberticketsSold());
         preparedStatement.setInt(7, element.getId());
         int nbRows = preparedStatement.executeUpdate();
@@ -66,8 +66,12 @@ public class EventDao extends BaseDao<Event> {
         preparedStatement.setInt(1, id);
         resultSet = preparedStatement.executeQuery();
         if(resultSet.next()){
+            java.sql.Date dateEvent = resultSet.getDate("date_event");
+            java.sql.Time timeEvent = resultSet.getTime("hour_event");
+            LocalDate date = dateEvent.toLocalDate();
+            LocalTime time = timeEvent.toLocalTime();
             event = new Event(resultSet.getInt("id_event"), resultSet.getString("event_name"),
-            resultSet.getDate("date_event"),resultSet.getTime("hour_event"),
+            date,time,
             resultSet.getInt("id_location"),resultSet.getFloat("price"),
                     resultSet.getInt("number_tickets_sold"));
         }
@@ -81,8 +85,12 @@ public class EventDao extends BaseDao<Event> {
         preparedStatement = _connection.prepareStatement(request);
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()){
+            java.sql.Date dateEvent = resultSet.getDate("date_event");
+            java.sql.Time timeEvent = resultSet.getTime("hour_event");
+            LocalDate date = dateEvent.toLocalDate();
+            LocalTime time = timeEvent.toLocalTime();
             Event  event = new Event(resultSet.getInt("id_event"), resultSet.getString("event_name"),
-                    resultSet.getDate("date_event"),resultSet.getTime("hour_event"),
+                   date,time,
                     resultSet.getInt("id_location"),resultSet.getFloat("price"),
                     resultSet.getInt("number_tickets_sold"));
             eventList.add(event);
@@ -92,12 +100,14 @@ public class EventDao extends BaseDao<Event> {
 
 public List<Event> getEventsAvailable() throws SQLException {
     List<Event> eventListAvailable = new ArrayList<>();
-    request = " SELECT id_event, event_name, capacity, number_tickets_sold FROM events INNER JOIN locations " +
+    request = " SELECT id_event, event_name, date_event, hour_event,events.id_location, price, capacity, number_tickets_sold FROM events INNER JOIN locations " +
             "ON locations.id_location = events.id_location WHERE (capacity - number_tickets_sold) > 0";
     preparedStatement = _connection.prepareStatement(request);
     resultSet = preparedStatement.executeQuery();
     while (resultSet.next()){
         Event  event = new Event(resultSet.getInt("id_event"), resultSet.getString("event_name"),
+                resultSet.getDate("date_event").toLocalDate(), resultSet.getTime("hour_event").toLocalTime(),
+                resultSet.getInt("id_location"),resultSet.getFloat("price"),
                 resultSet.getInt("number_tickets_sold"));
         eventListAvailable.add(event);
     }

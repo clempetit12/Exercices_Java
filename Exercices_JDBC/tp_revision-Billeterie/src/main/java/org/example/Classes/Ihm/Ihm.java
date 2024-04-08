@@ -13,6 +13,9 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Ihm {
@@ -224,16 +227,15 @@ public class Ihm {
                     System.out.println("entrer le nom de l'evenement:");
                     String nom = s.next();
 
-                    System.out.println("entrer la date de l'evenement (format dd-MM-yyyy):");
-                    String date_string = s.next();
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                    Date date = formatter.parse(date_string);
+                    System.out.println("Entrez la date de l'événement (format dd-MM-yyyy) :");
+                    String dateString = s.next();
+                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                    LocalDate date = LocalDate.parse(dateString, dateFormatter);
 
-                    System.out.println("entrer l'heure de l'evenement :");
-                    String heure = s.next();
-                    DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-                    Date timeDate = timeFormatter.parse(heure);
-                    Time hour = new Time(timeDate.getTime());
+                    System.out.println("Entrez l'heure de l'événement (format HH:mm:ss) :");
+                    String heureString = s.next();
+                    DateTimeFormatter heureFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                    LocalTime hour = LocalTime.parse(heureString, heureFormatter);
 
                     System.out.println();
 
@@ -252,8 +254,6 @@ public class Ihm {
                 this.menuLieux();
             } catch (IndexOutOfBoundsException e) {
                 this.menuLieux();
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
             }
         } catch (InputMismatchException e) {
             System.out.println("entrer une valeur numerique ");
@@ -273,16 +273,15 @@ public class Ihm {
             System.out.println("entrer le nom de l'evenement:");
             String nom = s.next();
 
-            System.out.println("entrer la date de l'evenement (format dd-MM-yyyy):");
-            String date_string = s.next();
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-            Date date = formatter.parse(date_string);
+            System.out.println("Entrez la date de l'événement (format dd-MM-yyyy) :");
+            String dateString = s.next();
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate date = LocalDate.parse(dateString, dateFormatter);
 
-            System.out.println("entrer l'heure de l'evenement format HH:mm:ss :");
-            String heure = s.next();
-            DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-            Date timeDate = timeFormatter.parse(heure);
-            Time hour = new Time(timeDate.getTime());
+            System.out.println("Entrez l'heure de l'événement (format HH:mm:ss) :");
+            String heureString = s.next();
+            DateTimeFormatter heureFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+            LocalTime hour = LocalTime.parse(heureString, heureFormatter);
 
             System.out.println();
 
@@ -300,8 +299,6 @@ public class Ihm {
         } catch (InputMismatchException e) {
             System.out.println("entrer une valeur numerique ");
             this.addEvenement();
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
         }
     }
 

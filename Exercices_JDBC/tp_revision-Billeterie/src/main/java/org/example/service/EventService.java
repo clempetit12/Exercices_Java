@@ -12,6 +12,8 @@ import org.example.utils.DatabaseManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class EventService {
         }
     }
 
-    public Event createAndSaveEvent(String eventName, Date dateEvent, Time timeEvent, int idLocation, float price, int numberTicketsSold) {
+    public Event createAndSaveEvent(String eventName, LocalDate dateEvent, LocalTime timeEvent, int idLocation, float price, int numberTicketsSold) {
         Event event = new Event(eventName,dateEvent,timeEvent,idLocation,price,numberTicketsSold);
         try {
             if (eventDao.save(event)) {

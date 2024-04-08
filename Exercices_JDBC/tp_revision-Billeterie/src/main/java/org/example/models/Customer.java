@@ -30,7 +30,7 @@ public class Customer {
 
     public void annulerBillet (Event event){
         if(event.annulerBillet()){
-           this.listeBillets = this.listeBillets.stream().filter(e -> e.getname() != event.getname()).collect(Collectors.toList());
+           this.listeBillets = this.listeBillets.stream().filter(e -> e.getName() != event.getName()).collect(Collectors.toList());
             System.out.println("le billet pour l'evenement "+event+" a bien ete annuler");
         }
     }
