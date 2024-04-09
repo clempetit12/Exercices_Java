@@ -64,13 +64,13 @@ public class Table {
 
 
         JButton details = new JButton("Détails");
-        details.addActionListener(   e ->    showUserDetailsDialog(name, email, gender));
+        details.addActionListener(   e ->    showUserDetailsDialog());
         details.setPreferredSize(new Dimension(375, 30));
         panel.add(scrollPane, BorderLayout.CENTER);
         panel.add(details);
     }
 
-    private void showUserDetailsDialog(String name, String email, String gender) {
+    private void showUserDetailsDialog() {
         JOptionPane.showMessageDialog(panel, "Nom: " + name + "\nEmail: " + email + "\nGenre: " + gender, "Détails de l'utilisateur", JOptionPane.INFORMATION_MESSAGE);
     }
 
