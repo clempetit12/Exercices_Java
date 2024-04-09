@@ -2,7 +2,9 @@ package org.example.tp_blog.controller;
 
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.example.tp_blog.dto.PostDto;
 import org.example.tp_blog.dto.UsersDto;
@@ -47,18 +49,25 @@ private final UserService userService;
 
 
     @GetMapping
-    public String home(Model model) {
+    public String home(Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String token = (String) session.getAttribute("token");
+        if (token != null) {
+            model.addAttribute("token", token);
+        }
         List<PostDto> posts = postService.getAll();
-
         model.addAttribute("posts", posts);
-
-
         return "home";
     }
 
 
     @GetMapping(value = "/detail/{postId}")
-    public String showDetail(@PathVariable("postId") int id, Model model) {
+    public String showDetail(@PathVariable("postId") int id, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        String token = (String) session.getAttribute("token");
+        if (token != null) {
+            model.addAttribute("token", token);
+        }
         PostDto postDto = postService.getById(id);
         model.addAttribute("post", postDto);
         return "detail";
@@ -68,7 +77,12 @@ private final UserService userService;
 
 
     @GetMapping("/add")
-    public String form(Model model) {
+    public String form(Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String token = (String) session.getAttribute("token");
+        if (token != null) {
+            model.addAttribute("token", token);
+        }
         model.addAttribute("post", new PostDto());
         return "postForm";
     }
@@ -108,20 +122,6 @@ private final UserService userService;
 
     }
 
-  /*      if (!image.isEmpty()) {
-            String imageName = image.getOriginalFilename();
-            Path destinationFile = Paths.get(location).resolve(Paths.get(imageName)).toAbsolutePath();
-            InputStream stream = image.getInputStream();
-            Files.copy(stream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
-            postDto.setImage(imageName);
-            postService.add(postDto);
-        }
-
-        if (postDto.getId() != 0) {
-            postService.update(postDto);
-        } else {
-
-        }*/
 
 
     @GetMapping("/delete")

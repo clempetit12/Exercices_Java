@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+  # Database
+  bddBlog:
+    container_name: bddBlog
+    image: mysql
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 2554
+      DB_SCHEMA: ${MYSQL_DATABASE}
+    networks:
+      - backend-network
+
+  # Backend
+  blog:
+    container_name: blog-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 7000:7000
+    networks:
+      - backend-network
+    depends_on:
+      - bddBlog
+  phpmyadmin:
+    depends_on:
+      - bddBlog
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "8090:80"
+    environment:
+      PMA_HOST: db
+    networks:
+      - backend-network
+
+networks:
+  backend-network:
+    driver: bridge
+
+volumes:
+  db_data:

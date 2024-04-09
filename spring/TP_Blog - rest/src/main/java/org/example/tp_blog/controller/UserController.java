@@ -1,7 +1,9 @@
 package org.example.tp_blog.controller;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.example.tp_blog.dto.UsersDto;
 import org.example.tp_blog.service.UserService;
@@ -54,12 +56,15 @@ public class UserController {
     @PostMapping("/login")
     public String login(@RequestParam("email") String email,
                         @RequestParam("password") String password,
+                        HttpServletRequest request,
                         RedirectAttributes redirectAttributes, HttpServletResponse response, Model model) {
         if(userService.checkUserNameExists(email)) {
             if(userService.verifyUser(email,password)) {
                 Map<String, Object> data = new HashMap<>();
                 String token = userService.generateToken(email,password);
                 redirectAttributes.addFlashAttribute("token", token);
+                HttpSession session = request.getSession();
+                session.setAttribute("token", token);
                 return "redirect:/";
             }else {
                 redirectAttributes.addAttribute("error", "Invalid email or password");
