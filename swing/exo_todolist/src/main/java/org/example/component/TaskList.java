@@ -43,17 +43,17 @@ private JPanel buttons;
         buttons = new JPanel(new FlowLayout());
        add = new JButton("Add");
        add.addActionListener(e -> addTask());
-        add.setIcon(new ImageIcon("C:\\Users\\Administrateur\\Desktop\\Exercices_Java\\swing\\exo_todolist\\src\\main\\java\\org\\example\\assets\\icons8-ajouter-32.png"));
+        add.setIcon(new ImageIcon("src/main/java/org/example/assets/icons8-ajouter-32.png"));
 
 
        delete = new JButton("Delete");
         delete.addActionListener(e -> deleteTask());
-        delete.setIcon(new ImageIcon("C:\\Users\\Administrateur\\Desktop\\Exercices_Java\\swing\\exo_todolist\\src\\main\\java\\org\\example\\assets\\icons8-supprimer-30.png"));
+        delete.setIcon(new ImageIcon("src/main/java/org/example/assets/icons8-supprimer-30.png"));
 
 
         complete = new JButton("Complete");
         complete.addActionListener(e -> completeTask());
-        complete.setIcon(new ImageIcon("C:\\Users\\Administrateur\\Desktop\\Exercices_Java\\swing\\exo_todolist\\src\\main\\java\\org\\example\\assets\\icons8-done-26.png"));
+        complete.setIcon(new ImageIcon("src/main/java/org/example/assets/icons8-done-26.png"));
 
         buttons.add(add);
         buttons.add(delete);
@@ -74,9 +74,6 @@ private JPanel buttons;
             taskList.repaint();
         }
     }
-
-
-
 
 
     private void deleteTask() {

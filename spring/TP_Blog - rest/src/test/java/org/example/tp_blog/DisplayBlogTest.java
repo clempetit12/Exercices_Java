@@ -1,5 +1,6 @@
 package org.example.tp_blog;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.example.tp_blog.controller.PostController;
 import org.example.tp_blog.dto.PostDto;
 import org.example.tp_blog.entity.Post;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.ui.Model;
 
 import java.time.LocalDate;
@@ -31,6 +33,9 @@ public class DisplayBlogTest {
     private PostServiceImpl postService;
 
     @Mock
+    private  HttpServletRequest request;
+
+    @Mock
     private Model model;
 
     @BeforeEach
@@ -45,7 +50,8 @@ public class DisplayBlogTest {
         posts.add(new PostDto("Title 2", "Description 2", "description",LocalDate.of(2024, 4, 4)));
         when(postService.getAll()).thenReturn(posts);
 
-        String viewName = postController.home(model);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        String viewName = postController.home(model,request);
 
         assertEquals("home", viewName);
         Mockito.verify(model).addAttribute("posts", posts);
