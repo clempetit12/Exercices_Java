@@ -40,6 +40,7 @@ public class Form {
         panel.setBorder(titledBorder);
 
 
+
         name = new JLabel("Nom:");
         inputName = new JTextField(20);
 

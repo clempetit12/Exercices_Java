@@ -9,6 +9,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.ArrayList;
 
 @Getter
@@ -17,15 +18,13 @@ public class Table {
 
     private ArrayList users = new ArrayList<>();
     private JPanel panel;
-    private JTextField inputName;
-    private JTextField inputEmail;
-    private JLabel title;
-    private JLabel name;
-    private JLabel email;
-    private JLabel gendra;
     JScrollPane scrollPane;
     private JTable table;
     private DefaultTableModel tableModel;
+    private String gender;
+    private String name;
+    private String email;
+
 
 
     public Table( ) {
@@ -36,7 +35,7 @@ public class Table {
 
 
 
-        panel = new JPanel();
+        panel = new JPanel(new FlowLayout());
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Tableau de données");
         panel.setBorder(titledBorder);
         tableModel =new DefaultTableModel();
@@ -44,24 +43,31 @@ public class Table {
         tableModel.addColumn("Email");
         tableModel.addColumn("Genre");
         table = new JTable(tableModel);
+
         scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(375, 300));
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                     int selectedRow = table.getSelectedRow();
                     if (selectedRow >= 0) {
-                        String name = (String) tableModel.getValueAt(selectedRow, 0);
-                        String email = (String) tableModel.getValueAt(selectedRow, 1);
-                        String gender = (String) tableModel.getValueAt(selectedRow, 2);
+                        name = (String) tableModel.getValueAt(selectedRow, 0);
+                        email = (String) tableModel.getValueAt(selectedRow, 1);
+                        gender = (String) tableModel.getValueAt(selectedRow, 2);
                         System.out.println("Nom: " + name + ", Email: " + email + ", Genre: " + gender);
-                        showUserDetailsDialog(name, email, gender);
+
                     }
                 }
             }
         });
 
-        panel.add(scrollPane);
+
+        JButton details = new JButton("Détails");
+        details.addActionListener(   e ->    showUserDetailsDialog(name, email, gender));
+        details.setPreferredSize(new Dimension(375, 30));
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(details);
     }
 
     private void showUserDetailsDialog(String name, String email, String gender) {
