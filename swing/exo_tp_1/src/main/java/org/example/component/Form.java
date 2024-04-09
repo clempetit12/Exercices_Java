@@ -93,7 +93,7 @@ public class Form {
         String email = inputEmail.getText();
         String gendra = selectedGendra;
 
-        User user = new User(name, email,selectedGendra );
+        User user = new User(name, email,gendra );
         users.add(user);
         table.addUser(user);
 
