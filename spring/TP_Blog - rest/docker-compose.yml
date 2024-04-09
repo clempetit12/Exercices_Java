@@ -2,50 +2,52 @@ version: "3"
 
 services:
   # Database
-  bddBlog:
-    container_name: bddBlogContainer
+  bdd:
+    container_name: bdd
     image: mysql
     volumes:
       - db_data:/var/lib/mysql
     restart: always
     ports:
-      - 3308:3306
+      - 3307:${DB_PORT}
     environment:
-      MYSQL_ROOT_PASSWORD: 2554
-      MYSQL_DATABASE: blog
+      MYSQL_ROOT_PASSWORD: 25542554
+      MYSQL_ROOT_USER: root
+      DB_SCHEMA: ${MYSQL_DATABASE}
     networks:
       - backend-network
 
   # Backend
-  blog:
+  blog-service:
     container_name: blog-service
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8091:80
+      -  ${BLOG_PORT}:${BLOG_PORT}
     environment:
-      PORT: 8091
-      DB_SCHEMA: blog
+      DB_HOST: bdd
+      DB_PORT: ${DB_PORT}
+      DB_SCHEMA: ${DB_SCHEMA}
       DB_USER: root
-      DB_PASS: 2554
+      DB_PASS: ${MYSQL_ROOT_PASSWORD}
     networks:
       - backend-network
     depends_on:
-      - bddBlog
-
+      - bdd
 
   phpmyadmin:
     depends_on:
-      - bddBlog
+      - bdd
     image: phpmyadmin
     restart: always
     ports:
       - "8094:80"
     environment:
-      PMA_HOST: bddBlog
+      PMA_HOST: bdd
     networks:
       - backend-network
+
 
 networks:
   backend-network:
