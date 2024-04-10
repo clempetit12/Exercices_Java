@@ -1,28 +1,31 @@
-FROM maven:3.9.6-eclipse-temurin-17-alpine AS base
+
+#
+FROM maven:3.8.3-openjdk-17 AS build
 
 WORKDIR /app
 
+# Copie du fichier pom.xml et téléchargement des dépendances
 COPY pom.xml .
-
 RUN mvn dependency:go-offline
 
 
-FROM base AS dev
-
 COPY src ./src
+COPY upload-dir ./upload-dir
 
-CMD ["mvn", "spring-boot:run"]
+RUN mvn package -DskipTests
 
 
-#FROM base AS build
-#
-#COPY src ./src
-#
-#RUN mvn clean package -DskipTests
-#
-#
-#FROM amazoncorretto:17-alpine3.18 as prod
-#
-#COPY --from=build /app/target/*.jar app.jar
-#
-#ENTRYPOINT ["java", "-jar","/app.jar"]
+FROM openjdk:17
+
+WORKDIR /app
+
+# Copie de l'artifact JAR depuis l'étape précédente
+COPY --from=build /app/target/TP_Blog-0.0.1-SNAPSHOT.jar .
+
+COPY --from=build /app/upload-dir/* .
+
+# Exposition du port 8080
+EXPOSE 8080
+
+# Exécution de l'application Spring Boot
+ENTRYPOINT ["java", "-jar", "TP_Blog-0.0.1-SNAPSHOT.jar"]
