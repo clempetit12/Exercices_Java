@@ -58,6 +58,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/upload-dir/**", "/register", "/login", "/detail/**","/add").permitAll()
+                        .requestMatchers("/addComment/**").hasAnyRole("USER")
                         .anyRequest().authenticated()
                 )
                 .logout( logout ->
