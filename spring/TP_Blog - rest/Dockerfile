@@ -22,7 +22,7 @@ WORKDIR /app
 # Copie de l'artifact JAR depuis l'étape précédente
 COPY --from=build /app/target/TP_Blog-0.0.1-SNAPSHOT.jar .
 
-COPY --from=build /app/upload-dir/* .
+COPY --from=build /app/upload-dir ./upload-dir
 
 # Exposition du port 8080
 EXPOSE 8080
