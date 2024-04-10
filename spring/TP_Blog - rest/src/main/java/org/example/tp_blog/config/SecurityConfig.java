@@ -57,10 +57,8 @@ public class SecurityConfig {
                .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/upload-dir/**", "/register", "/login", "/detail/**").permitAll()
-                        .requestMatchers("/add").hasRole("USER")
+                        .requestMatchers("/", "/upload-dir/**", "/register", "/login", "/detail/**","/add").permitAll()
                         .anyRequest().authenticated()
-
                 )
                 .logout( logout ->
                         logout.logoutUrl("/logout")
