@@ -1,6 +1,9 @@
 package org.example.view;
 
+import org.example.view.dialog.DeleteDialog;
+import org.example.view.dialog.DisplayDialog;
 import org.example.view.dialog.InsertDialog;
+import org.example.view.dialog.UpdateDialog;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -56,15 +59,48 @@ public class MainFrame extends JFrame {
 
 
 
+
         JButton btnUpdate = new JButton("Update");
+
+        btnUpdate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateDialog dialog = new UpdateDialog();
+                //   dialog.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
+                dialog.setLocationRelativeTo(jPanel);
+                dialog.setVisible(true);
+            }
+        });
+
+
 
        btnUpdate.setBounds(156,23, 100, 25);
 
         JButton btnDelete = new JButton("Delete");
 
+            btnDelete .addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               DeleteDialog dialog = new DeleteDialog();
+               //   dialog.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
+               dialog.setLocationRelativeTo(jPanel);
+               dialog.setVisible(true);
+           }
+       });
+
        btnDelete.setBounds(276,23, 100, 25);
 
        JButton btnDisplay = new JButton("Display");
+
+       btnDisplay.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               DisplayDialog dialog = new DisplayDialog();
+               //   dialog.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
+               dialog.setLocationRelativeTo(jPanel);
+               dialog.setVisible(true);
+           }
+       });
 
        btnDisplay.setBounds(156,73, 100, 25);
 
