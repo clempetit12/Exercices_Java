@@ -82,7 +82,7 @@ public class UpdateDialog extends JDialog {
                 } else {
                     JOptionPane.showMessageDialog(null, "Record not found for given id !");
                 }
-                dispose();
+
             }
         });
         jButton.addActionListener(new ActionListener() {
