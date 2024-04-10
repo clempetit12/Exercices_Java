@@ -58,9 +58,11 @@ public class DeleteDialog extends JDialog {
             Contact foundContact = contactDao1.search(contactId);
             if (foundContact != null) {
                contactDao1.deleteContact(foundContact.getId());
-                JOptionPane.showMessageDialog(null, "Record deleted !");
+
+                JOptionPane.showMessageDialog(null, "Record deleted !", "Message", JOptionPane.INFORMATION_MESSAGE);
+
             } else {
-                JOptionPane.showMessageDialog(null, "Contact not found");
+                JOptionPane.showMessageDialog(null, "Contact not found", "Message", JOptionPane.INFORMATION_MESSAGE);
             }
             dispose();
         }

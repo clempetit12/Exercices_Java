@@ -96,9 +96,9 @@ public class UpdateDialog extends JDialog {
                 ContactDao contactDao1 = new ContactDao();
                 int count = contactDao1.update(contactId,contactUpdate);
                 if (count > 0) {
-                    JOptionPane.showMessageDialog(null, "Record updated successfully !!");
+                    JOptionPane.showMessageDialog(null, "Record updated successfully !", "Message", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Record failed !!");
+                    JOptionPane.showMessageDialog(null, "Record updated failed !", "Message", JOptionPane.INFORMATION_MESSAGE);
                 }
                 dispose();
             }
