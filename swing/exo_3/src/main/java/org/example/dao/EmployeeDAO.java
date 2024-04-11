@@ -1,5 +1,7 @@
 package org.example.dao;
 
+import org.example.controller.DepartmentController;
+import org.example.model.Department;
 import org.example.model.Employee;
 import org.example.model.Role;
 import org.example.utils.ConnexionDB;
@@ -67,7 +69,7 @@ public class EmployeeDAO {
         Employee employee = null;
         try {
             con = ConnexionDB.getConnection();
-            ps = con.prepareStatement("SELECT firstName,lastName, role, departmentId FROM employee WHERE id = ?");
+            ps = con.prepareStatement("SELECT id, firstName,lastName, role, departmentId FROM employee WHERE id = ?");
             ps.setInt(1, id);
             rs = ps.executeQuery();
 
@@ -129,7 +131,48 @@ public class EmployeeDAO {
                 employee.setFirstName(rs.getString("firstName"));
                 employee.setLastName(rs.getString("lastName"));
                 employee.setRole(Role.valueOf(rs.getString("role")));
-                employee.setId(rs.getInt("departmentId"));
+                employee.setDepartmentId(rs.getInt("departmentId"));
+                employees.add(employee);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return employees;
+    }
+
+    public List<Employee> getEmployeeByDepartmentId(int id) {
+        List<Employee> employees = new ArrayList<>();
+        ResultSet rs = null;
+
+        try {
+            con = ConnexionDB.getConnection();
+            ps = con.prepareStatement("SELECT * FROM `employee` WHERE id = ?");
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Employee employee = new Employee();
+                employee.setId(rs.getInt("id"));
+                employee.setFirstName(rs.getString("firstName"));
+                employee.setLastName(rs.getString("lastName"));
+                employee.setRole(Role.valueOf(rs.getString("role")));
+                employee.setDepartmentId(rs.getInt("departmentId"));
                 employees.add(employee);
             }
         } catch (SQLException e) {

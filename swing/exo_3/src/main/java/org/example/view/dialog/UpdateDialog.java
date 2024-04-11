@@ -16,6 +16,8 @@ public class UpdateDialog extends JDialog {
     private String lastName;
     private Role role;
 
+    public static final String EMPLOYEE_ADDED_EVENT = "EmployeeUpdated";
+
     private JPanel contentPanel;
     private JTextField lastNameField;
 
@@ -75,10 +77,11 @@ public class UpdateDialog extends JDialog {
                 Employee employee = employeeController.searchEmployee(employeeId);
                 System.out.println(employee);
                 employee.setLastName(lastNameField.getText());
-                Role selectedRole = (Role) roleComboBox.getSelectedItem();
+                Role selectedRole = Role.valueOf(roleComboBox.getSelectedItem().toString());
                employee.setRole(selectedRole);
                 if (employeeController.updateEmployee(employeeId,employee)) {
                     JOptionPane.showConfirmDialog(null, "Operation succeed");
+                    firePropertyChange(EMPLOYEE_ADDED_EVENT, null, employee);
                 } else {
                     JOptionPane.showConfirmDialog(null, "Operation Failed");
                 }

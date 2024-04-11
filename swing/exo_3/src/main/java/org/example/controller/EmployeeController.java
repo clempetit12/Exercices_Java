@@ -3,6 +3,8 @@ package org.example.controller;
 import org.example.dao.EmployeeDAO;
 import org.example.model.Employee;
 
+import java.util.List;
+
 public class EmployeeController {
 
     private EmployeeDAO employeeDAO = new EmployeeDAO();
@@ -29,5 +31,21 @@ public class EmployeeController {
         employeeDAO.updateEmployee(id,employee);
         return true;
     }
+
+    public boolean deleteEmployee(int id) {
+        employeeDAO.deleteEmployee(id);
+        return true;
+    }
+
+    public List<Employee> displayAll() {
+       return employeeDAO.display();
+    }
+
+    public List<Employee> getEmployeeByDepartmentId(int id) {
+        return employeeDAO.getEmployeeByDepartmentId(id);
+    }
+
+
+
 
 }

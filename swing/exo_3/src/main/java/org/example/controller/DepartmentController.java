@@ -24,6 +24,15 @@ public class DepartmentController {
         return departmentDAO.display();
     }
 
+    public boolean addDepartment(Department department) {
+        departmentDAO = new DepartmentDAO();
+        if ( departmentDAO.addDepartment(department) > 1) {
+            return true;
+        }
+
+         return false;
+    }
+
 
 
 }

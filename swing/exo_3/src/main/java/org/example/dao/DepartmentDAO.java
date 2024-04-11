@@ -1,5 +1,6 @@
 package org.example.dao;
 
+import org.example.controller.EmployeeController;
 import org.example.model.Department;
 import org.example.model.Employee;
 import org.example.model.Role;
@@ -20,14 +21,11 @@ public class DepartmentDAO {
 
     private PreparedStatement ps;
 
-    public int addEmployee(Employee employee) {
+    public int addDepartment(Department department) {
         con = ConnexionDB.getConnection();
         try {
-            ps = con.prepareStatement("INSERT INTO `employee`(`firstName`,`lastName`,`role`, `departmentId`)values(?,?,?)");
-            ps.setString(1, employee.getFirstName());
-            ps.setString(2, employee.getLastName());
-            ps.setString(3, String.valueOf(employee.getRole()));
-            ps.setString(4, String.valueOf(employee.getDepartmentId()));
+            ps = con.prepareStatement("INSERT INTO `department`(`name`) values(?)");
+            ps.setString(1, department.getName());
 
             return ps.executeUpdate();
 
@@ -38,15 +36,19 @@ public class DepartmentDAO {
 
     }
 
-    public int updateEmployee(int id, Employee employee) {
+    public int updateDepartment(int id, Department department) {
         con = ConnexionDB.getConnection();
         try {
-            ps = con.prepareStatement("UPDATE employee SET firstName = ?,lastName = ?,  role = ?, departmentId = ? WHERE id = ?");
-            ps.setString(1, employee.getFirstName());
-            ps.setString(1, employee.getLastName());
-            ps.setString(2, String.valueOf(employee.getRole()));
-            ps.setInt(3, employee.getDepartmentId());
-            ps.setInt(4, id);
+
+            EmployeeController employeeController = new EmployeeController();
+            List<Employee> employees = employeeController.getEmployeeByDepartmentId(department.getId());
+             for (Employee e : employees) {
+                 e.setDepartmentId(id);
+                 employeeController.updateEmployee(e.getId(),e);
+             }
+            ps = con.prepareStatement("UPDATE department SET name = ? WHERE id = ?");
+            ps.setString(1, department.getName());
+            ps.setInt(2, id);
             return ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -65,21 +67,20 @@ public class DepartmentDAO {
         }
     }
 
-    public Employee search(int id) {
-        Employee employee = null;
+    public Department search(int id) {
+        Department department = null;
         try {
             con = ConnexionDB.getConnection();
-            ps = con.prepareStatement("SELECT firstName,lastName, role, departmentId FROM employee WHERE id = ?");
+            ps = con.prepareStatement("SELECT name FROM department WHERE id = ?");
             ps.setInt(1, id);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                employee = new Employee();
-                employee.setId(rs.getInt("id"));
-                employee.setFirstName(rs.getString("firstName"));
-                employee.setLastName(rs.getString("lastName"));
-                employee.setRole(Role.valueOf(rs.getString("role")));
-                employee.setDepartmentId(rs.getInt("departmentId"));
+                department = new Department();
+                department.setId(rs.getInt("id"));
+                department.setName(rs.getString("name"));
+
+
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -99,14 +100,14 @@ public class DepartmentDAO {
             }
         }
 
-        return employee;
+        return department;
     }
 
 
-    public int deleteEmployee(int id) {
+    public int deleteDepartment(int id) {
         con = ConnexionDB.getConnection();
         try {
-            ps = con.prepareStatement("DELETE  FROM employee WHERE id = ?");
+            ps = con.prepareStatement("DELETE  FROM department WHERE id = ?");
             ps.setInt(1, id);
             return ps.executeUpdate();
         } catch (SQLException e) {
@@ -122,7 +123,10 @@ public class DepartmentDAO {
 
         try {
             con = ConnexionDB.getConnection();
-            ps = con.prepareStatement("SELECT * FROM `department`");
+            ps = con.prepareStatement("SELECT d.id, d.name, COUNT(e.id) AS employee_count " +
+                    "FROM department d " +
+                    "LEFT JOIN employee e ON d.id = e.departmentId " +
+                    "GROUP BY d.id, d.name");
             rs = ps.executeQuery();
 
             while (rs.next()) {
