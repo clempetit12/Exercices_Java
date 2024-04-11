@@ -41,10 +41,10 @@ public class EmployeeDAO {
         try {
             ps = con.prepareStatement("UPDATE employee SET firstName = ?,lastName = ?,  role = ?, departmentId = ? WHERE id = ?");
             ps.setString(1, employee.getFirstName());
-            ps.setString(1, employee.getLastName());
-            ps.setString(2, String.valueOf(employee.getRole()));
-            ps.setInt(3, employee.getDepartmentId());
-            ps.setInt(4, id);
+            ps.setString(2, employee.getLastName());
+            ps.setString(3, String.valueOf(employee.getRole()));
+            ps.setInt(4, employee.getDepartmentId());
+            ps.setInt(5, id);
             return ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -126,7 +126,7 @@ public class EmployeeDAO {
             while (rs.next()) {
                 Employee employee = new Employee();
                 employee.setId(rs.getInt("id"));
-                employee.setFirstName(rs.getString("fistName"));
+                employee.setFirstName(rs.getString("firstName"));
                 employee.setLastName(rs.getString("lastName"));
                 employee.setRole(Role.valueOf(rs.getString("role")));
                 employee.setId(rs.getInt("departmentId"));

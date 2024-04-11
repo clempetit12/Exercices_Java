@@ -32,7 +32,7 @@ public class EmployeeUI extends JFrame {
         String[] columnNames = {"ID", "Nom", "Prénom","Rôle"};
         EmployeeDAO employeeDAO = new EmployeeDAO();
         List<Employee> employees = employeeDAO.display();
-        Object[][] data = new Object[employees.size()][3];
+        Object[][] data = new Object[employees.size()][4];
         for (int i = 0; i < employees.size(); i++) {
             Employee contact = employees.get(i);
             data[i][0] = contact.getId();

@@ -134,7 +134,8 @@ public class AddDialog extends JDialog {
                 employee.setRole(Role.RH);
             }
             ;
-employee.setId(selectedDepartmentId);
+            System.out.println("selecteddepa"+selectedDepartmentId);
+employee.setDepartmentId(selectedDepartmentId);
             if (employeeController.createEmployee(employee)) {
                 System.out.println("employee added");
                 JOptionPane.showConfirmDialog(null, "Operation succeed");
