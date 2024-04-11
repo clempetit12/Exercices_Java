@@ -6,6 +6,7 @@ import org.example.dao.EmployeeDAO;
 import org.example.model.Employee;
 import org.example.model.Role;
 import org.example.view.dialog.AddDialog;
+import org.example.view.dialog.UpdateDialog;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -50,6 +51,13 @@ public class EmployeeUI extends JFrame {
         getContentPane().add(scrollPane, BorderLayout.CENTER);
 
 
+        int selectedRowIndex = table.getSelectedRow();
+        System.out.println(selectedRowIndex);
+
+
+
+
+
         JPanel jPanelButton = new JPanel();
         jPanelButton.setLayout(new FlowLayout(FlowLayout.CENTER));
         getContentPane().add(jPanelButton, BorderLayout.SOUTH);
@@ -68,6 +76,27 @@ public class EmployeeUI extends JFrame {
                 AddDialog dialog = new AddDialog();
                 dialog.setLocationRelativeTo(jPanel);
                 dialog.setVisible(true);
+            }
+        });
+
+        modify.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (selectedRowIndex != -1) {
+
+                    Object[] selectedRowData = data[selectedRowIndex];
+
+                    int employeeId = (int) selectedRowData[0];
+                    String firstName = (String) selectedRowData[1];
+                    String lastName = (String) selectedRowData[2];
+                    Role role = (Role) selectedRowData[3];
+
+                    UpdateDialog dialog = new UpdateDialog();
+                    dialog.setLocationRelativeTo(jPanel);
+                    dialog.setVisible(true);
+
+                }
+
             }
         });
 

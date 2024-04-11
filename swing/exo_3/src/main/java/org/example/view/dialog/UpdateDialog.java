@@ -11,13 +11,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class UpdateDialog extends JDialog {
-
+    private int employeeId;
+    private String firstName;
+    private String lastName;
+    private Role role;
 
     private JPanel contentPanel;
-    private JTextField lastName;
-    private JTextField role;
+    private JTextField lastNameField;
 
-    public UpdateDialog() {
+    public UpdateDialog(int employeeId, String firstName, String lastName, Role role) {
+        this.employeeId = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+
+
 
         contentPanel = new JPanel();
         setTitle("Modifier un salarié");
@@ -31,10 +39,10 @@ public class UpdateDialog extends JDialog {
         labelLastName.setBounds(10, 20, 50, 15);
         contentPanel.add(labelLastName);
 
-        lastName = new JTextField();
-        lastName.setBounds(250, 20, 250, 20);
-        contentPanel.add(lastName);
-        lastName.setColumns(20);
+        lastNameField = new JTextField();
+        lastNameField.setBounds(250, 20, 250, 20);
+        contentPanel.add(lastNameField);
+        lastNameField.setColumns(20);
 
 
         JLabel labelRole = new JLabel("Role");
@@ -48,31 +56,37 @@ public class UpdateDialog extends JDialog {
         getContentPane().add(jPanelButton, BorderLayout.SOUTH);
 
         JButton jButton = new JButton("Modifier");
-//        jButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                Employee employee = new Employee();
-//                EmployeeController employeeController = new EmployeeController();
-//                employee.setFirstName(firstName.getText());
-//                employee.setLastName(lastName.getText());
-//                if (manager.isSelected()) {
-//                    employee.setRole(Role.MANAGER);
-//                } else if (employeeButton.isSelected()) {
-//                    employee.setRole(Role.EMPLOYEE);
-//                } else if (rh.isSelected()) {
-//                    employee.setRole(Role.RH);
-//                }
-//                ;
-//                if (employeeController.createEmployee(employee)) {
-//                    JOptionPane.showConfirmDialog(null, "Operation succeed");
-//                } else {
-//                    JOptionPane.showConfirmDialog(null, "Operation Failed");
-//                }
-//                dispose();
-//            }
-//        });
-//        jPanelButton.add(jButton);
+        jButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Employee employee = new Employee();
+                EmployeeController employeeController = new EmployeeController();
+                employee.setFirstName(firstName.getText());
+                employee.setLastName(lastName.getText());
+                if (manager.isSelected()) {
+                    employee.setRole(Role.MANAGER);
+                } else if (employeeButton.isSelected()) {
+                    employee.setRole(Role.EMPLOYEE);
+                } else if (rh.isSelected()) {
+                    employee.setRole(Role.RH);
+                }
+                ;
+                if (employeeController.createEmployee(employee)) {
+                    JOptionPane.showConfirmDialog(null, "Operation succeed");
+                } else {
+                    JOptionPane.showConfirmDialog(null, "Operation Failed");
+                }
+                dispose();
+            }
+        });
+        jPanelButton.add(jButton);
 
 
     }
+
+
+
+
+
+
 }
