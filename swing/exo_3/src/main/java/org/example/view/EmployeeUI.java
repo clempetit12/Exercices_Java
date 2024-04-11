@@ -10,6 +10,8 @@ import org.example.view.dialog.UpdateDialog;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +20,7 @@ import java.util.List;
 public class EmployeeUI extends JFrame {
 
     private JPanel jPanel;
+    private int selectedRowIndex;
 
     public EmployeeUI() {
 
@@ -35,11 +38,11 @@ public class EmployeeUI extends JFrame {
         List<Employee> employees = employeeDAO.display();
         Object[][] data = new Object[employees.size()][4];
         for (int i = 0; i < employees.size(); i++) {
-            Employee contact = employees.get(i);
-            data[i][0] = contact.getId();
-            data[i][1] = contact.getFirstName();
-            data[i][2] = contact.getLastName();
-            data[i][3] = contact.getRole();
+            Employee employee = employees.get(i);
+            data[i][0] = employee.getId();
+            data[i][1] = employee.getFirstName();
+            data[i][2] = employee.getLastName();
+            data[i][3] = employee.getRole();
         }
 
         JTable table = new JTable(data, columnNames);
@@ -51,12 +54,14 @@ public class EmployeeUI extends JFrame {
         getContentPane().add(scrollPane, BorderLayout.CENTER);
 
 
-        int selectedRowIndex = table.getSelectedRow();
-        System.out.println(selectedRowIndex);
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
 
-
-
-
+                selectedRowIndex = table.getSelectedRow();
+                System.out.println(selectedRowIndex);
+            }
+        });
 
         JPanel jPanelButton = new JPanel();
         jPanelButton.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -83,15 +88,17 @@ public class EmployeeUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (selectedRowIndex != -1) {
-
+                    System.out.println("modify");
                     Object[] selectedRowData = data[selectedRowIndex];
 
                     int employeeId = (int) selectedRowData[0];
+                    System.out.println(employeeId);
                     String firstName = (String) selectedRowData[1];
+                    System.out.println(firstName);
                     String lastName = (String) selectedRowData[2];
                     Role role = (Role) selectedRowData[3];
 
-                    UpdateDialog dialog = new UpdateDialog();
+                    UpdateDialog dialog = new UpdateDialog(employeeId,firstName,lastName,role);
                     dialog.setLocationRelativeTo(jPanel);
                     dialog.setVisible(true);
 

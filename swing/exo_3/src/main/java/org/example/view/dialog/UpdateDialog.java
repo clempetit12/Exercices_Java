@@ -39,7 +39,7 @@ public class UpdateDialog extends JDialog {
         labelLastName.setBounds(10, 20, 50, 15);
         contentPanel.add(labelLastName);
 
-        lastNameField = new JTextField();
+        lastNameField = new JTextField(lastName);
         lastNameField.setBounds(250, 20, 250, 20);
         contentPanel.add(lastNameField);
         lastNameField.setColumns(20);
@@ -49,6 +49,16 @@ public class UpdateDialog extends JDialog {
         labelRole.setBounds(10, 60, 50, 15);
         contentPanel.add(labelRole);
 
+        JComboBox<Role> roleComboBox = new JComboBox<>(Role.values());
+        roleComboBox.setBounds(250, 60, 150, 20);
+
+
+        contentPanel.add(roleComboBox);
+
+
+        if (roleComboBox.getItemCount() > 0) {
+            roleComboBox.setSelectedIndex(0);
+        }
 
 
         JPanel jPanelButton = new JPanel();
@@ -59,19 +69,15 @@ public class UpdateDialog extends JDialog {
         jButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Employee employee = new Employee();
+
                 EmployeeController employeeController = new EmployeeController();
-                employee.setFirstName(firstName.getText());
-                employee.setLastName(lastName.getText());
-                if (manager.isSelected()) {
-                    employee.setRole(Role.MANAGER);
-                } else if (employeeButton.isSelected()) {
-                    employee.setRole(Role.EMPLOYEE);
-                } else if (rh.isSelected()) {
-                    employee.setRole(Role.RH);
-                }
-                ;
-                if (employeeController.createEmployee(employee)) {
+                System.out.println("id"+employeeId);
+                Employee employee = employeeController.searchEmployee(employeeId);
+                System.out.println(employee);
+                employee.setLastName(lastNameField.getText());
+                Role selectedRole = (Role) roleComboBox.getSelectedItem();
+               employee.setRole(selectedRole);
+                if (employeeController.updateEmployee(employeeId,employee)) {
                     JOptionPane.showConfirmDialog(null, "Operation succeed");
                 } else {
                     JOptionPane.showConfirmDialog(null, "Operation Failed");
