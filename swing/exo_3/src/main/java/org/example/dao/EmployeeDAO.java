@@ -21,11 +21,11 @@ public class EmployeeDAO {
     public int addEmployee(Employee employee) {
         con = ConnexionDB.getConnection();
         try {
-            ps = con.prepareStatement("INSERT INTO `employee`(`firstName`,`lastName`,`role`, `departmentId`)values(?,?,?)");
+            ps = con.prepareStatement("INSERT INTO `employee`(`firstName`,`lastName`,`role`, `departmentId`)values(?,?,?,?)");
             ps.setString(1, employee.getFirstName());
             ps.setString(2, employee.getLastName());
             ps.setString(3, String.valueOf(employee.getRole()));
-            ps.setInt(4, employee.getId());
+            ps.setInt(4, employee.getDepartmentId());
 
             return ps.executeUpdate();
 

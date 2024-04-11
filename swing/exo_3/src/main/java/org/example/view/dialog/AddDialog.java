@@ -99,7 +99,9 @@ public class AddDialog extends JDialog {
                 int selectedIndex = departmentComboBox.getSelectedIndex();
                 if (selectedIndex >= 0 && selectedIndex < departments.size()) {
                     Department selectedDepartment = departments.get(selectedIndex);
+                    System.out.println(selectedDepartment);
                     selectedDepartmentId = selectedDepartment.getId();
+                    System.out.println(selectedDepartmentId);
 
                 }
             }
@@ -134,6 +136,7 @@ public class AddDialog extends JDialog {
             ;
 employee.setId(selectedDepartmentId);
             if (employeeController.createEmployee(employee)) {
+                System.out.println("employee added");
                 JOptionPane.showConfirmDialog(null, "Operation succeed");
             } else {
                 JOptionPane.showConfirmDialog(null, "Operation Failed");
