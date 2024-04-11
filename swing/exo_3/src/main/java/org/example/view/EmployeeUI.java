@@ -42,6 +42,8 @@ public class EmployeeUI extends JFrame {
 
     private EmployeeController employeeController = new EmployeeController();
 
+
+
     public EmployeeUI() {
 
         jPanel = new JPanel();
@@ -94,6 +96,7 @@ public class EmployeeUI extends JFrame {
                 }
                 AddDialog dialog = new AddDialog(type);
                 dialog.setLocationRelativeTo(jPanel);
+
                 dialog.setVisible(true);
                 dialog.addPropertyChangeListener(AddDialog.EMPLOYEE_ADDED_EVENT, new PropertyChangeListener() {
                     @Override
