@@ -21,8 +21,9 @@ public class EmployeeService {
         return false;
     }
 
-    public void updateEmployee(Employee employee) {
+    public boolean updateEmployee(Employee employee) {
         employeeDao.updateEmployee(employee);
+        return true;
     }
 
     public void deleteEmploye( int id) {
