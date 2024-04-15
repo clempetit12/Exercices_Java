@@ -24,7 +24,7 @@ public class EmployeeDao {
 
     public int addEmployee(Employee employee) {
 
-        String query = "INSERT INTO employee (name,gender,age,bloodGroup,contactNumber,qualification,startDate,adress,urlImage) VALUES (?, ?, ?, ?,?,?,?,?,?)";
+        String query = "INSERT INTO employee (name,gender,age,bloodGroup,contactNumber,qualification,startDate,address,urlImage) VALUES (?, ?, ?, ?,?,?,?,?,?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, employee.getName());
             preparedStatement.setBoolean(2, employee.isGender());
@@ -33,7 +33,7 @@ public class EmployeeDao {
             preparedStatement.setString(5, employee.getContactNumber());
             preparedStatement.setString(6, String.valueOf(employee.getQualification()));
             preparedStatement.setDate(7, Date.valueOf(employee.getStartDate()));
-            preparedStatement.setString(8, employee.getAdress());
+            preparedStatement.setString(8, employee.getAddress());
             preparedStatement.setString(9, employee.getUrlImage());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -45,8 +45,8 @@ public class EmployeeDao {
     }
 
 
-    public int updateEmployee(Employee employee) {
-        String query = "UPDATE employee SET name = ?, gender = ?, age = ? ,bloodGroup = ?,qualification = ?, contactNumber = ?, startDate = ?, adress = ?, urlImage = ? WHERE id = ?";
+    public void updateEmployee(Employee employee) {
+        String query = "UPDATE employee SET name = ?, gender = ?, age = ? ,bloodGroup = ?,qualification = ?, contactNumber = ?, startDate = ?, address = ?, urlImage = ? WHERE employeeId = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, employee.getName());
             preparedStatement.setBoolean(2, employee.isGender());
@@ -55,27 +55,25 @@ public class EmployeeDao {
             preparedStatement.setString(5, String.valueOf(employee.getQualification()));
             preparedStatement.setString(6, employee.getContactNumber());
             preparedStatement.setDate(7, Date.valueOf(employee.getStartDate()));
-            preparedStatement.setString(8, employee.getAdress());
+            preparedStatement.setString(8, employee.getAddress());
             preparedStatement.setString(9, employee.getUrlImage());
             preparedStatement.setInt(10, employee.getEmployeeId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-        return 0;
     }
 
 
-public Employee searchEmployee(int employeeId ) {
+public Employee searchEmployee(String text ) {
 
-    String query = "SELECT * FROM employee WHERE employeeId = ?";
+    String query = "SELECT * FROM employee WHERE name LIKE ?";
+    String searchPattern = text + "%";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-        preparedStatement.setInt(1, employeeId);
-
+        preparedStatement.setString(1, searchPattern);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
+            int employeeId = resultSet.getInt("employeeId");
             String name = resultSet.getString("name");
             boolean gender = Boolean.parseBoolean(resultSet.getString("gender"));
             int age = resultSet.getInt("age");
@@ -83,7 +81,7 @@ public Employee searchEmployee(int employeeId ) {
             String contactNumber = resultSet.getString("contactNumber");
             Qualification qualification = Qualification.valueOf(resultSet.getString("qualification"));
             LocalDate startDate = resultSet.getDate("startDate").toLocalDate();
-            String adress = resultSet.getString("adress");
+            String adress = resultSet.getString("address");
             String urlImage = resultSet.getString("urlImage");
      Employee employee = new Employee(employeeId,name,gender,age,bloodGroup,contactNumber,qualification,startDate,adress,urlImage);
 
@@ -98,6 +96,36 @@ public Employee searchEmployee(int employeeId ) {
 
 
 }
+
+    public Employee getEmployee(int employeeId ) {
+
+        String query = "SELECT * FROM employee WHERE employeeId = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, employeeId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String name = resultSet.getString("name");
+                boolean gender = Boolean.parseBoolean(resultSet.getString("gender"));
+                int age = resultSet.getInt("age");
+                String bloodGroup = resultSet.getString("bloodGroup");
+                String contactNumber = resultSet.getString("contactNumber");
+                Qualification qualification = Qualification.valueOf(resultSet.getString("qualification"));
+                LocalDate startDate = resultSet.getDate("startDate").toLocalDate();
+                String adress = resultSet.getString("address");
+                String urlImage = resultSet.getString("urlImage");
+                Employee employee = new Employee(employeeId,name,gender,age,bloodGroup,contactNumber,qualification,startDate,adress,urlImage);
+                return employee;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+
+
+    }
+
 
 
     public void deleteEmployee(int employeeId) {
@@ -126,7 +154,7 @@ public Employee searchEmployee(int employeeId ) {
                 employee.setQualification(Qualification.valueOf(resultSet.getString("qualification")));
                 employee.setStartDate(resultSet.getDate("startDate").toLocalDate());
 
-                employee.setAdress(resultSet.getString("adress"));
+                employee.setAddress(resultSet.getString("address"));
                 employee.setUrlImage(resultSet.getString("urlImage"));
                employees.add(employee);
             }

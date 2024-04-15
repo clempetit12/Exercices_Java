@@ -29,11 +29,11 @@ public class Employee {
 
     private LocalDate startDate;
 
-    private String adress;
+    private String address;
 
     private String urlImage;
 
-    public Employee(String name, boolean gender, int age, String bloodGroup, String contactNumber, Qualification qualification, LocalDate startDate, String adress, String urlImage) {
+    public Employee(String name, boolean gender, int age, String bloodGroup, String contactNumber, Qualification qualification, LocalDate startDate, String address, String urlImage) {
         this.name = name;
         this.gender = gender;
         this.age = age;
@@ -41,7 +41,7 @@ public class Employee {
         this.contactNumber = contactNumber;
         this.qualification = qualification;
         this.startDate = startDate;
-        this.adress = adress;
+        this.address = address;
         this.urlImage = urlImage;
     }
 }

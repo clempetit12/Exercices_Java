@@ -10,7 +10,7 @@ public class TableModelEmployee extends AbstractTableModel {
     private List<Employee> employeeList;
     private String[] columnNames = {"EmployeeID", "Name","Gender","Age","BloodGroup","ContactNo","Qualification","DOJ","Address","EmpImage"};
 
-    public TableModelEmployee(List<Employee> employeeList) {
+    public TableModelEmployee(List<Employee> employeeList)   {
         this.employeeList = employeeList;
     }
 
@@ -55,7 +55,7 @@ public class TableModelEmployee extends AbstractTableModel {
             case 7:
                 return employee.getStartDate();
             case 8:
-                return employee.getAdress();
+                return employee.getAddress();
             case 9:
                 return employee.getUrlImage();
             default:

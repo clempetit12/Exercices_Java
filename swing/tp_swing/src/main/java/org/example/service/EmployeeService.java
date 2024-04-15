@@ -3,6 +3,7 @@ package org.example.service;
 import org.example.dao.EmployeeDao;
 import org.example.model.Employee;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class EmployeeService {
@@ -21,7 +22,7 @@ public class EmployeeService {
         return false;
     }
 
-    public boolean updateEmployee(Employee employee) {
+    public boolean updateEmployee(Employee employee) throws SQLException {
         employeeDao.updateEmployee(employee);
         return true;
     }
@@ -31,11 +32,15 @@ public class EmployeeService {
     }
 
     public Employee getEmployee(int id) {
-        return employeeDao.searchEmployee(id);
+        return employeeDao.getEmployee(id);
     }
 
     public List<Employee> getAll() {
         return employeeDao.displayAll();
+    }
+
+    public Employee searchEmployee(String text) {
+        return employeeDao.searchEmployee( text);
     }
 
 }
