@@ -13,33 +13,55 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.EnumSet;
+import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.jdatepicker.JDatePicker;
+import org.jdatepicker.impl.DateComponentFormatter;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 
 public class EmployeeUI {
 
     private EmployeeService employeeService;
     private JFrame mainPanel;
+    private JDatePicker datePicker;
 
     private int selectedRow;
+    private JTextField contactField;
+    private JComboBox<String> qualificationComboBox;
 
     boolean isGender;
-    JTextField image;
-    ImageIcon originalImageIcon;
+    private JTextField image;
+    private ImageIcon originalImageIcon;
 
-    JTextField employeeIdField;
+    private JTextField employeeIdField;
 
-    JLabel imagePath;
+    private JLabel imagePath;
 
     private Qualification selectedQualification;
 
     private JTable employeeTable;
+    private JPanel infoPanel;
+    private JLabel employeeIdLabel;
+    private JTextField nameField;
+    private JRadioButton male;
+    private JRadioButton female;
+    private JLabel imageLabel;
+
+    private JTextField ageField;
+    private JTextField bloodGroup;
+    private JTextField adressField;
+    private JTextField startDateField;
+
 
     public EmployeeUI() {
         this.employeeService = new EmployeeService();
@@ -59,7 +81,7 @@ public class EmployeeUI {
         Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
 
         //Panel formulaire
-        JPanel infoPanel = new JPanel();
+        infoPanel = new JPanel();
         infoPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         infoPanel.setLayout(new GridBagLayout());
         infoPanel.setBorder(border);
@@ -70,8 +92,9 @@ public class EmployeeUI {
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
         gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.anchor = GridBagConstraints.WEST;
 
-        JLabel employeeIdLabel = new JLabel("EmployeeId");
+        employeeIdLabel = new JLabel("EmployeeId");
         infoPanel.add(employeeIdLabel, gbc);
 
         gbc.gridy = 1;
@@ -105,17 +128,17 @@ public class EmployeeUI {
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-         employeeIdField = new JTextField(15);
+        employeeIdField = new JTextField(15);
         infoPanel.add(employeeIdField, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        JTextField nameField = new JTextField(15);
+        nameField = new JTextField(15);
         infoPanel.add(nameField, gbc);
 
         ButtonGroup radioButtonGroup = new ButtonGroup();
-        JRadioButton male = new JRadioButton("Male");
-        JRadioButton female = new JRadioButton("Femme");
+        male = new JRadioButton("Male");
+        female = new JRadioButton("Femme");
         radioButtonGroup.add(male);
         radioButtonGroup.add(female);
 
@@ -148,17 +171,17 @@ public class EmployeeUI {
 
         gbc.gridx = 1;
         gbc.gridy = 3;
-        JTextField ageField = new JTextField(15);
+        ageField = new JTextField(15);
         infoPanel.add(ageField, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 4;
-        JTextField bloodGroup = new JTextField(15);
+        bloodGroup = new JTextField(15);
         infoPanel.add(bloodGroup, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 5;
-        JTextField contactField = new JTextField(15);
+        contactField = new JTextField(15);
         infoPanel.add(contactField, gbc);
 
 
@@ -170,7 +193,7 @@ public class EmployeeUI {
                 .map(Enum::name)
                 .collect(Collectors.toList());
 
-        JComboBox<String> qualificationComboBox = new JComboBox<>(qualificationNames.toArray(new String[0]));
+        qualificationComboBox = new JComboBox<>(qualificationNames.toArray(new String[0]));
         qualificationComboBox.setPreferredSize(new Dimension(180, 30));
 
         qualificationComboBox.addActionListener(new ActionListener() {
@@ -187,12 +210,6 @@ public class EmployeeUI {
         gbc.gridy = 6;
         infoPanel.add(qualificationComboBox, gbc);
 
-
-        gbc.gridx = 1;
-        gbc.gridy = 7;
-        JTextField startDateField = new JTextField(15);
-        infoPanel.add(startDateField, gbc);
-
         gbc.gridx = 2;
         gbc.gridy = 0;
         JLabel adress = new JLabel("Adress");
@@ -207,7 +224,7 @@ public class EmployeeUI {
         gbc.gridx = 3;
         gbc.gridy = 0;
         gbc.gridheight = 2;
-        JTextField adressField = new JTextField(20);
+        adressField = new JTextField(20);
         adressField.setPreferredSize(new Dimension(adressField.getPreferredSize().width, adressField.getPreferredSize().height * 5));
         infoPanel.add(adressField, gbc);
 
@@ -227,10 +244,10 @@ public class EmployeeUI {
         originalImageIcon = new ImageIcon("null");
         Image originalImage = originalImageIcon.getImage();
 
-        Image scaledImage = originalImage.getScaledInstance(200, 300, Image.SCALE_SMOOTH);
+        Image scaledImage = originalImage.getScaledInstance(200, 250, Image.SCALE_SMOOTH);
         ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
 
-        JLabel imageLabel = new JLabel(scaledImageIcon);
+        imageLabel = new JLabel(scaledImageIcon);
         infoPanel.add(imageLabel, gbc);
 
         upload.addActionListener(new ActionListener() {
@@ -259,6 +276,63 @@ public class EmployeeUI {
         infoPanel.add(image, gbc);
 
 
+        startDateField = new JTextField(12);
+
+
+        JButton calendar = new JButton();
+        ImageIcon calendarIcon = new ImageIcon(new ImageIcon("src/main/java/org/example/assets/icons8-calendrier-50.png").getImage().getScaledInstance(20, 13, Image.SCALE_DEFAULT));
+        calendar.setIcon(calendarIcon);
+        infoPanel.add(calendar,gbc);
+
+        calendar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog dialog = new JDialog();
+                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                dialog.setSize(300, 300);
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
+
+                UtilDateModel model = new UtilDateModel();
+                Properties p = new Properties();
+                p.put("text.today", "Today");
+                p.put("text.month", "Month");
+                p.put("text.year", "Year");
+
+                JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+                dialog.add(datePanel);
+                dialog.pack();
+
+                datePanel.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Date selectedDate = (Date) datePanel.getModel().getValue();
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                        String formattedDate = formatter.format(selectedDate);
+                        startDateField.setText(formattedDate);
+                        dialog.dispose();
+                    }
+                });
+            }
+        });
+
+
+
+        GridBagConstraints gbcInputDate = new GridBagConstraints();
+        gbcInputDate.gridx = 1;
+        gbcInputDate.gridy = 7;
+
+        gbcInputDate.anchor = GridBagConstraints.WEST;
+
+        GridBagConstraints gbcCalendar = new GridBagConstraints();
+        gbcCalendar.gridx = 1;
+        gbcCalendar.gridy = 7;
+        gbcCalendar.anchor = GridBagConstraints.EAST;
+
+        infoPanel.add(startDateField, gbcInputDate);
+
+        infoPanel.add(calendar, gbcCalendar);
+
         //Panel pour le crud
 
         JPanel crudPanel = new JPanel();
@@ -278,32 +352,7 @@ public class EmployeeUI {
                 Employee searchedEmployee = employeeService.searchEmployee(searchText);
                 System.out.println(searchedEmployee);
                 if (searchedEmployee != null) {
-                    int employeeId = (int) employeeTable.getValueAt(selectedRow, 0);
-                    employeeIdField.setText(String.valueOf(searchedEmployee.getEmployeeId()));
-                    nameField.setText(searchedEmployee.getName());
-                    ageField.setText(String.valueOf(searchedEmployee.getAge()));
-                    bloodGroup.setText(searchedEmployee.getBloodGroup());
-                    contactField.setText(searchedEmployee.getContactNumber());
-                    startDateField.setText(String.valueOf(searchedEmployee.getStartDate()));
-                    adressField.setText(searchedEmployee.getAddress());
-                    image.setText(searchedEmployee.getUrlImage());
-                    originalImageIcon = new ImageIcon(searchedEmployee.getUrlImage());
-                    Image originalImage = originalImageIcon.getImage();
-                    Image scaledImage = originalImage.getScaledInstance(200, 300, Image.SCALE_SMOOTH);
-                    ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
-                    System.out.println(scaledImageIcon);
-                    imageLabel.setIcon(scaledImageIcon);
-                    imageLabel.revalidate();
-                    imageLabel.repaint();
-                    if (searchedEmployee.isGender()) {
-                        male.setSelected(true);
-                    } else {
-                        female.setSelected(true);
-                    }
-                    qualificationComboBox.setSelectedItem(searchedEmployee.getQualification().name());
-
-                    infoPanel.revalidate();
-                    infoPanel.repaint();
+                    updateFields(searchedEmployee);
 
                 } else {
                     JOptionPane.showConfirmDialog(null, "Operation Failed");
@@ -313,10 +362,6 @@ public class EmployeeUI {
         });
 
 
-        JButton newButton = new JButton("New");
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/java/org/example/assets/icons8-new-48.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        newButton.setIcon(imageIcon);
-        crudPanel.add(newButton);
 
         JButton saveButton = new JButton("Save");
         ImageIcon saveIcon = new ImageIcon(new ImageIcon("src/main/java/org/example/assets/icons8-sauvegarder-50.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -340,9 +385,12 @@ public class EmployeeUI {
 
                 Qualification qualification1 = selectedQualification;
                 System.out.println(qualification1);
+
                 String dateString = startDateField.getText();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 LocalDate date = LocalDate.parse(dateString, formatter);
+
+
 
                 String adress = adressField.getText();
 
@@ -384,7 +432,7 @@ public class EmployeeUI {
                 LocalDate date = LocalDate.parse(dateString, formatter);
                 String adress = adressField.getText();
                 String imageValue = image.getText();
-                Employee employee = new Employee(employeeIdUpdate,name, gender, age, bloodGroupValue, contact, qualification1, date, adress, imageValue);
+                Employee employee = new Employee(employeeIdUpdate, name, gender, age, bloodGroupValue, contact, qualification1, date, adress, imageValue);
 
                 try {
                     if (employeeService.updateEmployee(employee)) {
@@ -453,11 +501,21 @@ public class EmployeeUI {
         print.setIcon(printIcon);
         crudPanel.add(print);
 
+        print.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        PrinterJob job = PrinterJob.getPrinterJob();
+                                        if (job.printDialog()) {
+                                        }
+                                    }
+                                });
 
         JPanel tablePanel = new JPanel(new BorderLayout());
         employeeTable = new JTable();
         refreshTable();
-        tablePanel.add(new JScrollPane(employeeTable), BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(employeeTable);
+        tablePanel.setPreferredSize(new Dimension(scrollPane.getPreferredSize().width, 300));
+        tablePanel.add(scrollPane, BorderLayout.CENTER);
 
 
         mainPanel.add(infoPanel, BorderLayout.NORTH);
@@ -477,28 +535,7 @@ public class EmployeeUI {
                 if (selectedRow >= 0) {
                     int employeeId = (int) employeeTable.getValueAt(selectedRow, 0);
                     Employee selectedEmployee = employeeService.getEmployee(employeeId);
-                    employeeIdField.setText(String.valueOf(selectedEmployee.getEmployeeId()));
-                    nameField.setText(selectedEmployee.getName());
-                    ageField.setText(String.valueOf(selectedEmployee.getAge()));
-                    bloodGroup.setText(selectedEmployee.getBloodGroup());
-                    contactField.setText(selectedEmployee.getContactNumber());
-                    startDateField.setText(String.valueOf(selectedEmployee.getStartDate()));
-                    adressField.setText(selectedEmployee.getAddress());
-                    image.setText(selectedEmployee.getUrlImage());
-                    originalImageIcon = new ImageIcon(selectedEmployee.getUrlImage());
-                    Image originalImage = originalImageIcon.getImage();
-                    Image scaledImage = originalImage.getScaledInstance(200, 300, Image.SCALE_SMOOTH);
-                    ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
-                    imageLabel.setIcon(scaledImageIcon);
-                    if (selectedEmployee.isGender()) {
-                        male.setSelected(true);
-                    } else {
-                        female.setSelected(true);
-                    }
-                    qualificationComboBox.setSelectedItem(selectedEmployee.getQualification().name());
-
-                    infoPanel.revalidate();
-                    infoPanel.repaint();
+                    updateFields(selectedEmployee);
 
                 }
             }
@@ -512,6 +549,36 @@ public class EmployeeUI {
         TableModelEmployee model = new TableModelEmployee((java.util.List<Employee>) employees);
         employeeTable.setModel(model);
 
+    }
+
+    private void updateFields(Employee employee) {
+
+        employeeIdField.setText(String.valueOf(employee.getEmployeeId()));
+
+        nameField.setText(employee.getName());
+        ageField.setText(String.valueOf(employee.getAge()));
+        bloodGroup.setText(employee.getBloodGroup());
+        contactField.setText(employee.getContactNumber());
+        startDateField.setText(String.valueOf(employee.getStartDate()));
+        adressField.setText(employee.getAddress());
+        image.setText(employee.getUrlImage());
+        originalImageIcon = new ImageIcon(employee.getUrlImage());
+        Image originalImage = originalImageIcon.getImage();
+        Image scaledImage = originalImage.getScaledInstance(200, 300, Image.SCALE_SMOOTH);
+        ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
+        System.out.println(scaledImageIcon);
+        imageLabel.setIcon(scaledImageIcon);
+        imageLabel.revalidate();
+        imageLabel.repaint();
+        if (employee.isGender()) {
+            male.setSelected(true);
+        } else {
+            female.setSelected(true);
+        }
+        qualificationComboBox.setSelectedItem(employee.getQualification().name());
+
+        infoPanel.revalidate();
+        infoPanel.repaint();
     }
 
 }
