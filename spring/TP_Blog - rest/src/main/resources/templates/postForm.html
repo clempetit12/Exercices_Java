@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Formulaire </title>
@@ -10,7 +10,7 @@
 <header>
     <span th:replace="~{home :: navBar}"></span>
 </header>
-<div class="container p-4">
+<div sec:authorize="hasRole('USER')" class="container p-4">
     <div class="row justify-content-center">
         <div class="col-6 jus">
             <h1 class="text-center mb-4">Add a post</h1>
