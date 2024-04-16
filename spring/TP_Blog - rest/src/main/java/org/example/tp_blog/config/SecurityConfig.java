@@ -57,8 +57,7 @@ public class SecurityConfig {
                .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/upload-dir/**", "/register", "/login", "/detail/**","/add","/search/name").permitAll()
-                        .requestMatchers("/addComment/**","/delete/**","/update/**").hasAnyRole("USER")
+                        .requestMatchers("/", "/upload-dir/**", "/register", "/login", "/detail/**","/add","/search/name", "/addComment/**","/delete/**","/update/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .logout( logout ->

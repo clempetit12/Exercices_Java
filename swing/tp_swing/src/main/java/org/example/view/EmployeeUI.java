@@ -259,7 +259,7 @@ public class EmployeeUI {
                     File selectedFile = fileChooser.getSelectedFile();
                     ImageIcon uploadedImageIcon = new ImageIcon(selectedFile.getPath());
                     Image originalImage = uploadedImageIcon.getImage();
-                    Image scaledImage = originalImage.getScaledInstance(180, 300, Image.SCALE_SMOOTH);
+                    Image scaledImage = originalImage.getScaledInstance(200, 300, Image.SCALE_SMOOTH);
                     ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
                     imageLabel.setIcon(scaledImageIcon);
                     imagePath.setPreferredSize(new Dimension(200, 20));
@@ -280,7 +280,7 @@ public class EmployeeUI {
 
 
         JButton calendar = new JButton();
-        ImageIcon calendarIcon = new ImageIcon(new ImageIcon("src/main/java/org/example/assets/icons8-calendrier-50.png").getImage().getScaledInstance(20, 13, Image.SCALE_DEFAULT));
+        ImageIcon calendarIcon = new ImageIcon(new ImageIcon("src/main/java/org/example/assets/icons8-calendrier-50.png").getImage().getScaledInstance(13, 13, Image.SCALE_SMOOTH));
         calendar.setIcon(calendarIcon);
         infoPanel.add(calendar,gbc);
 
@@ -338,6 +338,7 @@ public class EmployeeUI {
         JPanel crudPanel = new JPanel();
         crudPanel.setLayout(new FlowLayout());
 
+        crudPanel.setBorder(border);
         JLabel searchLabel = new JLabel("SEARCH");
         crudPanel.add(searchLabel);
 
@@ -488,6 +489,7 @@ public class EmployeeUI {
                 adressField.setText("");
                 image.setText("");
                 originalImageIcon = new ImageIcon();
+                imageLabel.setIcon(new ImageIcon("null"));
 
             }
 
@@ -516,6 +518,7 @@ public class EmployeeUI {
         JScrollPane scrollPane = new JScrollPane(employeeTable);
         tablePanel.setPreferredSize(new Dimension(scrollPane.getPreferredSize().width, 300));
         tablePanel.add(scrollPane, BorderLayout.CENTER);
+        tablePanel.setBorder(border);
 
 
         mainPanel.add(infoPanel, BorderLayout.NORTH);
