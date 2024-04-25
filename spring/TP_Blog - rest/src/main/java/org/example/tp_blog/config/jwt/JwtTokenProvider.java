@@ -47,6 +47,7 @@ public class JwtTokenProvider {
                 .signWith(getSigningKey(), SignatureAlgorithm.HS512)
                 .compact();
 
+        System.out.println("generate token" + token);
         return token;
     }
     public boolean validateToken(String token) {
