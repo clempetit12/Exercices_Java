@@ -40,13 +40,14 @@ import java.util.Collections;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    @Autowired
-    private UserService userService;
 
-    @Autowired
+    private final UserService userService;
+
+
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-    public SecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+    public SecurityConfig(UserService userService, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+        this.userService = userService;
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
     }
 
@@ -57,8 +58,8 @@ public class SecurityConfig {
                .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/upload-dir/**", "/register", "/login", "/detail/**","/add","/search/name").permitAll()
-                        .requestMatchers("/addComment/**","/delete/**","/update/**").hasAnyRole("USER")
+                        .requestMatchers("/", "/upload-dir/**", "/register", "/login", "/detail/**","/search/name","/add", "/addComment/**","/delete/**","/update/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/add").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .logout( logout ->
@@ -90,17 +91,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Collections.singletonList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+
 
 
 

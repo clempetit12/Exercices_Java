@@ -5,6 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.example.tp_blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,15 +39,19 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         try {
             String token = getJWTFromRequest(request);
+            System.out.println("to" +token);
+            System.out.println(token);
 
-            if (token != null && tokenGenerator.validateToken(token)) {
+            if (token != null && tokenGenerator.validateToken(token))  {
 
                 String username = tokenGenerator.getUsernameFromToken(token);
+                System.out.println("username"+username);
 
                 UserDetails userDetails = userService.loadUserByUsername(username);
 
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
+                System.out.println("authentification"+authenticationToken);
 
 
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -66,14 +71,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 
     private String getJWTFromRequest(HttpServletRequest request) {
-        // Extrait le token JWT de l'en-tête "Authorization" de la requête
-        String bearerToken = request.getHeader("Authorization");
-        // Vérifie si le token est non null et commence bien par "Bearer "
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            // Extraire le token JWT sans le préfixe "Bearer "
-            return bearerToken.substring(7);
+        HttpSession session = request.getSession();
+        System.out.println("session"+session);
+        String token = (String) session.getAttribute("token");
+        if (token != null && token.startsWith("Bearer ")) {
+            return token.substring(7);
         }
-        return null; // Retourner null si le token n'est pas présent ou mal formaté
+        return null;
     }
 }
 

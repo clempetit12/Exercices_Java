@@ -24,8 +24,13 @@ COPY --from=build /app/target/TP_Blog-0.0.1-SNAPSHOT.jar .
 
 COPY --from=build /app/upload-dir ./upload-dir
 
+COPY data.sql .
+
 # Exposition du port 8080
 EXPOSE 8080
 
+
 # Exécution de l'application Spring Boot
 ENTRYPOINT ["java", "-jar", "TP_Blog-0.0.1-SNAPSHOT.jar"]
+
+CMD ["sh", "-c", "java -jar TP_Blog-0.0.1-SNAPSHOT.jar && mysql -h mysqldb -u amila_one -pAmila_pw blog < data.sql"]

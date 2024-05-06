@@ -38,23 +38,24 @@ public class PostController {
 
     private final PostServiceImpl postService;
 
+    private  HttpSession session;
+
 private final UserService userService;
     private String location = "upload-dir";
 
     @Autowired
-    public PostController(PostServiceImpl postService, UserService userService) {
+    public PostController(PostServiceImpl postService, HttpSession session, UserService userService) {
         this.postService = postService;
+        this.session = session;
         this.userService = userService;
     }
 
 
     @GetMapping
     public String home(Model model,HttpServletRequest request) {
-        HttpSession session = request.getSession();
+     session = request.getSession(false);
         String token = (String) session.getAttribute("token");
-        if (token != null) {
-            model.addAttribute("token", token);
-        }
+        model.addAttribute("token", token);
         List<PostDto> posts = postService.getAll();
         model.addAttribute("posts", posts);
         return "home";
@@ -63,11 +64,10 @@ private final UserService userService;
 
     @GetMapping(value = "/detail/{postId}")
     public String showDetail(@PathVariable("postId") int id, HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
+         session = request.getSession(false);
         String token = (String) session.getAttribute("token");
-        if (token != null) {
-            model.addAttribute("token", token);
-        }
+        System.out.println("detail"+token);
+        model.addAttribute("token", token);
         PostDto postDto = postService.getById(id);
         model.addAttribute("post", postDto);
         return "detail";
@@ -78,11 +78,10 @@ private final UserService userService;
 
     @GetMapping("/add")
     public String form(Model model,HttpServletRequest request) {
-        HttpSession session = request.getSession();
+         session = request.getSession(false);
+        System.out.println("getaddsession"+session);
         String token = (String) session.getAttribute("token");
-        if (token != null) {
-            model.addAttribute("token", token);
-        }
+        model.addAttribute("token", token);
         model.addAttribute("post", new PostDto());
         return "postForm";
     }
@@ -101,7 +100,10 @@ private final UserService userService;
 
 
     @PostMapping(value = "/add", headers = "accept=Application/json")
-    public String addPost(@ModelAttribute("post") @Valid PostDto postDto, BindingResult result, @RequestParam("image") MultipartFile image) throws IOException {
+    public String addPost(@ModelAttribute("post") @Valid PostDto postDto, BindingResult result, @RequestParam("image") MultipartFile image, HttpServletRequest request,Model model) throws IOException {
+       session = request.getSession(false);
+        System.out.println("session"+session);
+        String token = (String) session.getAttribute("token");
         if (result.hasErrors()) {
             return "error";
         }
@@ -112,11 +114,12 @@ private final UserService userService;
             InputStream stream = image.getInputStream();
             Files.copy(stream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
             postService.savePostWithImage(postDto,image);
-
+            model.addAttribute("token", token);
             return "redirect:/";
         } else {
             String url = postDto.getImageUrl();
             postService.updatePostWithImage(postDto,url);
+            model.addAttribute("token", token);
             return "redirect:/";
         }
 
@@ -125,16 +128,25 @@ private final UserService userService;
 
 
     @GetMapping("/delete")
-    public String delete(@RequestParam("postId") int id){
+    public String delete(@RequestParam("postId") int id,HttpServletRequest request, Model model){
        postService.delete(id);
+         session = request.getSession(false);
+        String token = (String) session.getAttribute("token");
+        if (token != null) {
+            model.addAttribute("token", token);
+        }
         return "redirect:/";
     }
 
 
 
     @GetMapping("/update/{postId}")
-    public String formUpdatePost(@PathVariable("postId") int id, Model model) {
+    public String formUpdatePost(@PathVariable("postId") int id, Model model,HttpServletRequest request) {
         PostDto postDto = postService.getById(id);
+      session = request.getSession(false);
+        String token = (String) session.getAttribute("token");
+            model.addAttribute("token", token);
+
         model.addAttribute("post", postDto);
         return "postForm";
     }
@@ -155,7 +167,10 @@ private final UserService userService;
 
    @GetMapping(value = "/search/name")
     public String searchBlog(@RequestParam(name = "name", required = false) String name,
-                                      Model model) {
+                                      Model model,HttpServletRequest request) {
+      session = request.getSession(false);
+       String token = (String) session.getAttribute("token");
+       model.addAttribute("token", token);
        model.addAttribute( "posts",postService.getPostByName(name));
       return "home";
 

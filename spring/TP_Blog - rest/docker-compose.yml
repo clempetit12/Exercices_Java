@@ -12,8 +12,7 @@ services:
     depends_on:
       - mysqldb
     volumes:
-      - db_data:/var/lib/mysql
-      - ./data.sql:/docker-entrypoint-initdb.d/data.sql
+      - ./upload-dir:/app/upload-dir
 
   mysqldb:
     image: "mysql:8.0"
@@ -27,9 +26,14 @@ services:
       MYSQL_USER: amila_one
       MYSQL_PASSWORD: Amila_pw
       MYSQL_ROOT_PASSWORD: Amila_Rpw
+    volumes :
+      -  blog_data:/var/lib/mysql
+      - ./data.sql:/docker-entrypoint-initdb.d/data.sql
+
 networks:
   springapimysql-net:
 
 
 volumes:
-  db_data:
+  blog_data:
+  upload_dir:

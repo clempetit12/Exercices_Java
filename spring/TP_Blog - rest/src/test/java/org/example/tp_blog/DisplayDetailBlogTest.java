@@ -1,6 +1,7 @@
 
 package org.example.tp_blog;
 
+import jakarta.servlet.http.HttpSession;
 import org.example.tp_blog.controller.PostController;
 import org.example.tp_blog.dto.PostDto;
 import org.example.tp_blog.service.PostServiceImpl;
@@ -24,17 +25,18 @@ public class DisplayDetailBlogTest {
 
     private PostController postController;
 
-    private UserService userService;
+    private UserService userService = new UserService();
 
     @Mock
     private PostServiceImpl postService;
 
+    private HttpSession session;
     @Mock
     private Model model;
 
     @BeforeEach
     void setUp() {
-        postController = new PostController(postService,userService);
+        postController = new PostController(postService,session, userService);
     }
 
 //    @Test

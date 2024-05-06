@@ -5,9 +5,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.example.tp_blog.dto.BaseResponseDto;
 import org.example.tp_blog.dto.UsersDto;
 import org.example.tp_blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -51,6 +54,9 @@ public class UserController {
         return "redirect:/register?success";
 
     }
+
+
+
 
 
     @PostMapping("/login")
