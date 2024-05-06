@@ -11,7 +11,7 @@ public class ConnexionDB {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String database = "work";
             String url = "jdbc:mysql://localhost:3306/";
-            Connection con = DriverManager.getConnection(url + database, "root","2554");
+            Connection con = DriverManager.getConnection(url + database, "root","25542554");
             return con;
 
         } catch (ClassNotFoundException | SQLException e) {

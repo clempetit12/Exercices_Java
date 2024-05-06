@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-233.14808.21">
+  <component name="dataSourceStorageLocal" created-in="IU-233.13135.103">
     <data-source name="@localhost" uuid="2a0445da-80d9-4582-b016-ba1e7a07f50b">
       <database-info product="MySQL" version="8.0.36" jdbc-version="4.2" driver-name="Amazon Web Services (AWS) JDBC Driver for MySQL" driver-version="aws-mysql-connector-java-1.1.9 (Revision: 122bff765e786a47605d9586910f911cb87f3733)" dbms="MYSQL" exact-version="8.0.36" exact-driver-version="1.1">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
-        <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
       <secret-storage>master_key</secret-storage>
